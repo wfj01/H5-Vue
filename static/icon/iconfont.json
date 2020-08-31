@@ -1,0 +1,51 @@
+{
+  "id": "2012605",
+  "name": "zhenguigu",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "894534",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "3106108",
+      "name": "购物车",
+      "font_class": "gouwuche",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "5706842",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e6ab",
+      "unicode_decimal": 59051
+    },
+    {
+      "icon_id": "12452239",
+      "name": "我 的",
+      "font_class": "wode",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "7382796",
+      "name": "icon_weixuanzhong",
+      "font_class": "icon_weixuanzhong",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "11724312",
+      "name": "icon_xuanzhong",
+      "font_class": "icon_huabanfuben",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    }
+  ]
+}

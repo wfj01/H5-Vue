@@ -1,0 +1,415 @@
+
+<template>
+  <div>
+    <div>
+      <van-nav-bar title="我的收藏" fixed>
+        <template #left>
+          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
+        </template>
+        <template #right>
+          <van-icon name="weapp-nav" size="18" color="#000" />
+        </template>
+      </van-nav-bar>
+    </div>
+    <div class="topview">
+      <van-search
+        v-model="value"
+        shape="round"
+        show-action
+        placeholder="请输入搜索关键词"
+      >
+        <template #action>
+          <div>搜索</div>
+        </template>
+      </van-search>
+    </div>
+    <div>
+      <van-tabs v-model="active" swipeable @change="selectchange($event)">
+        <van-tab v-for="(item,index) in itemlist" :key="index" background="#844404" >
+          <template #title>{{item.name}}</template>
+          <div v-if="item.index == 0">
+            <van-card
+              class="cardview"
+              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+              v-for="(item,index) in 2"
+              :key="index"
+            >
+              <template #title>
+                <div class="toptext">店铺介绍</div>
+              </template>
+              <template #tags>
+                <div class="middletext">
+                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+                </div>
+              </template>
+              <template #footer>
+                <van-icon name="star" size="18px" />
+                <van-icon name="share" size="18px" class="share" />
+              </template>
+            </van-card>
+            <div class="kongview">
+              <div class="kongview-text">没有更多数据</div>
+            </div>
+          </div>
+          <div v-if="item.index == 1">
+            <van-card
+              class="cardview"
+              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+              v-for="(item,index) in 2"
+              :key="index"
+            >
+              <template #title>
+                <div class="toptext">分类名称—店铺名称</div>
+              </template>
+              <template #tags>
+                <div class="middletext">
+                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+                </div>
+              </template>
+              <template #footer>
+                <van-icon name="star" size="18px" />
+                <van-icon name="share" size="18px" class="share" />
+              </template>
+            </van-card>
+            <div class="kongview">
+              <div class="kongview-text">没有更多数据</div>
+            </div>
+          </div>
+          <div v-if="item.index == 2">
+            <van-card
+              class="cardview"
+              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+              v-for="(item,index) in 2"
+              :key="index"
+            >
+              <template #title>
+                <div class="toptext">分类名称—店铺名称</div>
+              </template>
+              <template #tags>
+                <div class="middletext">
+                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+                </div>
+              </template>
+              <template #footer>
+                <div class="ceshi">
+                  <div class="ceshi1">
+                    <div class="ceshi1">
+                      <div class="ceshi1-text">现价：</div>
+                      <div class="ceshi1-text1">9.9</div>
+                    </div>
+                    <div class="ceshi1 marginleft">
+                      <div class="ceshi1-text">原价：</div>
+                      <div class="ceshi1-text ceshi1-text2">19.9</div>
+                    </div>
+                  </div>
+                  <div>
+                    <van-icon name="star" size="18px" />
+                    <van-icon name="share" size="18px" class="share" />
+                  </div>
+                </div>
+              </template>
+            </van-card>
+            <div class="kongview">
+              <div class="kongview-text">没有更多数据</div>
+            </div>
+          </div>
+          <div v-if="item.index == 3">
+            <div class="topvideo"></div>
+            <div class="video-middleview">
+              <div class="video-middleview-text1">课程直播视频名称名称</div>
+              <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
+              <div class="video-middleview-fenlei">
+                <div>
+                  <div class="video-middleview-text3">直播时长：70分钟</div>
+                  <div class="video-middleview-text4">开始时间：2020-05-31 20:30</div>
+                </div>
+                <div class="video-middleview-fenlei-right">
+                  <van-icon name="star" size="20px" />
+                  <van-icon name="share" size="20px" class="share" />
+                </div>
+              </div>
+            </div>
+            <div class="kongview">
+              <div class="kongview-text">没有更多数据</div>
+            </div>
+          </div>
+        </van-tab>
+      </van-tabs>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+import { NavBar, Icon, Search, Tab, Tabs, Card } from "vant";
+import { selectshoucanglist } from "../../../api/index";
+
+export default {
+  name: "Mycollection",
+  components: {
+    [NavBar.name]: NavBar,
+    [Icon.name]: Icon,
+    [Search.name]: Search,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs,
+    [Card.name]: Card,
+  },
+  data() {
+    return {
+      cutnumber: 1,
+      activeName: '1',
+      value:"",
+      typeEnum:1,
+      active:1,
+      itemlist: [
+        {
+          index: 0,
+          name: "店铺列表",
+        },
+        {
+          index: 1,
+          name: "分类",
+        },
+        {
+          index: 2,
+          name: "图文商品",
+        },
+        {
+          index: 3,
+          name: "培训视频",
+        },
+      ],
+    };
+  },
+  methods: {
+    //选择切换
+    selectchange:function(event){
+      console.log(event,this.itemlist[event].name);
+      this.typeEnum = event
+    },
+    onClickLeft: function () {
+      this.$router.go(-1); // 返回
+    },
+    onClickRight: function () {
+      Toast("按钮");
+    },
+    loaddata: function () {
+      // selectshoucanglist()
+      //   .then((res) => {
+      //     console.log("uploadelf --->", res);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+    console.log('走了吗')
+
+      axios({
+        methods: "post",
+        url: "http://yapi.jeemoo.com/mock/33/multiapi/z310p_relUserSku",
+        data: {
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+          typeEnum: this.typeEnum, //<comment>[1=内训直播=INSIDE_RADIO, 2=内训图文=INSIDE_TEXT ,3=商品=SKU,4=直播=RADIO,5=店铺=shop]</comment>
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
+
+  },
+};
+</script>
+
+<style scoped>
+.video-middleview-fenlei-right {
+  line-height: 50px;
+}
+.video-middleview-fenlei {
+  display: flex;
+  justify-content: space-between;
+}
+.video-middleview-text4 {
+  color: rgba(155, 155, 155, 1);
+  font-size: 13px;
+  text-align: left;
+  font-family: Arial-regular;
+  line-height: 26px;
+}
+.video-middleview-text3 {
+  color: rgba(155, 155, 155, 1);
+  font-size: 13px;
+  text-align: left;
+  font-family: Arial-regular;
+  line-height: 26px;
+}
+.video-middleview-text2 {
+  color: rgba(155, 155, 155, 1);
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  font-family: PingFangSC-regular;
+  line-height: 26px;
+}
+.video-middleview-text1 {
+  color: rgba(16, 16, 16, 1);
+  font-size: 15px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  line-height: 26px;
+}
+.video-middleview {
+  padding: 10px 0px;
+  margin: 0px 20px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
+}
+.topvideo {
+  width: 100%;
+  height: 150px;
+  line-height: 20px;
+  background-color: rgba(21, 8, 9, 0.57);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+.ceshi1-text1 {
+  color: #844505;
+  font-size: 17px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.ceshi1-text2 {
+  font-size: 17px;
+  text-decoration: line-through;
+}
+.marginleft {
+  margin-left: 10px;
+}
+.ceshi1-text {
+  color: rgba(155, 155, 155, 1);
+  font-size: 14px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  line-height: 22px;
+}
+.ceshi {
+  display: flex;
+  justify-content: space-between;
+}
+.ceshi1 {
+  display: flex;
+  justify-content: start;
+}
+.kongview-text {
+  color: rgba(16, 16, 16, 1);
+  font-size: 14px;
+  font-family: SourceHanSansSC-regular;
+  text-align: center;
+}
+.kongview {
+  padding: 25px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.hr {
+  margin: 0px 16px;
+  border-top: 1px solid rgba(187, 187, 187, 1);
+}
+.share {
+  margin-left: 10px;
+}
+.toptext {
+  color: rgba(16, 16, 16, 1);
+  font-size: 14px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.middletext {
+  margin-top: 10px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: rgba(155, 155, 155, 1);
+}
+.cardview {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(187, 187, 187, 1);
+  padding: 8px 0px 12px 0px;
+  margin: 5px 16px;
+}
+.topview {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.shoppingbox {
+  border: 1px solid #eeeeee;
+  background-color: #fafafa;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+.shoppingview-itemright {
+  margin-left: 10px;
+}
+.shoppingview-itemright-middleview {
+  bottom: 0px;
+}
+.shoppingview-itemright-middleview-right {
+  color: rgba(51, 51, 51, 1);
+  font-size: 16px;
+  text-align: right;
+  font-family: PingFangSC-regular;
+  font-weight: bold;
+}
+.shoppingview-itemright-middleview-left {
+  color: #844404;
+  font-size: 16px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  font-weight: bold;
+}
+.shoppingview-itemright-toptext {
+  color: rgba(51, 51, 51, 1);
+  font-size: 15px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  font-weight: bold;
+}
+.shoppingview-itemright-middleview {
+  display: flex;
+  justify-content: space-between;
+}
+.shoppingview-itemleft {
+  width: 100px;
+  height: 100px;
+}
+.shoppingview-itemleftimage {
+  width: 100%;
+  height: 100%;
+}
+.shoppingview {
+  padding: 10px 0px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.shoppingview-item {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
