@@ -19,35 +19,40 @@
           <div>
             <div class="item" v-if="item.index == 0">
               <div class="itembox">
-                <div class="itembox">
-                  <div class="topview">
-                    <div class="topview-left">共1件商品 实付款:￥168</div>
-                    <div class="topview-right">待收货</div>
+                <div class="topview">
+                  <div class="topview-title">
+                    <div class="topview-left">共1件商品 实付款:</div>
+                    <div class="topview-right1">￥168</div>
                   </div>
-                  <div class="shoppingbox">
-                    <div
-                      class="shoppingview"
-                      v-for="(item,index) in 2"
-                      v-bind:key="index"
-                      @click="orderdetail()"
-                    >
-                      <div class="shoppingview-item">
-                        <div class="shoppingview-itemleft">
-                          <img
-                            class="shoppingview-itemleftimage"
-                            src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                            alt
-                          />
-                        </div>
-                        <div class="shoppingview-itemright">
+                  <div class="topview-right">待收货</div>
+                </div>
+                <div class="shoppingbox">
+                  <div
+                    class="shoppingview"
+                    v-for="(item,index) in 2"
+                    v-bind:key="index"
+                    @click="orderdetail()"
+                  >
+                    <div class="shoppingview-item">
+                      <div class="shoppingview-itemleft">
+                        <img
+                          class="shoppingview-itemleftimage"
+                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                          alt
+                        />
+                      </div>
+                      <div class="shoppingview-itemright">
+                        <div class="itembox1-left">
                           <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
                           <div class="leixingview">
                             <div class="leixing1">粉色</div>
                             <div class="leixing1">大尺寸</div>
                           </div>
+                        </div>
+                        <div class="itembox1-right">
                           <div class="shoppingview-itemright-middleview">
                             <div class="shoppingview-itemright-middleview-left">￥168</div>
-                            <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                            <div class="shoppingview-itemright-middleview-right">x1</div>
                           </div>
                         </div>
                       </div>
@@ -63,7 +68,10 @@
             <div class="item" v-if="item.index == 1">
               <div class="itembox">
                 <div class="topview">
-                  <div class="topview-left">共1件商品 实付款:￥168</div>
+                  <div class="topview-title">
+                    <div class="topview-left">共1件商品 实付款:</div>
+                    <div class="topview-right1">￥168</div>
+                  </div>
                   <div class="topview-right">待付款</div>
                 </div>
                 <div class="shoppingbox">
@@ -82,14 +90,18 @@
                         />
                       </div>
                       <div class="shoppingview-itemright">
-                        <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                        <div class="leixingview">
-                          <div class="leixing1">粉色</div>
-                          <div class="leixing1">大尺寸</div>
+                        <div class="itembox1-left">
+                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                          <div class="leixingview">
+                            <div class="leixing1">粉色</div>
+                            <div class="leixing1">大尺寸</div>
+                          </div>
                         </div>
-                        <div class="shoppingview-itemright-middleview">
-                          <div class="shoppingview-itemright-middleview-left">￥168</div>
-                          <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                        <div class="itembox1-right">
+                          <div class="shoppingview-itemright-middleview">
+                            <div class="shoppingview-itemright-middleview-left">￥168</div>
+                            <div class="shoppingview-itemright-middleview-right">x1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -103,7 +115,10 @@
             <div class="item" v-if="item.index == 2">
               <div class="itembox">
                 <div class="topview">
-                  <div class="topview-left">共1件商品 实付款:￥168</div>
+                  <div class="topview-title">
+                    <div class="topview-left">共1件商品 实付款:</div>
+                    <div class="topview-right1">￥168</div>
+                  </div>
                   <div class="topview-right">待收货</div>
                 </div>
                 <div class="shoppingbox" v-for="(item,index) in 2" v-bind:key="index">
@@ -122,14 +137,18 @@
                         />
                       </div>
                       <div class="shoppingview-itemright">
-                        <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                        <div class="leixingview">
-                          <div class="leixing1">粉色</div>
-                          <div class="leixing1">大尺寸</div>
+                        <div class="itembox1-left">
+                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                          <div class="leixingview">
+                            <div class="leixing1">粉色</div>
+                            <div class="leixing1">大尺寸</div>
+                          </div>
                         </div>
-                        <div class="shoppingview-itemright-middleview">
-                          <div class="shoppingview-itemright-middleview-left">￥168</div>
-                          <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                        <div class="itembox1-right">
+                          <div class="shoppingview-itemright-middleview">
+                            <div class="shoppingview-itemright-middleview-left">￥168</div>
+                            <div class="shoppingview-itemright-middleview-right">x1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -143,29 +162,32 @@
             <div class="item" v-if="item.index == 3">
               <div class="itembox" v-for="(item,index) in 2" v-bind:key="index">
                 <div class="topview">
-                  <div class="topview-left">共1件商品 实付款:￥168</div>
+                  <div class="topview-title">
+                    <div class="topview-left">共1件商品 实付款:</div>
+                    <div class="topview-right1">￥168</div>
+                  </div>
                   <div class="topview-right">待评价</div>
                 </div>
-                <div class="shoppingbox">
-                  <div class="shoppingview" @click="orderdetail()">
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
+                <div class="shoppingview-item">
+                  <div class="shoppingview-itemleft">
+                    <img
+                      class="shoppingview-itemleftimage"
+                      src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                      alt
+                    />
+                  </div>
+                  <div class="shoppingview-itemright">
+                    <div class="itembox1-left">
+                      <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                      <div class="leixingview">
+                        <div class="leixing1">粉色</div>
+                        <div class="leixing1">大尺寸</div>
                       </div>
-                      <div class="shoppingview-itemright">
-                        <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                        <div class="leixingview">
-                          <div class="leixing1">粉色</div>
-                          <div class="leixing1">大尺寸</div>
-                        </div>
-                        <div class="shoppingview-itemright-middleview">
-                          <div class="shoppingview-itemright-middleview-left">￥168</div>
-                          <div class="shoppingview-itemright-middleview-right">数量 x1</div>
-                        </div>
+                    </div>
+                    <div class="itembox1-right">
+                      <div class="shoppingview-itemright-middleview">
+                        <div class="shoppingview-itemright-middleview-left">￥168</div>
+                        <div class="shoppingview-itemright-middleview-right">x1</div>
                       </div>
                     </div>
                   </div>
@@ -178,34 +200,32 @@
             <div class="item" v-if="item.index == 4">
               <div class="itembox">
                 <div class="topview">
-                  <div class="topview-left">共1件商品 实付款:￥168</div>
+                  <div class="topview-title">
+                    <div class="topview-left">共1件商品 实付款:</div>
+                    <div class="topview-right1">￥168</div>
+                  </div>
                   <div class="topview-right">已完成</div>
                 </div>
-                <div class="shoppingbox">
-                  <div
-                    class="shoppingview"
-                    @click="orderdetail()"
-                    v-for="(item,index) in 2"
-                    v-bind:key="index"
-                  >
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
+                 <div class="shoppingview-item">
+                  <div class="shoppingview-itemleft">
+                    <img
+                      class="shoppingview-itemleftimage"
+                      src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                      alt
+                    />
+                  </div>
+                  <div class="shoppingview-itemright">
+                    <div class="itembox1-left">
+                      <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                      <div class="leixingview">
+                        <div class="leixing1">粉色</div>
+                        <div class="leixing1">大尺寸</div>
                       </div>
-                      <div class="shoppingview-itemright">
-                        <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                        <div class="leixingview">
-                          <div class="leixing1">粉色</div>
-                          <div class="leixing1">大尺寸</div>
-                        </div>
-                        <div class="shoppingview-itemright-middleview">
-                          <div class="shoppingview-itemright-middleview-left">￥168</div>
-                          <div class="shoppingview-itemright-middleview-right">数量 x1</div>
-                        </div>
+                    </div>
+                    <div class="itembox1-right">
+                      <div class="shoppingview-itemright-middleview">
+                        <div class="shoppingview-itemright-middleview-left">￥168</div>
+                        <div class="shoppingview-itemright-middleview-right">x1</div>
                       </div>
                     </div>
                   </div>
@@ -294,12 +314,29 @@ export default {
 </script>
 
 <style scoped>
+.topview-right1 {
+  font-size: 18px;
+  color: #000000;
+  line-height: 40px;
+}
+.topview-title {
+  display: flex;
+  justify-content: space-between;
+}
+.itembox1-left {
+  width: 331rpx;
+}
+.itembox1-right {
+  width: 96rpx;
+}
 .itembox {
   width: 100%;
   background: #ffffff;
   padding: 4px;
   border-radius: 11px;
-
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 10px;
   box-sizing: border-box;
 }
 .pageview {
@@ -308,7 +345,6 @@ export default {
 }
 .middleviewbtn {
   justify-content: end;
-  padding: 5px 0px;
   display: -webkit-box;
 }
 .middleviewbtn-btn1 {
@@ -324,6 +360,7 @@ export default {
   font-family: Arial;
   border: 1px solid rgba(178, 178, 178, 1);
   margin: 0px 4px;
+  font-weight: bold;
 }
 .middleviewbtn-btn2 {
   width: 100px;
@@ -339,6 +376,7 @@ export default {
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
   font-family: Arial;
   margin: 0px 4px;
+  font-weight: bold;
 }
 .leixingview {
   display: flex;
@@ -353,7 +391,7 @@ export default {
   border-radius: 1px;
   color: rgba(136, 136, 136, 1);
   font-size: 12px;
-  text-align: center;
+  text-align: left;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
   font-family: Arial;
 }
@@ -362,16 +400,18 @@ export default {
 }
 .shoppingview-itemright {
   margin-left: 10px;
-}
-.shoppingview-itemright-middleview {
-  bottom: 0px;
+  display: flex;
+  justify-content: space-between;
 }
 .shoppingview-itemright-middleview-right {
-  color: rgba(51, 51, 51, 1);
+  width: 45px;
+  height: 24px;
   font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+  line-height: 24px;
   text-align: right;
-  font-family: PingFangSC-regular;
-  font-weight: bold;
 }
 .shoppingview-itemright-middleview-left {
   color: #844404;
@@ -387,13 +427,9 @@ export default {
   font-family: PingFangSC-regular;
   font-weight: bold;
 }
-.shoppingview-itemright-middleview {
-  display: flex;
-  justify-content: space-between;
-}
+
 .shoppingview-itemleft {
   width: 100px;
-  height: 100px;
 }
 .shoppingview-itemleftimage {
   width: 100%;
@@ -417,7 +453,7 @@ export default {
 .topview-left {
   line-height: 40px;
   color: rgba(51, 51, 51, 1);
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
   font-family: Arial;
 }
@@ -427,6 +463,6 @@ export default {
   font-size: 14px;
   text-align: right;
   font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
+  font-weight: bold;
 }
 </style>

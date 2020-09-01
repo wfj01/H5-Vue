@@ -48,7 +48,7 @@ const routes = [
   },
   //主页
   {
-    path: '/Index',
+    path: '/',
     name: 'Index',
     component: Index,
     meta: {
@@ -57,7 +57,7 @@ const routes = [
   },
   //培训视频详情页
   {
-    path: '/',
+    path: '/TrainingVideo',
     name: 'TrainingVideo',
     component: TrainingVideo
   },

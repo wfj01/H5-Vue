@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="pageview">
     <div>
-      <van-nav-bar title="订单状态" fixed>
+      <van-nav-bar title="订单详情" fixed>
         <template #left>
           <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
         </template>
@@ -43,7 +43,12 @@
       <div class="middlevie">
         <div class="middleview-title">商品信息</div>
         <div class="shoppingbox">
-          <div class="shoppingview" v-for="(item,index) in 10" v-bind:key="index">
+          <div
+            class="shoppingview"
+            @click="orderdetail()"
+            v-for="(item,index) in 2"
+            v-bind:key="index"
+          >
             <div class="shoppingview-item">
               <div class="shoppingview-itemleft">
                 <img
@@ -53,14 +58,18 @@
                 />
               </div>
               <div class="shoppingview-itemright">
-                <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                <div class="leixingview">
-                  <div class="leixing1">粉色</div>
-                  <div class="leixing1">大尺寸</div>
+                <div class="itembox1-left">
+                  <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                  <div class="leixingview">
+                    <div class="leixing1">粉色</div>
+                    <div class="leixing1">大尺寸</div>
+                  </div>
                 </div>
-                <div class="shoppingview-itemright-middleview">
-                  <div class="shoppingview-itemright-middleview-left">￥168</div>
-                  <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                <div class="itembox1-right">
+                  <div class="shoppingview-itemright-middleview">
+                    <div class="shoppingview-itemright-middleview-left">￥168</div>
+                    <div class="shoppingview-itemright-middleview-right">x1</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -68,16 +77,17 @@
         </div>
       </div>
       <div class="middlevie">
-        <div class="middleview-title">付款信息</div>
+        <div class="middleview-title1">付款信息</div>
         <div class="fukuanjine">
-          <div class="fukuanjine-left">合计金额</div>
+          <div class="fukuanjine-left">合计金额:</div>
           <div class="fukuanjine-right">￥336</div>
         </div>
       </div>
-      <div class="middleviewbtn">
-        <div class="middleviewbtn-btn1">取消订单</div>
-        <div class="middleviewbtn-btn2">立即支付</div>
-      </div>
+    </div>
+    <div class="null"></div>
+    <div class="middleviewbtn">
+      <div class="middleviewbtn-btn1">取消订单</div>
+      <div class="middleviewbtn-btn2">立即支付</div>
     </div>
   </div>
 </template>
@@ -98,7 +108,7 @@ export default {
   },
   methods: {
     //跳转到地址列表
-    goAddresslist:function(){
+    goAddresslist: function () {
       this.$router.push({
         name: "Addresslist",
       });
@@ -128,6 +138,40 @@ export default {
 </script>
 
 <style scoped>
+.null{
+  height: 85px;
+
+background: #F8F8F8;
+}
+.topview-right1 {
+  font-size: 18px;
+  color: #000000;
+  line-height: 40px;
+}
+.topview-title {
+  display: flex;
+  justify-content: space-between;
+}
+.itembox1-left {
+  width: 331rpx;
+}
+.itembox1-right {
+  width: 96rpx;
+}
+.itembox {
+  width: 100%;
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 11px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.pageview {
+  background: #f8f8f8;
+  height: 100vh;
+}
 .leixingview {
   display: flex;
 }
@@ -135,6 +179,12 @@ export default {
   justify-content: end;
   padding: 15px 0px;
   display: -webkit-box;
+  left: 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 100;
+  background: #FFFFFF;
 }
 .middleviewbtn-btn1 {
   width: 100px;
@@ -168,15 +218,19 @@ export default {
   justify-content: space-between;
 }
 .fukuanjine-left {
-  color: rgba(51, 51, 51, 1);
-  font-size: 15px;
+  font-size: 16px;
   text-align: left;
   font-family: PingFangSC-regular;
   font-weight: bold;
+  width: 128px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #262626;
+  line-height: 30px;
 }
 .fukuanjine-right {
-  color: rgba(51, 51, 51, 1);
-  font-size: 15px;
+  color: #262626;
+  font-size: 20px;
   text-align: left;
   font-family: PingFangSC-regular;
   font-weight: bold;
@@ -251,16 +305,18 @@ export default {
 }
 
 .address {
-  color: rgb(102, 97, 97);
   font-size: 15px;
   text-align: left;
-  font-family: PingFangSC-regular;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #999999;
 }
 .name {
-  color: rgba(51, 51, 51, 1);
-  font-size: 15px;
   text-align: left;
   font-family: PingFangSC-regular;
+  font-size: 15px;
+  font-weight: bold;
+  color: #262626;
 }
 .phone {
   color: rgba(51, 51, 51, 1);
@@ -271,26 +327,34 @@ export default {
 .yonghuxinxi {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0px;
+  padding-bottom: 10px;
 }
 .middlevie {
   background-color: #ffffff;
-  padding: 0px 20px;
+  padding: 0px 20px 10px 20px;
   box-sizing: border-box;
 }
 .middleview-title {
-  line-height: 30px;
-  height: 30px;
-  color: rgba(136, 136, 136, 1);
-  font-size: 16px;
+  line-height: 50px;
+  font-size: 20px;
   text-align: left;
   font-family: Arial;
-  margin: 10px 0px;
+  font-weight: bold;
+  color: #262626;
+}
+.middleview-title1 {
+  font-size: 20px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #999999;
+  line-height: 50px;
+  text-align: left;
 }
 .topview {
   background-color: #ffffff;
   padding: 0px 20px;
   box-sizing: border-box;
+  margin: 12px 0px;
 }
 .item {
   display: flex;
@@ -299,19 +363,22 @@ export default {
   height: 50px;
 }
 .item-left {
-  color: rgba(51, 51, 51, 1);
+  color: #262626;
   font-size: 16px;
   text-align: left;
   font-family: Arial;
+
+  font-weight: 900;
 }
 .item-right {
-  color: rgba(132, 68, 4, 1);
+  color: #1c69d4;
   font-size: 16px;
   text-align: right;
+  font-weight: bold;
   font-family: Arial;
 }
 .item-right1 {
-  color: rgba(136, 136, 136, 1);
+  color: #999999;
   font-size: 14px;
   text-align: right;
   font-family: Arial;

@@ -3,7 +3,7 @@
     <div>
       <van-nav-bar title="我要开店" fixed>
         <template #left @click="onClickLeft()">
-          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()"/>
+          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
         </template>
         <template #right>
           <van-icon name="weapp-nav" size="18" color="#000" />
@@ -37,33 +37,21 @@
         <div class="middleview1-toptitle middleview2">请选择我要开店的套餐</div>
         <div class="middleview2-box">
           <div class="middleview2-box-wai">
-            <div class="middleview2-box-nei" @click="Setmealdetail()">
-              <div class="middview2-itembox1">
-                <div class="middview2-itembox1-list">
-                  <div class="middview2-itembox1-list1">个人版</div>
-                  <div>
-                    <van-icon name="passed" size="16px" color="#B9B9B9" />
-                  </div>
-                </div>
-                <div
-                  class="middview2-itembox1-list2"
-                >可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频可无限上传商品或视频</div>
-                <div class="middview2-itembox1-list3">198元/1年</div>
-              </div>
-              <div class="middview2-itembox2"></div>
+            <div>
+              <img
+                src="../../../assets/494.png"
+                alt
+                style="width: 100%;height: 100%;"
+                @click="Setmealdetail()"
+              />
             </div>
-            <div class="middleview2-box-nei waibianju" @click="Setmealdetail()">
-              <div class="middview2-itembox1">
-                <div class="middview2-itembox1-list">
-                  <div class="middview2-itembox1-list1">个人版</div>
-                  <div>
-                    <van-icon name="passed" size="16px" color="#B9B9B9" />
-                  </div>
-                </div>
-                <div class="middview2-itembox1-list2">多人操作功能，包括1-10人、20-50人和50-200人三个级别，收费不同</div>
-                <div class="middview2-itembox1-list3">1999~6999元/1年</div>
-              </div>
-              <div class="middview2-itembox2"></div>
+            <div>
+              <img
+                src="../../../assets/495.png"
+                alt
+                style="width: 100%;height: 100%;"
+                @click="Setmealdetail()"
+              />
             </div>
           </div>
         </div>
