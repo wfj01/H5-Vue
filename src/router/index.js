@@ -27,9 +27,12 @@ Vue.use(VueRouter)
 const routes = [
   //个人中心
   {
-    path: '/',
+    path: '/Mineview',
     name: 'Mineview',
-    component: Mineview
+    component: Mineview,
+    meta: {
+      showTabbar: true
+    }
   },
   //个人资料
   {

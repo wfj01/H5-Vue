@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="pageview">
     <div>
       <van-nav-bar title="我的" fixed>
         <template #right>
@@ -10,51 +10,56 @@
     <div style="height:46px"></div>
 
     <div class="topview1" @click="gerenziliao()">
+      <div class="topview1-right">
+        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
+      </div>
       <div class="topview1-left">
         <div class="topview1-left-text1">老子就不吃早餐</div>
         <div class="topview1-left-text2">查看和编辑</div>
       </div>
-      <div class="topview1-right">
-        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
-      </div>
     </div>
     <div class="topview2">
-      <div class="topview2-item1">
-        <div>账户余额</div>
-        <div>8956.36 元</div>
-      </div>
-      <div class="topview2-item2">
-        <div>我要提现</div>
+      <div class="topview2box">
+        <div class="topview2-item1">
+          <div class="topview2-item1text1">账户余额</div>
+          <div class="topview2-item1text2">
+            8956.36
+            <div class="topview2-item1text3">元</div>
+          </div>
+        </div>
+        <div class="topview2-item2">
+          <div class="topview2-item2text">我要提现</div>
+        </div>
       </div>
     </div>
     <div class="middleview">
       <div class="middleview-item" @click="myorder()">
         <div class="middleview-item-left">
-          <van-icon name="balance-list-o" size="28px" color="#97612B" />
+          <van-icon name="balance-list-o" size="28px" color="#000000" />
           <div class="middleview-item-lefttext">我的订单</div>
         </div>
-        <van-icon name="arrow" size="28px" color="#CBCBCB" />
+        <van-icon name="arrow" size="28px" color="#000000" />
       </div>
       <div class="middleview-item" @click="Myopenshop()">
         <div class="middleview-item-left">
-          <van-icon name="shop-o" size="28px" color="#97612B" />
+          <van-icon name="shop-o" size="28px" color="#000000" />
           <div class="middleview-item-lefttext">我要开店</div>
         </div>
-        <van-icon name="arrow" size="28px" color="#CBCBCB" />
+        <van-icon name="arrow" size="28px" color="#000000" />
       </div>
       <div class="middleview-item" @click="Mycollection()">
         <div class="middleview-item-left">
-          <van-icon name="star-o" size="28px" color="#97612B" />
+          <van-icon name="star-o" size="28px" color="#000000" />
           <div class="middleview-item-lefttext">我的收藏</div>
         </div>
-        <van-icon name="arrow" size="28px" color="#CBCBCB" />
+        <van-icon name="arrow" size="28px" color="#000000" />
       </div>
       <div class="middleview-item">
         <div class="middleview-item-left">
-          <van-icon name="cluster-o" size="28px" color="#97612B" />
+          <van-icon name="cluster-o" size="28px" color="#000000" />
           <div class="middleview-item-lefttext">分销中心</div>
         </div>
-        <van-icon name="arrow" size="28px" color="#CBCBCB" />
+        <van-icon name="arrow" size="28px" color="#000000" />
       </div>
     </div>
     <div style="height:30px"></div>
@@ -109,7 +114,50 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped>
+.topview1-left{
+  padding-top: 6px;
+  padding-left: 10px;
+}
+.pageview{
+  background: #ffffff;
+  height: 100vh;
+}
+.topview2-item1text1 {
+  width: 96px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 33px;
+  text-align: left;
+}
+
+.topview2-item1text2 {
+  width: 140px;
+  font-size: 28px;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000000;
+  display: flex;
+  text-align: left;
+}
+.topview2-item1text3 {
+  width: 20px;
+  font-size: 12px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 28px;
+  text-align: left;
+  margin-left: 4px;
+}
+.topview2-item2text {
+  background: #ffffff;
+  border-radius: 26px;
+  line-height: 42px;
+  width: 110px;
+}
 .middleview {
   padding: 12px;
   box-sizing: border-box;
@@ -130,34 +178,37 @@ export default {
   line-height: 28px;
 }
 .topview2 {
-  display: flex;
-  justify-content: space-between;
   padding: 10px 15px 15px 15px;
   box-sizing: border-box;
 }
+.topview2box {
+  background: linear-gradient(180deg, #feec35 0%, #fecf00 100%);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
 .topview2-item2 {
   padding: 20px 0px;
-  width: 165px;
   line-height: 60px;
   line-height: 20px;
   color: rgba(16, 16, 16, 1);
-  background-color: #ffffff;
-  font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
+  font-size: 20px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 37px;
 }
 .topview2-item1 {
   padding: 10px 0px;
-  width: 165px;
   line-height: 60px;
   line-height: 20px;
   color: rgba(16, 16, 16, 1);
-  background-color: #ffffff;
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
 }
 .page {
   background-color: #f7f8fa;
@@ -187,7 +238,7 @@ export default {
 }
 .topview1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 20px 15px 15px 15px;
   box-sizing: border-box;
 }

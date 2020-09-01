@@ -18,7 +18,7 @@
     </div>
     <div style="height:46px"></div>
     <div>
-      <van-swipe-cell>
+      <van-swipe-cell v-for="(item,index) in mydata.list " :key="index">
         <div class="waibiankuang">
           <div class="loginPage">
             <div class="login_left">
@@ -30,29 +30,32 @@
                   <div v-if="item.isbuyzb == 1" class="iconfont icon-xuanzhong icon_over"></div>-->
                 </div>
               </div>
-              <div>
+              <div v-if="item.boolPublishEnum == 1">
                 <img class="imgstyle" src="../../assets/logo.png" alt />
+              </div>
+              <div v-if="item.boolPublishEnum == 2">
+                <img class="imgstyle" src="../../assets/1.png" alt />
               </div>
             </div>
             <div class="login_right">
-              <div class="toptitle">如厕沐浴套餐2</div>
+              <div class="toptitle">{{item.name}}</div>
               <div class="middleviewtext">
                 <div class="middleviewtext_left">
-                  <div class="midddviewtext_leftprice">￥168</div>
-                  <div class="midddviewtext_rightprice">￥888</div>
+                  <div class="midddviewtext_leftprice">￥{{item.price}}</div>
+                  <div class="midddviewtext_rightprice">￥{{item.originalPrice}}</div>
                 </div>
                 <div>
                   <ul class="btn-numbox">
                     <li>
                       <ul class="count">
                         <li>
-                          <span id="num-jian" class="num-jian" @click="jianfa()">-</span>
+                          <span id="num-jian" class="num-jian" @click="jianfa(item.num)">-</span>
                         </li>
                         <li>
-                          <input type="text" class="input-num" id="input-num" v-model="cutnumber" />
+                          <input type="text" class="input-num" id="input-num" v-model="item.num" />
                         </li>
                         <li>
-                          <span id="num-jia" class="num-jia" @click="jiafa()">+</span>
+                          <span id="num-jia" class="num-jia" @click="jiafa(item.num)">+</span>
                         </li>
                       </ul>
                     </li>
@@ -64,7 +67,13 @@
         </div>
         <template #right class="heightstyle">
           <van-button class="heightstyle colorStyle1" square type="primary" text="收藏" />
-          <van-button class="heightstyle colorStyle2" square type="danger" text="删除" />
+          <van-button
+            class="heightstyle colorStyle2"
+            square
+            type="danger"
+            text="删除"
+            @click="deleteClick()"
+          />
         </template>
       </van-swipe-cell>
     </div>
@@ -78,7 +87,7 @@
         </div>
         <div class="bottombtn-right">
           <div>合计:￥1680</div>
-          <div class="bottombtn1">结算（2）</div>
+          <div class="bottombtn1" @click="jiesuanClick()">结算（2）</div>
         </div>
       </div>
     </div>
@@ -87,6 +96,7 @@
 </template>
 
 <script>
+import Axios from "axios";
 import Vue from "vue";
 import {
   SwipeCell,
@@ -113,6 +123,8 @@ export default {
   data() {
     return {
       cutnumber: 1,
+      mydata: {},
+      checked: "",
     };
   },
   methods: {
@@ -121,11 +133,53 @@ export default {
         name: "Buynow",
       });
     },
+    //删除数据操作
+    deleteClick: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496d_cart";
+      Axios.post(api, {
+        data: {
+          idList: ["1111111", "1111112"],
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          if (res.data.code == 200) {
+            Toast.success("删除成功");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //结算
+    jiesuanClick: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496p_cart";
+      Axios.post(api, {
+        data: {
+          spuList: [
+            {
+              skuId: 111,
+              num: 11,
+            },
+          ],
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          if (res.data.code == 200) {
+            Toast.success("购买成功");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
     // 减少
-    jianfa: function () {
+    jianfa: function (num) {
       var that = this;
       console.log("that.cutnumber", that.cutnumber >= 1);
-
       if (that.cutnumber <= 1) {
         return;
       } else {
@@ -166,6 +220,26 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496p_cart";
+      Axios.post(api, {
+        data: {
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
   },
 };
 </script>

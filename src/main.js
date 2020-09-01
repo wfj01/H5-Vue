@@ -7,7 +7,9 @@ import VideoPlayer from 'vue-video-player'
 import './assets/fonts/iconfont.css'
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
+import VueResourse from 'vue-resource'
 
+Vue.use(VueResourse)
 Vue.use(VideoPlayer)
 Vue.config.productionTip = false
 require('./utils/adapter')(document, window);

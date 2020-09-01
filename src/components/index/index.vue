@@ -13,7 +13,7 @@
       <div>
         <img width="60px" height="60px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
       </div>
-      <div class="toptext">
+      <div class="toptext3">
         <div class="toptext1">收藏量：8950</div>
         <div class="toptext2">+收藏</div>
       </div>
@@ -61,26 +61,24 @@
       <van-card
         class="cardview"
         thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-        v-for="(item,index) in 2"
+        v-for="(item,index) in mydata.list"
         :key="index"
+        @click="goCommoditysharing()"
       >
         <template #title>
-          <div class="toptext">分类名称—店铺名称</div>
+          <div class="toptext">{{item.spuname}}</div>
         </template>
         <template #tags>
-          <div class="middletext">
-            店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
-            介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
-          </div>
+          <div class="middletext">{{item.spuIntro}}</div>
           <div class="ceshi">
             <div class="ceshi1">
               <div class="ceshi1">
                 <div class="ceshi1-text">现价：</div>
-                <div class="ceshi1-text1">9.9</div>
+                <div class="ceshi1-text1">{{item.price}}</div>
               </div>
               <div class="ceshi1 marginleft">
                 <div class="ceshi1-text">原价：</div>
-                <div class="ceshi1-text ceshi1-text2">19.9</div>
+                <div class="ceshi1-text ceshi1-text2">{{item.originalPrice}}</div>
               </div>
             </div>
             <div>
@@ -92,13 +90,13 @@
       </van-card>
     </div>
     <div v-if="isshow2" class="videoceshi">
-      <div v-for="(item,index) in 3" :key="index" @click="Livebroadcast()">
+      <div v-for="(item,index) in mydata1.list" :key="index" @click="Livebroadcast()">
         <div class="topvideo">
           <div class="topview-shuliang">已结束</div>
         </div>
         <div class="video-middleview">
-          <div class="video-middleview-text1">课程直播视频名称名称</div>
-          <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
+          <div class="video-middleview-text1">{{mydata1.name}}</div>
+          <div class="video-middleview-text2">{{mydata1.intro}}</div>
           <div class="video-middleview-fenlei">
             <div>
               <div class="video-middleview-text3">直播时长：70分钟</div>
@@ -118,7 +116,8 @@
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card,Image } from "vant";
+import Axios from "axios";
+import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card, Image } from "vant";
 export default {
   name: "Internaltrain",
   components: {
@@ -132,8 +131,11 @@ export default {
   },
   data() {
     return {
+      mydata: [],
+      mydata1:[],
       isshow1: true,
       isshow2: false,
+      liveRadioTypeEnum:"",
       cutnumber: 1,
       images: [
         { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
@@ -142,6 +144,12 @@ export default {
     };
   },
   methods: {
+    //跳转到商品详情页
+    goCommoditysharing: function () {
+      this.$router.push({
+        name: "Commoditysharing",
+      });
+    },
     Livebroadcast: function () {
       this.$router.push({
         name: "Livebroadcast",
@@ -163,6 +171,50 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    //加载商品列表
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z359p_spu";
+      Axios.post(api, {
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //加载首页直播-列表
+    loaddata1: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z366p_liveRadio";
+      Axios.post(api, {
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata1 = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
+    this.loaddata1();
   },
 };
 </script>
@@ -231,6 +283,7 @@ export default {
   line-clamp: 3;
   -webkit-box-orient: vertical;
   color: rgba(155, 155, 155, 1);
+  text-align: left;
 }
 .cardview {
   background-color: #ffffff;
@@ -492,7 +545,7 @@ export default {
   text-align: center;
   background-color: #39a9ed;
 }
-.toptext {
+.toptext3 {
   margin-left: 10px;
 }
 .toptext1 {

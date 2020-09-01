@@ -42,17 +42,17 @@
     </div>
     <div class="middleview-title">
       <div class="middleview-titleview">
-        <div class="middleview-title-item1left">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+        <div class="middleview-title-item1left">{{mydata.spuname}}</div>
         <div class="iconview">
           <i class="iconfont iconfenxiang"></i>
         </div>
       </div>
       <div class="middleview-title2">
         <div class="middleview-title-item2">
-          <div class="middleview-title-item2left">￥1680</div>
-          <div class="middleview-title-item2left2">￥1800</div>
+          <div class="middleview-title-item2left">￥{{mydata.price}}</div>
+          <div class="middleview-title-item2left2">￥{{mydata.originalPrice}}</div>
         </div>
-        <div class="middleview-title-item2right">已售：142</div>
+        <div class="middleview-title-item2right">已售：{{mydata.soldCount}}</div>
       </div>
       <div class="middleview-title3">
         <div class="middleview-title3text">请选择购买数量</div>
@@ -74,12 +74,7 @@
           </ul>
         </div>
       </div>
-      <div class="middleview-title4">
-        侃爷已经错失了很多关键州的投票，其中包括他的家乡伊利诺伊州和第二故乡怀俄明州，
-        威斯康星州尚且摇摆不定。而加利福尼亚、佛罗里达和宾夕法尼亚州，
-        他不是错过了提交报名的截止日期，就是被拒大门外。不过侃爷的名字将出现在阿肯色州、
-        科罗拉多州、俄克拉荷马州、犹他州和佛蒙特州的选票上。
-      </div>
+      <div class="middleview-title4">{{mydata.spuIntro}}</div>
     </div>
     <div style="height:50px"></div>
     <div class="dibu">
@@ -107,6 +102,7 @@
 
 <script>
 import Vue from "vue";
+import Axios from "axios";
 import {
   NavBar,
   Icon,
@@ -130,36 +126,62 @@ export default {
   data() {
     return {
       cutnumber: 1,
+      mydata: {},
     };
   },
   methods: {
     onClickLeft: function () {
       this.$router.go(-1); // 返回
-      //关闭子页面
-      this.$store.state.tagsView.visitedViews.splice(
-        this.$store.state.tagsView.visitedViews.findIndex(
-          (item) => item.path === this.$route.path
-        ),
-        1
-      );
-      this.$router.push(
-        this.$store.state.tagsView.visitedViews[
-          this.$store.state.tagsView.visitedViews.length - 1
-        ].path
-      );
+    },
+    // 减少
+    jianfa: function () {
+      var that = this;
+      console.log("that.cutnumber", that.cutnumber >= 1);
+
+      if (that.cutnumber <= 1) {
+        return;
+      } else {
+        that.cutnumber = that.cutnumber - 1;
+        console.log("that.cutnumber", that.cutnumber);
+      }
+    },
+    // 加法
+    jiafa: function () {
+      var that = this;
+      that.cutnumber = that.cutnumber + 1;
+      console.log("that.cutnumber", that.cutnumber);
     },
     onClickRight: function () {
       Toast("按钮");
     },
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z360v_spu";
+      Axios.post(api, {
+        data: {
+          id: "121212",
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
   },
 };
 </script>
 
 <style scoped>
-.ceshi1-item{
+.ceshi1-item {
   margin: 0px 5px;
 }
-.ceshi1{
+.ceshi1 {
   display: flex;
 }
 .dibu {

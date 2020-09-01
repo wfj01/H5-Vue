@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="pageview">
     <div>
       <van-nav-bar title="我的订单" fixed>
-        <template #left  >
-          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()"/>
+        <template #left>
+          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
         </template>
         <template #right>
           <van-icon name="weapp-nav" size="18" color="#000" />
@@ -12,49 +12,51 @@
     </div>
     <div style="height:46px"></div>
     <div>
-      <van-tabs v-model="active" swipeable>
+      <van-tabs v-model="active" swipeable color="#F6B900">
         <van-tab v-for="(item,index) in tabslist" :key="index">
           <template #title>{{item.title}}</template>
           <!-- 内容 {{ item.index }} -->
           <div>
             <div class="item" v-if="item.index == 0">
               <div class="itembox">
-                <div class="topview">
-                  <div class="topview-left">共1件商品 实付款:￥168</div>
-                  <div class="topview-right">待收货</div>
-                </div>
-                <div class="shoppingbox">
-                  <div
-                    class="shoppingview"
-                    v-for="(item,index) in 2"
-                    v-bind:key="index"
-                    @click="orderdetail()"
-                  >
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
-                      </div>
-                      <div class="shoppingview-itemright">
-                        <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                        <div class="leixingview">
-                          <div class="leixing1">粉色</div>
-                          <div class="leixing1">大尺寸</div>
+                <div class="itembox">
+                  <div class="topview">
+                    <div class="topview-left">共1件商品 实付款:￥168</div>
+                    <div class="topview-right">待收货</div>
+                  </div>
+                  <div class="shoppingbox">
+                    <div
+                      class="shoppingview"
+                      v-for="(item,index) in 2"
+                      v-bind:key="index"
+                      @click="orderdetail()"
+                    >
+                      <div class="shoppingview-item">
+                        <div class="shoppingview-itemleft">
+                          <img
+                            class="shoppingview-itemleftimage"
+                            src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                            alt
+                          />
                         </div>
-                        <div class="shoppingview-itemright-middleview">
-                          <div class="shoppingview-itemright-middleview-left">￥168</div>
-                          <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                        <div class="shoppingview-itemright">
+                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                          <div class="leixingview">
+                            <div class="leixing1">粉色</div>
+                            <div class="leixing1">大尺寸</div>
+                          </div>
+                          <div class="shoppingview-itemright-middleview">
+                            <div class="shoppingview-itemright-middleview-left">￥168</div>
+                            <div class="shoppingview-itemright-middleview-right">数量 x1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="middleviewbtn">
-                  <div class="middleviewbtn-btn1">取消订单</div>
-                  <div class="middleviewbtn-btn2">立即支付</div>
+                  <div class="middleviewbtn">
+                    <div class="middleviewbtn-btn1">取消订单</div>
+                    <div class="middleviewbtn-btn2" @click="orderdetail()">立即支付</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -261,7 +263,7 @@ export default {
   },
   methods: {
     onClickLeft: function () {
-      console.log("妈的")
+      console.log("妈的");
       this.$router.go(-1); // 返回
       //关闭子页面
       this.$store.state.tagsView.visitedViews.splice(
@@ -292,9 +294,21 @@ export default {
 </script>
 
 <style scoped>
+.itembox {
+  width: 100%;
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 11px;
+
+  box-sizing: border-box;
+}
+.pageview {
+  background: #f4f4f4;
+  height: 100vh;
+}
 .middleviewbtn {
   justify-content: end;
-  padding: 15px 0px;
+  padding: 5px 0px;
   display: -webkit-box;
 }
 .middleviewbtn-btn1 {
@@ -303,7 +317,7 @@ export default {
   line-height: 35px;
   border-radius: 50px;
   background-color: rgba(255, 0, 0, 0);
-  color: rgba(136, 136, 136, 1);
+  color: #000000;
   font-size: 14px;
   text-align: center;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
@@ -316,9 +330,11 @@ export default {
   height: 35px;
   line-height: 35px;
   border-radius: 50px;
-  background-color: rgba(132, 68, 4, 1);
-  color: rgba(255, 255, 255, 1);
-  font-size: 14px;
+  background-color: #ffe231;
+  color: #000000;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  font-size: 16px;
   text-align: center;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
   font-family: Arial;
@@ -332,10 +348,9 @@ export default {
 .leixing1 {
   margin-left: 2px;
   margin-right: 2px;
-  width: 50px;
+  width: 40px;
   line-height: 20px;
   border-radius: 1px;
-  background-color: rgba(242, 242, 242, 1);
   color: rgba(136, 136, 136, 1);
   font-size: 12px;
   text-align: center;
@@ -343,9 +358,6 @@ export default {
   font-family: Arial;
 }
 .shoppingbox {
-  border: 1px solid #eeeeee;
-  background-color: #fafafa;
-  padding: 5px 10px;
   box-sizing: border-box;
 }
 .shoppingview-itemright {
@@ -389,18 +401,14 @@ export default {
 }
 .shoppingview {
   padding: 10px 0px;
-  border-bottom: 1px solid #f2f2f2;
 }
 .shoppingview-item {
   display: flex;
   justify-content: space-between;
 }
 .item {
-  padding: 0px 15px;
+  padding: 10px;
   box-sizing: border-box;
-}
-.itembox {
-  width: 100%;
 }
 .topview {
   display: flex;
@@ -415,9 +423,10 @@ export default {
 }
 .topview-right {
   line-height: 40px;
-  color: rgba(132, 68, 4, 1);
+  color: #1c69d4;
   font-size: 14px;
   text-align: right;
-  font-family: Arial;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
 }
 </style>
