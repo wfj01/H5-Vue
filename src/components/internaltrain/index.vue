@@ -1,89 +1,129 @@
 <template>
   <div class="pageview">
-    <div>
-      <van-nav-bar title="铁碧图旗舰店" fixed>
-        <template #right>
-          <van-icon name="weapp-nav" size="18" color="#000" />
-        </template>
-      </van-nav-bar>
-    </div>
-    <div style="height:46px"></div>
     <div class="topname">
-      <div>
-        <img width="60px" height="60px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <div style="display: flex;justify-content: flex-start;">
+        <div class="topname-text1">优家美乐管</div>
+        <div style="line-height:45px;margin-left: 5px;">
+          <img src="../../assets/image/多边形 13.png" alt style="width: 16px;height: 12px;" />
+        </div>
       </div>
-      <div class="toptext11">
-        <div class="toptext1">收藏量：8950</div>
-        <div class="toptext2">+收藏</div>
+      <div style="padding-top: 6px;">
+        <img
+          src="../../assets/image/组 441.png"
+          alt
+          style="width: 39px;height: 39px;line-height:45px;"
+        />
+        <img
+          src="../../assets/image/组 442.png"
+          alt
+          style="width: 39px;height: 39px;line-height:45px;"
+        />
+        <img
+          src="../../assets/image/组 443.png"
+          alt
+          style="width: 39px;height: 39px;line-height:45px;"
+        />
       </div>
     </div>
     <div>
-      <van-swipe class="my-swipe">
-        <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/2020/0101/ed53728a0593fca90d434019c9b9be23.jpg"
-          />
-        </van-swipe-item>
-        <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/2019/0810/f88bf86d458da9da292984d9bc669990.jpg"
-          />
-        </van-swipe-item>
-        <van-swipe-item class="swipeitemstyle">
+      <div class="imagestylebox">
+        <van-swipe class="my-swipe">
+          <van-swipe-item class="swipeitemstyle">
+            <img
+              class="imagestyle"
+              src="../../assets/image/boy singing on microphone with pop filter.png"
+            />
+          </van-swipe-item>
+          <van-swipe-item class="swipeitemstyle">
+            <img
+              class="imagestyle"
+              src="../../assets/image/boy singing on microphone with pop filter.png"
+            />
+          </van-swipe-item>
+          <van-swipe-item class="swipeitemstyle">
+            <img
+              class="imagestyle"
+              src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
+            />
+          </van-swipe-item>
+        </van-swipe>
+      </div>
+    </div>
+    <div class="middleview1">
+      <div class="parentWrap">
+        <div class="parent">
+          <div class="child">
+            <img src="../../assets/image/入职审批.png" alt style="width: 28px;height: 28px;" />
+            <div class="xuanzhongziti">入职员工</div>
+          </div>
+          <div class="child">
+            <img src="../../assets/image/管理 (2).png" alt style="width: 28px;height: 28px;" />
+            <div class="xuanzhongziti1">管理层</div>
+          </div>
+          <div class="child">
+            <img src="../../assets/image/行政班课程(1).png" alt style="width: 28px;height: 28px;" />
+            <div class="xuanzhongziti1">魔方课程</div>
+          </div>
+          <div class="child">
+            <img src="../../assets/image/行政班课程(1).png" alt style="width: 28px;height: 28px;" />
+            <div class="xuanzhongziti1">线上课程</div>
+          </div>
+          <div class="child borderleft">
+            <img src="../../assets/image/组 444.png" alt style="width: 28px;height: 28px;" />
+            <div class="xuanzhongziti">分享</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="middleview2">
+      <div :class="isshow1 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowa()">图文信息</div>
+      <div :class="isshow2 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowb()">内训直播</div>
+    </div>
+    <div v-if="isshow1">
+      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()">
+        <div class="imagestylebox">
           <img
             class="imagestyle"
             src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
           />
-        </van-swipe-item>
-        <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/20140715/bd5d9194b9c2f87302e9bf0b62da50c7.jpg"
-          />
-        </van-swipe-item>
-      </van-swipe>
-    </div>
-    <div class="middleview1">
-      <div class="yuan1">入职员工</div>
-      <div class="yuan2">管理层</div>
-      <div class="yuan2">魔方课程</div>
-      <div class="yuan2">线上课程</div>
-      <van-icon name="share" size="26px" class="share" />
-    </div>
-    <div class="middleview2">
-      <div :class="isshow1 ? 'middleview2-btn1' : 'middleview2-btn2'" @click="isshowa()">图文信息</div>
-      <div :class="isshow2 ? 'middleview2-btn1' : 'middleview2-btn2'" @click="isshowb()">内训直播</div>
-    </div>
-    <div v-if="isshow1">
-      <van-card
-        class="cardview"
-        :class="(index+1) == 2 ? '':'cardview-bottom'"
-        thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-        v-for="(item,index) in 2"
-        :key="index"
-        @click="EntrystaffDetail()"
-      >
-        <template #title>
-          <div class="toptext">店铺介绍</div>
-        </template>
-        <template #tags>
-          <div class="middletext">
-            店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
-            介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+        </div>
+        <div style="padding-bottom: 10px;">
+          <div
+            style="display: flex;justify-content: space-between;padding: 5px 12px;box-sizing: border-box;"
+          >
+            <div class="itemtitle">名称标题名称</div>
+            <div>
+              <img
+                src="../../assets/image/组 379.png"
+                alt
+                style="width: 20px;height: 20px; margin:0px 3px"
+              />
+              <img
+                src="../../assets/image/组 380.png"
+                alt
+                style="width: 20px;height: 20px; margin:0px 3px"
+              />
+              <img
+                src="../../assets/image/组 381.png"
+                alt
+                style="width: 20px;height: 20px; margin:0px 3px"
+              />
+            </div>
           </div>
-          <div style="text-align: right;">
-            <van-icon name="star" size="18px" />
-            <van-icon name="share" size="18px" class="share" />
+          <div class="itemtext" style>
+            课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课
+            课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课
           </div>
-        </template>
-      </van-card>
+        </div>
+      </div>
     </div>
     <div v-if="isshow2" class="videoceshi">
       <div v-for="(item,index) in 3" :key="index" @click="Livebroadcast()">
-        <div class="topvideo">
-          <div class="topview-shuliang">已结束</div>
+        <div
+          class="topvideo note"
+          :style="note"
+        >
+          <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
         </div>
         <div class="video-middleview">
           <div class="video-middleview-text1">课程直播视频名称名称</div>
@@ -101,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div style="height:60px;background: #F2F2F2;"></div>
+    <div style="height:10px;background: #F2F2F2;"></div>
   </div>
 </template>
 
@@ -129,6 +169,12 @@ export default {
         { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
         { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
       ],
+      note: {
+        backgroundImage: "url(" + require('../../assets/image/ceshi.jpg') + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "25px auto",
+        marginTop: "5px",
+      },
     };
   },
   methods: {
@@ -165,11 +211,80 @@ export default {
 </script>
 
 <style scoped>
-.pageview {
+.itemtext {
+  padding: 0px 12px;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #c3c6d1;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.itemtitle {
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #141821;
+}
+.borderleft {
+  border-left: 1px solid #ffe231;
+}
+.xuanzhongziti {
+  font-size: 13px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #141821;
+  text-align: center;
+}
+.xuanzhongziti1 {
+  font-size: 13px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #c3c6d1;
+  text-align: center;
+}
+body,
+p {
+  margin: 0;
+}
+.parentWrap {
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+.parent {
+  font-size: 0;
+  margin-right: -20px;
+  overflow: hidden;
+}
+.child {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+  padding-right: 15px;
+  box-sizing: border-box;
+  background-clip: content-box;
+  font-size: 16px;
+}
+.imagestylebox {
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+.topname-text1 {
+  font-size: 22px;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #141821;
+  line-height: 48px;
+  text-align: left;
 }
 .topview-shuliang {
   float: right;
-  border: 1px solid red;
   right: 0px;
   top: 0px;
   z-index: 100;
@@ -182,17 +297,12 @@ export default {
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  margin-right: 20px;
-  margin-top: 10px;
-  border: 1px solid rgba(255, 255, 255, 0);
 }
 .topvideo {
   width: 100%;
   height: 150px;
   line-height: 20px;
-  background-color: rgba(21, 8, 9, 0.57);
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0);
 }
 /*左上角标签，父元素必须设置position: relative;overflow: hidden;height: 大于150;width: 大于150px;，同时，角标标签内加入属性superscript-title="左上角标签文字内容"*/
 .subscript:after {
@@ -266,6 +376,7 @@ export default {
 .imagestyle {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
 }
 .videoceshi {
   margin: 10px 0px;
@@ -319,9 +430,7 @@ export default {
   width: 100%;
   height: 150px;
   line-height: 20px;
-  background-color: rgba(21, 8, 9, 0.57);
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0);
 }
 .share {
   margin-left: 10px;
@@ -363,23 +472,24 @@ export default {
   width: 147px;
   height: 36px;
   line-height: 36px;
-  background-color: rgba(132, 68, 4, 1);
-  color: rgba(255, 255, 255, 1);
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 30px;
+  border: 2px solid #c3c6d1;
+  color: #141821;
 }
 .middleview2-btn2 {
   width: 147px;
   height: 36px;
   line-height: 36px;
-  background-color: rgba(255, 255, 255, 0);
-  color: rgba(0, 0, 0, 1);
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
+  border-radius: 30px;
+  background: #ffe231;
+  color: #141821;
+  border: 2px solid #ffe231;
 }
 .middleview2 {
   padding: 10px 25px;
@@ -429,6 +539,7 @@ export default {
   line-height: 150px;
   text-align: center;
   background-color: #39a9ed;
+  border-radius: 15px;
 }
 .toptext1 {
   height: 20px;
@@ -449,11 +560,10 @@ export default {
   margin-top: 15px;
 }
 .topname {
-  padding: 15px;
+  padding: 6px 12px;
   box-sizing: border-box;
   width: 100%;
-  height: 90px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 }
 </style>

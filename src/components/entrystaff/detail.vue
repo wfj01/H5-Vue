@@ -21,33 +21,29 @@
           <div class="share1">阅读量: 4842</div>
         </div>
         <div>
-          <van-icon name="star" size="18px" />
-          <van-icon name="share" size="18px" class="share" />
+          <img
+            src="../../assets/image/组 381.png"
+            alt
+            style="width: 20px;height: 20px; margin:0px 3px"
+          />
+          <img
+            src="../../assets/image/组 380.png"
+            alt
+            style="width: 20px;height: 20px; margin:0px 3px"
+          />
         </div>
       </div>
       <div
         class="jianjie"
-      >简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容</div>
+      >时下，老年人保健主要是药物、健身，很少有人考虑心理健康问题。但现实生活中很多老年人由于长期缺乏与人沟通，易产生孤独、自尊感不强和老而无用的感觉，牢骚越多越影响心理健康，也不懂得如何调整自己的心态。</div>
     </div>
     <div class="middleview2">
-      <p
-        class="ptext"
-      >该试点项目于今年5月获得美国环境保护署(EPA)的批准，旨在测试转基因蚊子能否替代喷洒杀虫剂的替代品，来控制埃及伊蚊。现在地方当局已经给予了该计划所需的最终许可。</p>
-      <div class="round_iconview">
-        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
-      </div>
-      <p
-        class="ptext"
-      >该试点项目于今年5月获得美国环境保护署(EPA)的批准，旨在测试转基因蚊子能否替代喷洒杀虫剂的替代品，来控制埃及伊蚊。现在地方当局已经给予了该计划所需的最终许可。</p>
-      <div class="round_iconview">
-        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
-      </div>
-      <p
-        class="ptext"
-      >该试点项目于今年5月获得美国环境保护署(EPA)的批准，旨在测试转基因蚊子能否替代喷洒杀虫剂的替代品，来控制埃及伊蚊。现在地方当局已经给予了该计划所需的最终许可。</p>
-      <div class="round_iconview">
-        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
-      </div>
+      改善老年痴呆的食物 穴位按摩方法介绍·年龄愈增长性爱更美好·秋天出汗别太多·便秘会对老年人的健康危害
+      如何预防·老年人入秋后应防止受凉·老年人应多防范登革热·煮茶比泡茶更防癌·古稀老人想过性生活·平常心态 养生怡然·老年人牙齿问题及对策·脊柱保健新方法·
+      老年心绞痛的表现特点·平底鞋有碍老年人健康·某些葡萄汁可预防心脏病·老人腿脚受凉会导致的疾病·老年人流感
+      肺炎要一起防·老人外地旅游保健常识·老人白天嗜睡应尽快做检查·做这些事儿让你人老脑不老·老年人锻炼 专家推荐的运动方式是快步走·中老年男性
+      应常吃能促进雄激素的食物·皮肤干燥瘙痒的防护·吃烧烤会加速人体老化·看脚知寿命长短·多饮水防治心脑血管病·老年人做哪些身体检查项目·老人怎么样运
+      动更健康·6个能增寿的小动作·老人冬天应 早睡晚起·预防冠心病的对策大公开·平均寿命的性别差距正逐渐缩小。
     </div>
     <div class="bottom">
       <div class="bottom-l1">
@@ -124,7 +120,10 @@ export default {
 }
 .middleview2 {
   padding: 0px 15px;
+  color: #333333;
+  font-size: 15px;
   box-sizing: border-box;
+  text-align: left;
 }
 .ptext {
   line-height: 26px;
@@ -140,11 +139,10 @@ export default {
   text-align: center;
 }
 .jianjie {
-  color: rgba(134, 134, 134, 1);
+  color: #999999;
   font-size: 14px;
   text-align: left;
   font-family: Arial-regular;
-  text-indent: 2em;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -170,7 +168,7 @@ export default {
   margin-left: 10px;
 }
 .middview1 {
-  padding: 15px 20px;
+  padding: 12px 14px;
   box-sizing: border-box;
 }
 .topview {
