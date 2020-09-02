@@ -48,7 +48,7 @@ const routes = [
   },
   //主页
   {
-    path: '/',
+    path: '/Index',
     name: 'Index',
     component: Index,
     meta: {

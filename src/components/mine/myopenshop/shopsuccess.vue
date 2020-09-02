@@ -13,17 +13,21 @@
     <div style="height:46px"></div>
     <div class="page">
       <div class="topview">
-        <van-uploader v-model="fileList" multiple max-count="1" class="image" />
         <div class="topview-text">设置你的店铺名称</div>
       </div>
-      <div class="name">
-        <input placeholder="你的店铺名称" class="inputstyle" />
+      <div class="topview1-right">
+        <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
       </div>
-      <div class="name">
-        <textarea placeholder="描述下你的店铺" class="inputstyle textarea" />
-      </div>
-      <div class="name1">
-        <div class="savebtn">保 存</div>
+      <div class="middleviewbox">
+        <div class="name">
+          <input placeholder="店铺名称" class="inputstyle" />
+        </div>
+        <div class="name">
+          <textarea placeholder="请描述下你的店铺" class="inputstyle1" />
+        </div>
+        <div class="name1">
+          <div class="savebtn">保 存</div>
+        </div>
       </div>
     </div>
   </div>
@@ -73,16 +77,54 @@ export default {
 </script>
 
 <style scoped>
+.middleviewbox {
+  padding: 15px;
+  box-sizing: border-box;
+  top: -20px;
+  position: relative;
+}
+.pageview {
+  background: #ffffff;
+  height: 100vh;
+}
+.round_icon {
+  width: 5rem;
+  position: relative;
+  height: 5rem;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  box-shadow: 0 0 0 2px #ececec, 0 0 0 3px rgba(0, 0, 0, 0.4);
+  top: -42px;
+}
+.xuanfu {
+  position: relative;
+  top: -100px;
+  left: 33px;
+  width: 700px;
+  height: 200px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0px 1px 1px 1px #85e9c4;
+  border-radius: 20px;
+}
+.topbackGroup {
+  width: 750px;
+  height: 270px;
+  background: #26c68a;
+  overflow: hidden;
+}
 .savebtn {
   width: 100%;
   height: 100%;
-  background-color: #cccccc;
-  line-height: 40px;
+  line-height: 50px;
   text-align: center;
-  border-radius: 8px;
+  background: #ffe231;
+  border-radius: 30px;
 }
 .page {
-  background-color: #eeeeee;
+  background-color: #ffffff;
   height: 100vh;
 }
 .inputstyle {
@@ -92,30 +134,55 @@ export default {
   background-color: #ffffff;
   height: 35px;
   width: 100%;
+  text-align: center;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #858997;
+  line-height: 24px;
+  font-size: 18px;
+}
+.inputstyle1 {
+  margin-top: 5px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0px 0px 0px 0px;
+  background: #f6f7f8;
+  border-radius: 15px;
+  height: 38px;
+  width: 100%;
+  text-align: center;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #ced0d9;
+  line-height: 32px;
+  font-size: 16px;
 }
 .textarea {
   height: 120px;
 }
 .name {
-  margin: 10px 0px;
-  padding: 10px;
+  top: -30px;
   box-sizing: border-box;
   background-color: #ffffff;
+  position: relative;
 }
 .name1 {
   margin: 10px 0px;
-  padding: 10px;
+  padding: 10px 50px;
   box-sizing: border-box;
 }
 .topview {
-  background-color: #eeeeee;
+  background-color: #ffe231;
   text-align: center;
   padding-bottom: 20px;
   padding-top: 10px;
+  height: 90px;
 }
 .topview-text {
   color: rgba(155, 155, 155, 1);
-  font-size: 12px;
+  font-size: 16px;
   font-family: PingFangSC-regular;
+  line-height: 70px;
+  color: #ffffff;
 }
 </style>

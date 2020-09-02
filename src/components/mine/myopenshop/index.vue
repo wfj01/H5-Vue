@@ -18,13 +18,13 @@
           <div class="item-box" v-for="(item,index) in 3" :key="index">
             <div class="item">
               <div class="item-left">
-                <div>1</div>
+                <div>{{index+1}}</div>
                 <div class="item-left-righttext">冰水之家水果冰水之家水果园冰水之家水果园</div>
               </div>
               <div class="item-right" @click="openConfirm()">
                 <div>未赠送</div>
-                <div>
-                  <van-icon name="arrow" size="22px" color="#101010" />
+                <div style="margin-left:10px">
+                  <van-icon name="arrow" size="19px" color="#999999" style="padding-top:2px" />
                 </div>
               </div>
             </div>
@@ -44,13 +44,23 @@
                 style="width: 100%;height: 100%;"
                 @click="Setmealdetail()"
               />
+              <img
+                src="../../../assets/weixuanze.png"
+                alt
+                style="position: relative;top: -100px;right: -130px;width: 25px;height: 25px;"
+              />
             </div>
-            <div>
+            <div style="margin-top:5px">
               <img
                 src="../../../assets/495.png"
                 alt
                 style="width: 100%;height: 100%;"
                 @click="Setmealdetail()"
+              />
+              <img
+                src="../../../assets/xuanze.png"
+                alt
+                style="position: relative;top: -100px;right: -130px;width: 25px;height: 25px;"
               />
             </div>
           </div>
@@ -358,19 +368,24 @@ button {
 
 /* 确认弹框 end */
 .bottomview {
-  padding: 0px 20px 10px 20px;
+  padding: 0px 20px 30px 20px;
   box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .bottombtn {
   height: 40px;
   line-height: 40px;
   text-align: center;
   border-radius: 7px 7px 7px 7px;
-  background-color: rgba(132, 68, 4, 1);
-  color: rgba(255, 255, 255, 1);
+  background: #ffe231;
+  color: #000000;
+  font-weight: bold;
   font-size: 14px;
   box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0);
   font-family: Arial;
+  border-radius: 25px;
 }
 .waibianju {
   margin-top: 10px;
@@ -433,22 +448,25 @@ button {
   flex: 1;
   width: 120px;
   margin-left: 15px;
+  color: #262626;
 }
 .item-left {
   display: flex;
   justify-content: start;
+  color: #262626;
+  font-weight: bold;
 }
 .item-right {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 80px;
+  color: #999999;
 }
 .item {
   line-height: 25px;
-  padding: 8px;
+  padding: 3px 8px;
   box-sizing: border-box;
   width: 100%;
-  border-bottom: 1px solid #bbbbbb;
   font-size: 11px;
 }
 .item-box {
@@ -461,9 +479,10 @@ button {
   padding: 5px 20px;
   box-sizing: border-box;
   line-height: 20px;
-  color: rgba(45, 45, 45, 1);
-  font-size: 13px;
+  color: #262626;
+  font-size: 15px;
   text-align: left;
+  font-weight: bold;
   font-family: PingFangSC-regular;
 }
 </style>

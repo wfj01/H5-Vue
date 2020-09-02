@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <keep-alive>
     <router-view />
+    </keep-alive>
     <van-tabbar   v-show="$route.meta.showTabbar"  placeholder  route v-model="active"  active-color="#07c160" inactive-color="#000">
     <van-tabbar-item name="friends"  icon="friends-o" to='/Internaltrain'>内训</van-tabbar-item>
     <van-tabbar-item name="home" icon="wap-home-o" to='/Index'>主页</van-tabbar-item>
@@ -22,7 +24,10 @@ export default {
     return{
       active:'home'
     }
-  }
+  },
+  activated: function() {
+　　　　this.getCase()
+　　}
 };
 </script>
 

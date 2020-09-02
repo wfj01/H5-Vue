@@ -297,7 +297,6 @@ export default {
           this.$store.state.tagsView.visitedViews.length - 1
         ].path
       );
-
       Toast("返回");
     },
     onClickRight: function () {
@@ -427,7 +426,6 @@ export default {
   font-family: PingFangSC-regular;
   font-weight: bold;
 }
-
 .shoppingview-itemleft {
   width: 100px;
 }

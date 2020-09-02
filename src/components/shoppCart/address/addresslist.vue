@@ -11,16 +11,34 @@
       </van-nav-bar>
     </div>
     <div style="height:46px"></div>
-    <div>
-      <van-address-list
-        v-model="chosenAddressId"
-        :list="list"
-        default-tag-text="默认"
-        @add="onAdd"
-        @edit="onEdit"
-        add-button-text="新增收货地址"
-        class="ceshi"
-      />
+    <div
+      style="display: flex;justify-content: flex-start;padding: 5px 13px;"
+      v-for="(item,index) in 3"
+      :key="index"
+    >
+      <div class="leftview">
+        <img src="../../../assets/weixuanzhong1.png" class="leftview-icon" alt />
+      </div>
+      <div>
+        <div style="display: flex;justify-content: space-between;color: #4D4D4D;font-size: 14px;">
+          <div style="font-weight: bold;">收货人：马少杰</div>
+          <div style="display: flex;justify-content: space-between;line-height:19px">
+            <div style="font-weight: bold;">18618161816</div>
+            <van-icon
+              name="arrow"
+              size="16px"
+              color="#000000"
+              style="line-height:19px;margin-left:5px;font-weight: bold;"
+            />
+          </div>
+        </div>
+        <div
+          style="text-align: left;font-family: PingFangSC-Regular, PingFang SC;font-weight: 400;color: #999999;/* line-height: 34px; */font-size: 14px;margin-top: 5px; font-size: 12px;"
+        >北京-北京市-通州区临河里路，华业东方玫瑰，D区D2，2单元604</div>
+      </div>
+    </div>
+    <div class="middleviewbtn" @click="onAdd()">
+      <div class="middleviewbtnbox">新增收获地址</div>
     </div>
   </div>
 </template>
@@ -105,6 +123,35 @@ export default {
 </script>
 
 <style scoped>
+.middleviewbtnbox {
+  background: #ffe231;
+  width: 100%;
+  border-radius: 50px;
+  line-height: 35px;
+  font-weight: bold;
+}
+.middleviewbtn {
+  justify-content: end;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  display: -webkit-box;
+  left: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background: #ffffff;
+}
+.leftview {
+  margin-right: 8px;
+  line-height: 66px;
+}
+.leftview-icon {
+  width: 20px;
+  font-size: 20px;
+  /* line-height: 90px; */
+  color: #4a90e2;
+}
 .ceshi {
   font-size: 16px;
 }

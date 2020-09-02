@@ -3,7 +3,7 @@
     <div>
       <van-nav-bar title="套餐详情" fixed>
         <template #left @click="onClickLeft()">
-          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()"/>
+          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
         </template>
         <template #right>
           <van-icon name="weapp-nav" size="18" color="#000" />
@@ -11,7 +11,11 @@
       </van-nav-bar>
     </div>
     <div style="height:46px"></div>
-
+    <div class="imgstyle">
+      <div class="imgstylebox">
+        <img src="../../../assets/qiye.png" alt style="width: 100%;height: 100%;" />
+      </div>
+    </div>
     <div class="middleview">
       <div class="middleview1">
         <div class="middleview1-toptitle">请选择套餐类型</div>
@@ -21,7 +25,7 @@
             <div class="item">
               <div class="item-left">
                 <div class="item-left-lefttext">
-                  <van-icon name="passed" size="18px" />
+                  <img src="../../../assets/weixuanze.png" alt style="width: 20px;height: 20px;" />
                 </div>
                 <div class="item-left-righttext">1-10人</div>
               </div>
@@ -31,12 +35,18 @@
         </div>
       </div>
     </div>
-    <div class="fixed">
-      <div class="fixedbox">
+    <div class="bottomview" @click="lastBtn()">
+      <div class="bottomviewbox">
         <div class="fixed-lefttext">合计：￥4680</div>
-        <div class="fix-button">结算(2)</div>
+        <div class="fix-button">结算</div>
       </div>
+      <!-- <div class="bottombtn">下 一 步</div> -->
     </div>
+    <!-- <div class="fixed">
+      <div class="fixedbox">
+       
+      </div>
+    </div>-->
   </div>
 </template>
 
@@ -80,24 +90,67 @@ export default {
 </script>
 
 <style scoped>
+.imgstyle {
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+.imgstylebox {
+  width: 100%;
+  height: 100%;
+}
+/* 确认弹框 end */
+.bottomview {
+  padding: 0px 20px 30px 20px;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.bottomviewbox {
+  background: #ffe231;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.bottombtn {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 7px 7px 7px 7px;
+  background: #ffe231;
+  color: #000000;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0);
+  font-family: Arial;
+  border-radius: 25px;
+}
 .fix-button {
   width: 105px;
   height: 40px;
   line-height: 40px;
-  background-color: rgba(132, 68, 4, 1);
-  color: rgba(255, 255, 255, 1);
-  font-size: 14px;
+  background: #ffffff;
+  border-radius: 20px;
+  font-size: 16px;
   text-align: center;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
-  font-family: Arial;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  font-weight: bold;
 }
 .fixed-lefttext {
   width: 105px;
   height: 45px;
   line-height: 45px;
-  color: rgba(51, 51, 51, 1);
-  font-size: 14px;
+  color:#000000;
+  font-size: 16px;
   font-family: PingFangSC-regular;
+  font-weight: bold;
 }
 .fixed {
   position: absolute;
@@ -112,6 +165,10 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #ffe231;
+  border-radius: 50px;
   justify-content: space-between;
 }
 .itembox {
@@ -130,7 +187,7 @@ export default {
   justify-content: start;
 }
 .item-right {
-  color: rgba(51, 51, 51, 1);
+  color: #000000;
   font-size: 14px;
   text-align: right;
   font-family: PingFangSC-regular;
@@ -151,7 +208,7 @@ export default {
 }
 .item-left-righttext {
   margin-left: 10px;
-  color: rgba(51, 51, 51, 1);
+  color: #000000;
   font-size: 14px;
   text-align: right;
   font-family: PingFangSC-regular;

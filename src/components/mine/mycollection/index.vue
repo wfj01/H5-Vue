@@ -11,133 +11,146 @@
         </template>
       </van-nav-bar>
     </div>
-    <div class="topview">
-      <van-search
-        v-model="value"
-        shape="round"
-        show-action
-        placeholder="请输入搜索关键词"
-      >
-        <template #action>
-          <div>搜索</div>
-        </template>
-      </van-search>
-    </div>
-    <div>
-      <van-tabs v-model="active" swipeable @change="selectchange($event)">
-        <van-tab v-for="(item,index) in itemlist" :key="index" background="#844404" >
-          <template #title>{{item.name}}</template>
-          <div v-if="item.index == 0">
-            <van-card
-              class="cardview"
-              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-              v-for="(item,index) in 2"
-              :key="index"
-            >
-              <template #title>
-                <div class="toptext">店铺介绍</div>
-              </template>
-              <template #tags>
-                <div class="middletext">
-                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
-                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
-                </div>
-              </template>
-              <template #footer>
-                <van-icon name="star" size="18px" />
-                <van-icon name="share" size="18px" class="share" />
-              </template>
-            </van-card>
-            <div class="kongview">
-              <div class="kongview-text">没有更多数据</div>
-            </div>
-          </div>
-          <div v-if="item.index == 1">
-            <van-card
-              class="cardview"
-              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-              v-for="(item,index) in 2"
-              :key="index"
-            >
-              <template #title>
-                <div class="toptext">分类名称—店铺名称</div>
-              </template>
-              <template #tags>
-                <div class="middletext">
-                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
-                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
-                </div>
-              </template>
-              <template #footer>
-                <van-icon name="star" size="18px" />
-                <van-icon name="share" size="18px" class="share" />
-              </template>
-            </van-card>
-            <div class="kongview">
-              <div class="kongview-text">没有更多数据</div>
-            </div>
-          </div>
-          <div v-if="item.index == 2">
-            <van-card
-              class="cardview"
-              thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-              v-for="(item,index) in 2"
-              :key="index"
-            >
-              <template #title>
-                <div class="toptext">分类名称—店铺名称</div>
-              </template>
-              <template #tags>
-                <div class="middletext">
-                  店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
-                  介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
-                </div>
-              </template>
-              <template #footer>
-                <div class="ceshi">
-                  <div class="ceshi1">
-                    <div class="ceshi1">
-                      <div class="ceshi1-text">现价：</div>
-                      <div class="ceshi1-text1">9.9</div>
+    <div style="height:46px"></div>
+    <div class="pageview">
+      <div class="topview">
+        <van-search v-model="value" shape="round" show-action placeholder="请输入搜索关键词">
+          <template #action>
+            <div>搜索</div>
+          </template>
+        </van-search>
+      </div>
+      <div>
+        <van-tabs v-model="active" swipeable @change="selectchange($event)">
+          <van-tab v-for="(item,index) in itemlist" :key="index" background="#844404">
+            <template #title>{{item.name}}</template>
+            <div v-if="item.index == 0">
+              <div style="margin-top: 15px;background: #FFFFFF;">
+                <van-card
+                  class="cardview"
+                  thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+                  v-for="(item,index) in 2"
+                  :key="index"
+                >
+                  <template #title>
+                    <div class="toptext">店铺介绍</div>
+                  </template>
+                  <template #tags style="margin-top:5px">
+                    <div class="middletext">
+                      店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                      介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
                     </div>
-                    <div class="ceshi1 marginleft">
-                      <div class="ceshi1-text">原价：</div>
-                      <div class="ceshi1-text ceshi1-text2">19.9</div>
+                    <div style="justify-content: flex-end;display: flex;">
+                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/380.png"
+                        alt
+                        style="width: 20px;height: 20px;margin-left:10px"
+                      />
                     </div>
-                  </div>
-                  <div>
-                    <van-icon name="star" size="18px" />
-                    <van-icon name="share" size="18px" class="share" />
-                  </div>
-                </div>
-              </template>
-            </van-card>
-            <div class="kongview">
-              <div class="kongview-text">没有更多数据</div>
-            </div>
-          </div>
-          <div v-if="item.index == 3">
-            <div class="topvideo"></div>
-            <div class="video-middleview">
-              <div class="video-middleview-text1">课程直播视频名称名称</div>
-              <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
-              <div class="video-middleview-fenlei">
-                <div>
-                  <div class="video-middleview-text3">直播时长：70分钟</div>
-                  <div class="video-middleview-text4">开始时间：2020-05-31 20:30</div>
-                </div>
-                <div class="video-middleview-fenlei-right">
-                  <van-icon name="star" size="20px" />
-                  <van-icon name="share" size="20px" class="share" />
-                </div>
+                  </template>
+                </van-card>
+              </div>
+              <div class="kongview">
+                <div class="kongview-text">没有更多数据</div>
               </div>
             </div>
-            <div class="kongview">
-              <div class="kongview-text">没有更多数据</div>
+            <div v-if="item.index == 1">
+              <div style="margin-top: 15px;background: #FFFFFF;">
+                <van-card
+                  class="cardview"
+                  thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+                  v-for="(item,index) in 2"
+                  :key="index"
+                >
+                  <template #title>
+                    <div class="toptext">分类名称—店铺名称</div>
+                  </template>
+                  <template #tags>
+                    <div class="middletext">
+                      店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                      介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+                    </div>
+                    <div style="justify-content: flex-end;display: flex;">
+                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/380.png"
+                        alt
+                        style="width: 20px;height: 20px;margin-left:10px"
+                      />
+                    </div>
+                  </template>
+                </van-card>
+              </div>
+              <div class="kongview">
+                <div class="kongview-text">没有更多数据</div>
+              </div>
             </div>
-          </div>
-        </van-tab>
-      </van-tabs>
+            <div v-if="item.index == 2">
+              <div style="margin-top: 15px;background: #FFFFFF;">
+                <van-card
+                  class="cardview"
+                  thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+                  v-for="(item,index) in 2"
+                  :key="index"
+                >
+                  <template #title>
+                    <div class="toptext">分类名称—店铺名称</div>
+                  </template>
+                  <template #tags>
+                    <div class="middletext">
+                      店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺
+                      介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
+                    </div>
+                    <div style="justify-content: flex-end;display: flex;">
+                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/380.png"
+                        alt
+                        style="width: 20px;height: 20px;margin-left:10px"
+                      />
+                    </div>
+                  </template>
+                </van-card>
+              </div>
+              <div class="kongview">
+                <div class="kongview-text">没有更多数据</div>
+              </div>
+            </div>
+            <div v-if="item.index == 3">
+              <div style="margin-top: 15px;background: #FFFFFF; padding:10px;box-sizing:border-box">
+                <div class="topvideo"></div>
+                <div class="video-middleview">
+                  <div class="video-middleview-text1">课程直播视频名称名称</div>
+                  <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
+                  <div class="video-middleview-fenlei">
+                    <div style="display: flex;justify-content: flex-start;">
+                      <div class="video-middleview-text4">
+                        <i class="iconfont iconshijian" style="margin:0px 3px"></i>2020-05-31 20:30
+                      </div>
+                      <div class="video-middleview-text3">
+                        <i class="iconfont iconbofang" style="margin:0px 3px"></i>70分钟
+                      </div>
+                    </div>
+                    <div class="video-middleview-fenlei-right">
+                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/380.png"
+                        alt
+                        style="width: 20px;height: 20px;margin-left:10px"
+                      />
+                      <!-- <img src="../../../assets/502.png" alt="" style="width: 20px;height: 20px;"> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="kongview">
+                <div class="kongview-text">没有更多数据</div>
+              </div>
+            </div>
+          </van-tab>
+        </van-tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -160,10 +173,10 @@ export default {
   data() {
     return {
       cutnumber: 1,
-      activeName: '1',
-      value:"",
-      typeEnum:1,
-      active:1,
+      activeName: "1",
+      value: "",
+      typeEnum: 1,
+      active: 1,
       itemlist: [
         {
           index: 0,
@@ -186,9 +199,9 @@ export default {
   },
   methods: {
     //选择切换
-    selectchange:function(event){
-      console.log(event,this.itemlist[event].name);
-      this.typeEnum = event
+    selectchange: function (event) {
+      console.log(event, this.itemlist[event].name);
+      this.typeEnum = event;
     },
     onClickLeft: function () {
       this.$router.go(-1); // 返回
@@ -204,7 +217,7 @@ export default {
       //   .catch((error) => {
       //     console.log(error);
       //   });
-    console.log('走了吗')
+      console.log("走了吗");
 
       axios({
         methods: "post",
@@ -227,14 +240,18 @@ export default {
   },
   mounted() {
     this.loaddata();
-
   },
 };
 </script>
 
 <style scoped>
+.pageview {
+  height: 100vh;
+  background: #f4f4f4;
+}
 .video-middleview-fenlei-right {
-  line-height: 50px;
+  line-height: 40px;
+  padding-top: 5px;
 }
 .video-middleview-fenlei {
   display: flex;
@@ -242,20 +259,21 @@ export default {
 }
 .video-middleview-text4 {
   color: rgba(155, 155, 155, 1);
-  font-size: 13px;
+  font-size: 15px;
   text-align: left;
   font-family: Arial-regular;
-  line-height: 26px;
+  line-height: 40px;
 }
 .video-middleview-text3 {
   color: rgba(155, 155, 155, 1);
-  font-size: 13px;
+  font-size: 15px;
   text-align: left;
   font-family: Arial-regular;
-  line-height: 26px;
+  margin-left: 5px;
+  line-height: 40px;
 }
 .video-middleview-text2 {
-  color: rgba(155, 155, 155, 1);
+  color: #999999;
   font-size: 13px;
   text-align: left;
   white-space: nowrap;
@@ -267,16 +285,17 @@ export default {
 }
 .video-middleview-text1 {
   color: rgba(16, 16, 16, 1);
-  font-size: 15px;
+  font-size: 17px;
   text-align: left;
-  font-family: PingFangSC-regular;
   line-height: 26px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #333333;
+  font-weight: bold;
 }
 .video-middleview {
-  padding: 10px 0px;
-  margin: 0px 20px;
+  padding: 10px 0px 0px 0px;
+  margin: 0px 10px;
   box-sizing: border-box;
-  border-bottom: 1px solid #cccccc;
 }
 .topvideo {
   width: 100%;
@@ -339,25 +358,26 @@ export default {
   font-family: PingFangSC-regular;
 }
 .middletext {
-  margin-top: 10px;
+  margin-top: 6px;
+  margin-bottom: 8px;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   color: rgba(155, 155, 155, 1);
 }
 .cardview {
   background-color: #ffffff;
-  border-bottom: 1px solid rgba(187, 187, 187, 1);
-  padding: 8px 0px 12px 0px;
+  padding: 8px 0px 10px 0px;
   margin: 5px 16px;
 }
 .topview {
   padding-left: 20px;
   padding-right: 20px;
+  background-color: #ffffff;
 }
 .shoppingbox {
   border: 1px solid #eeeeee;

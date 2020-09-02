@@ -17,28 +17,27 @@
       </van-nav-bar>
     </div>
     <div style="height:46px"></div>
-    <div>
+    <div class="pageview">
       <van-swipe-cell v-for="(item,index) in mydata.list " :key="index">
         <div class="waibiankuang">
           <div class="loginPage">
             <div class="login_left">
               <div class="leftview">
                 <div @tap="opt(item.isbuyzb, index)">
-                  <!-- v-if="item.isbuyzb == 0" -->
-                  <div class="iconfont iconicon_huabanfuben leftview-icon"></div>
-                  <!-- <div v-if="item.isbuyzb == 2" class="iconfont icon-xuanzhong"></div>
-                  <div v-if="item.isbuyzb == 1" class="iconfont icon-xuanzhong icon_over"></div>-->
+                  <!-- <img src="../../assets/weixuanzhong1.png" class="leftview-icon" alt=""> -->
+                  <img src="../../assets/xuanzhong1.png" class="leftview-icon" alt />
                 </div>
               </div>
-              <div v-if="item.boolPublishEnum == 1">
-                <img class="imgstyle" src="../../assets/logo.png" alt />
-              </div>
-              <div v-if="item.boolPublishEnum == 2">
-                <img class="imgstyle" src="../../assets/1.png" alt />
+              <div v-if="item.boolPublishEnum == 1" class="con_img">
+                <img class="imgstyle" src="https://img.yzcdn.cn/vant/ipad.jpeg" alt />
+                <div class="ms">
+                  <div class="yixiajia">已下架</div>
+                </div>
               </div>
             </div>
             <div class="login_right">
               <div class="toptitle">{{item.name}}</div>
+              <div class="toptext">{{item.intro}}</div>
               <div class="middleviewtext">
                 <div class="middleviewtext_left">
                   <div class="midddviewtext_leftprice">￥{{item.price}}</div>
@@ -76,22 +75,21 @@
           />
         </template>
       </van-swipe-cell>
-    </div>
-    <div
-      style="padding: 10px 12px;position: absolute;bottom: 35px;width: 100%;box-sizing: border-box;"
-    >
-      <div class="bottombtn">
-        <div class="bottombtn-left">
-          <van-checkbox v-model="checked" @tap="all()">全选</van-checkbox>
-          <div class="deletebtn">删除</div>
-        </div>
-        <div class="bottombtn-right">
-          <div>合计:￥1680</div>
-          <div class="bottombtn1" @click="jiesuanClick()">结算（2）</div>
+      <div>
+        <div class="bottombtn">
+          <div class="bottombtn-left">
+            <img src="../../assets/xuanzhong1.png" class="leftview-icon1" alt />
+            <div>全选</div>
+            <div style="margin-left: 10px;">删除</div>
+          </div>
+          <div class="bottombtn-right">
+            <div>合计:￥1680</div>
+            <div class="bottombtn1" @click="onSubmit()">结算（2）</div>
+          </div>
         </div>
       </div>
+      <div style="height:150px"></div>
     </div>
-    <div style="height:30px"></div>
   </div>
 </template>
 
@@ -245,6 +243,47 @@ export default {
 </script>
 
 <style scoped>
+.leftview-icon1 {
+  widows: 22px;
+  height: 22px;
+  padding-top: 16px;
+  margin-right: 5px;
+}
+.pageview {
+  background: #f8f8f8;
+  height: 100%;
+}
+.con_img {
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.ms {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90px;
+  height: 90px;
+  opacity: 0.6;
+  background: #cccccc;
+  -webkit-display: flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.yixiajia {
+  width: 60px;
+  height: 60px;
+  background: #000000;
+  opacity: 0.67;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  line-height: 60px;
+  color: #ffffff;
+}
 .bottombtn-left {
   display: flex;
   justify-content: space-between;
@@ -252,6 +291,7 @@ export default {
 .bottombtn-right {
   display: flex;
   justify-content: space-between;
+  color: #262626;
 }
 .deletebtn {
   line-height: 55px;
@@ -264,6 +304,7 @@ export default {
 .waibiankuang {
   padding: 10px 16px;
   box-sizing: border-box;
+  background-color: #ffffff;
 }
 ul,
 li {
@@ -291,7 +332,6 @@ img {
   overflow: hidden;
   margin: 0px;
   padding: 0px;
-  padding-top: 10px;
   margin-left: 10px;
 }
 
@@ -310,6 +350,8 @@ img {
 .btn-numbox .count {
   overflow: hidden;
   padding-left: 0px;
+  border-radius: 25px;
+  border: 2px solid #dddfe7;
 }
 
 .btn-numbox .count .num-jian,
@@ -322,37 +364,47 @@ img {
   text-align: center;
   font-size: 18px;
   color: #333;
-  border: 1px solid rgba(185, 185, 185, 1);
   cursor: pointer;
-  background-color: rgba(185, 185, 185, 1);
-  margin: 0px 1px;
+  background-color: #ffffff;
 }
 .btn-numbox .count .input-num {
   width: 30px;
   height: 26px;
   color: #333;
-  border: 1px solid rgba(185, 185, 185, 1);
-  background-color: rgba(185, 185, 185, 1);
+  background-color: #ffffff;
+  border: none;
+  border-left: 2px solid #dddfe7;
+  border-right: 2px solid #dddfe7;
 }
 .loginPage {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 }
 .imgstyle {
   width: 90px;
   height: 90px;
 }
-.toptitle {
+.login_right {
   margin-left: 12px;
-  line-height: 40px;
-  color: rgba(51, 51, 51, 1);
-  font-size: 14px;
+  width: 100%;
+}
+.toptitle {
+  line-height: 36px;
+  font-size: 17px;
   text-align: left;
-  font-family: PingFangSC-regular;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #333333;
+}
+.toptext {
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+  text-align: left;
 }
 .middleviewtext {
   width: 100%;
-  margin-left: 12px;
   display: flex;
   justify-content: space-between;
 }
@@ -361,21 +413,20 @@ img {
   justify-content: space-between;
 }
 .midddviewtext_leftprice {
-  padding-top: 20px;
-  color: rgba(208, 2, 27, 1);
-  font-size: 15px;
+  color: #1c69d4;
+  font-size: 16px;
   text-align: left;
   font-family: PingFangSC-regular;
+  line-height: 32px;
 }
 .midddviewtext_rightprice {
-  padding-top: 20px;
-  color: rgba(178, 178, 178, 1);
-  font-size: 12px;
+  color: #999999;
+  font-size: 16px;
   text-align: left;
   font-family: PingFangSC-regular;
   text-decoration: line-through;
   margin-left: 8px;
-  line-height: 22px;
+  line-height: 32px;
 }
 .login_left {
   display: flex;
@@ -383,6 +434,7 @@ img {
 }
 .leftview {
   line-height: 90px;
+  margin-right: 5px;
 }
 .leftview-icon {
   width: 22px;
@@ -411,25 +463,37 @@ img {
 }
 .colorStyle1 {
   background: #ff9800;
+  border: 1px solid #ff9800;
+  margin-right: -3px;
 }
 .colorStyle2 {
   background: #fc5552;
 }
 .bottombtn {
-  padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
+  display: -webkit-box;
+  left: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
   line-height: 55px;
+  margin-bottom: 50px;
+  background-color: #ffffff;
+  padding: 6px 12px;
+  box-sizing: border-box;
 }
 .bottombtn1 {
   margin-left: 20px;
   left: 271px;
   top: 677px;
-  width: 105px;
-  height: 40px;
-  line-height: 40px;
-  background-color: rgba(252, 85, 82, 1);
-  color: rgba(255, 255, 255, 1);
+  width: 110px;
+  height: 36px;
+  line-height: 36px;
+  background-color: #ffe231;
+  color: #262626;
+  font-weight: bold;
   font-size: 14px;
   text-align: center;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
