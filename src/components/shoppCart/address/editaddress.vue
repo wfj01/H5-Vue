@@ -48,21 +48,7 @@ export default {
   },
   methods: {
     onClickLeft: function () {
-      console.log()
       this.$router.go(-1); // 返回
-      //关闭子页面
-      this.$store.state.tagsView.visitedViews.splice(
-        this.$store.state.tagsView.visitedViews.findIndex(
-          (item) => item.path === this.$route.path
-        ),
-        1
-      );
-      this.$router.push(
-        this.$store.state.tagsView.visitedViews[
-          this.$store.state.tagsView.visitedViews.length - 1
-        ].path
-      );
-      Toast("返回");
     },
     onClickRight: function () {
       Toast("按钮");

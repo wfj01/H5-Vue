@@ -73,13 +73,11 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
-import { Image as VanImage } from "vant";
 export default {
   name: "Entrystaff",
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
-    [Image.name]: Image,
     [Lazyload.name]: Lazyload,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
@@ -103,18 +101,6 @@ export default {
     },
     onClickLeft: function () {
       this.$router.go(-1); // 返回
-      //关闭子页面
-      this.$store.state.tagsView.visitedViews.splice(
-        this.$store.state.tagsView.visitedViews.findIndex(
-          (item) => item.path === this.$route.path
-        ),
-        1
-      );
-      this.$router.push(
-        this.$store.state.tagsView.visitedViews[
-          this.$store.state.tagsView.visitedViews.length - 1
-        ].path
-      );
     },
     onClickRight: function () {
       Toast("按钮");

@@ -87,13 +87,11 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
-import { Image as VanImage } from "vant";
 export default {
   name: "Goodinformation",
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
-    [Image.name]: Image,
     [Lazyload.name]: Lazyload,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,

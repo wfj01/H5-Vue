@@ -1,5 +1,13 @@
 <template>
   <div class="pageview">
+    <div>
+      <van-nav-bar title="内训" fixed>
+        <template #right>
+          <van-icon name="weapp-nav" size="18" color="#000" />
+        </template>
+      </van-nav-bar>
+    </div>
+    <div style="height:46px"></div>
     <div class="topname">
       <div style="display: flex;justify-content: flex-start;">
         <div class="topname-text1">优家美乐管</div>
@@ -52,7 +60,7 @@
     <div class="middleview1">
       <div class="parentWrap">
         <div class="parent">
-          <div class="child">
+          <div class="child" @click="goClassifieddisplay()">
             <img src="../../assets/image/入职审批.png" alt style="width: 28px;height: 28px;" />
             <div class="xuanzhongziti">入职员工</div>
           </div>
@@ -80,7 +88,7 @@
       <div :class="isshow2 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowb()">内训直播</div>
     </div>
     <div v-if="isshow1">
-      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()">
+      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()" style="padding: 3px;box-sizing: border-box;">
         <div class="imagestylebox">
           <img
             class="imagestyle"
@@ -89,7 +97,7 @@
         </div>
         <div style="padding-bottom: 10px;">
           <div
-            style="display: flex;justify-content: space-between;padding: 5px 12px;box-sizing: border-box;"
+            style="display: flex;justify-content: space-between;padding: 0px 12px;box-sizing: border-box;"
           >
             <div class="itemtitle">名称标题名称</div>
             <div>
@@ -118,24 +126,26 @@
       </div>
     </div>
     <div v-if="isshow2" class="videoceshi">
-      <div v-for="(item,index) in 3" :key="index" @click="Livebroadcast()">
-        <div
-          class="topvideo note"
-          :style="note"
-        >
+      <div
+        v-for="(item,index) in 3"
+        :key="index"
+        @click="Livebroadcast()"
+        style="padding: 10px 15px;box-sizing: border-box;"
+      >
+        <div class="topvideo note1" :style="note1">
           <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
         </div>
         <div class="video-middleview">
           <div class="video-middleview-text1">课程直播视频名称名称</div>
           <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
           <div class="video-middleview-fenlei">
-            <div>
-              <div class="video-middleview-text3">直播时长：70分钟</div>
-              <div class="video-middleview-text4">开始时间：2020-05-31 20:30</div>
-            </div>
-            <div class="video-middleview-fenlei-right">
-              <van-icon name="star" size="20px" />
-              <van-icon name="share" size="20px" class="share" />
+            <div style="display: flex;justify-content: flex-start;">
+              <div class="video-middleview-text4">
+                <i class="iconfont iconshijian" style="margin:0px 3px"></i>2020-05-31 20:30
+              </div>
+              <div class="video-middleview-text3">
+                <i class="iconfont iconbofang" style="margin:0px 3px"></i>70分钟
+              </div>
             </div>
           </div>
         </div>
@@ -148,13 +158,11 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
-import { Image as VanImage } from "vant";
 export default {
   name: "Internaltrain",
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
-    [Image.name]: Image,
     [Lazyload.name]: Lazyload,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
@@ -170,10 +178,16 @@ export default {
         { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
       ],
       note: {
-        backgroundImage: "url(" + require('../../assets/image/ceshi.jpg') + ")",
+        backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "25px auto",
-        marginTop: "5px",
+        backgroundSize: "100% 100%",
+        borderRadius: "20px",
+      },
+      note1: {
+        backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        borderRadius: "20px",
       },
     };
   },
@@ -182,6 +196,12 @@ export default {
     EntrystaffDetail: function () {
       this.$router.push({
         name: "EntrystaffDetail",
+      });
+    },
+      //跳转到分类入职员工
+    goClassifieddisplay: function () {
+      this.$router.push({
+        name: "Classifieddisplay",
       });
     },
     //跳转到直播间详情
@@ -289,8 +309,8 @@ p {
   top: 0px;
   z-index: 100;
   width: 100px;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
   border-radius: 30px 30px 30px 30px;
   background-color: rgba(0, 0, 0, 0.36);
   color: rgba(255, 255, 255, 1);
@@ -367,7 +387,6 @@ p {
   color: #238aea;
   /*渐变文字（仅谷歌内核浏览器支持）*/
   background: -webkit-linear-gradient(0deg, #1858f1, #32c0e3);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .swipeitemstyle {
@@ -378,9 +397,9 @@ p {
   height: 100%;
   border-radius: 10px;
 }
-.videoceshi {
+/* .videoceshi {
   margin: 10px 0px;
-}
+} */
 .video-middleview-fenlei-right {
   line-height: 50px;
 }
@@ -401,6 +420,7 @@ p {
   text-align: left;
   font-family: Arial-regular;
   line-height: 26px;
+  margin-left: 5px;
 }
 .video-middleview-text2 {
   color: rgba(155, 155, 155, 1);
@@ -414,17 +434,16 @@ p {
   line-height: 26px;
 }
 .video-middleview-text1 {
-  color: rgba(16, 16, 16, 1);
-  font-size: 15px;
+  color: #333333;
+  font-size: 17px;
   text-align: left;
   font-family: PingFangSC-regular;
   line-height: 26px;
+  font-weight: bold;
 }
 .video-middleview {
-  padding: 10px 0px;
-  margin: 0px 20px;
+  padding: 10px 0px 0px 0px;
   box-sizing: border-box;
-  border-bottom: 1px solid #cccccc;
 }
 .topvideo {
   width: 100%;

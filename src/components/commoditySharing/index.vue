@@ -15,37 +15,23 @@
     <div>
       <van-swipe class="my-swipe">
         <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/2020/0101/ed53728a0593fca90d434019c9b9be23.jpg"
-          />
+          <img class="imagestyle" src="../../assets/image/ceshi.jpg" />
         </van-swipe-item>
         <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/2019/0810/f88bf86d458da9da292984d9bc669990.jpg"
-          />
+          <img class="imagestyle" src="../../assets/image/ceshi.jpg" />
         </van-swipe-item>
         <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
-          />
+          <img class="imagestyle" src="../../assets/image/ceshi.jpg" />
         </van-swipe-item>
         <van-swipe-item class="swipeitemstyle">
-          <img
-            class="imagestyle"
-            src="http://img.netbian.com/file/20140715/bd5d9194b9c2f87302e9bf0b62da50c7.jpg"
-          />
+          <img class="imagestyle" src="../../assets/image/ceshi.jpg" />
         </van-swipe-item>
       </van-swipe>
     </div>
     <div class="middleview-title">
       <div class="middleview-titleview">
         <div class="middleview-title-item1left">{{mydata.spuname}}</div>
-        <div class="iconview">
-          <i class="iconfont iconfenxiang"></i>
-        </div>
+        <img class="iconview" src="../../assets/image/组 380.png" alt />
       </div>
       <div class="middleview-title2">
         <div class="middleview-title-item2">
@@ -61,40 +47,49 @@
             <li>
               <ul class="count">
                 <li>
-                  <span id="num-jian" class="num-jian" @click="jianfa()">-</span>
+                  <span id="num-jian" class="num-jian" @click="jianfa(cutnumber)">-</span>
                 </li>
                 <li>
                   <input type="text" class="input-num" id="input-num" v-model="cutnumber" />
                 </li>
                 <li>
-                  <span id="num-jia" class="num-jia" @click="jiafa()">+</span>
+                  <span id="num-jia" class="num-jia" @click="jiafa(cutnumber)">+</span>
                 </li>
               </ul>
             </li>
           </ul>
         </div>
       </div>
-      <div class="middleview-title4">{{mydata.spuIntro}}</div>
+      <!-- <div class="middleview-title4">{{mydata.spuIntro}}</div> -->
+      <div class="middleview-title4">
+        還記得小時候那個無憂無慮，總帶著無限好奇心面對這個世界的時刻嗎？
+        隨著時光荏苒，年紀漸長一點，那個我們曾經懷抱著美好想像的世界，
+        卻漸漸透析它那「不完美」的一面，不過與其試著將它「完美」化，不如和這份不完美共處。
+        來自南韓，今年適逢成立十週年的創意設計工作室Sticky Monster Lab黏黏怪物研究所（以下簡稱SML），
+        其所創造出每個有獨立性格又帶點人性化靈魂的小Monster，趁著SML來台舉辦十週年特展之際，
+        La Vie有幸訪問到團隊兩位主腦FLA和BOO，外表靦腆的兩人就如同其筆下所設計的小怪物，充滿著滿滿溫暖又療癒的氛圍，
+        只不過究竟如此反差的魅力靈感是從何而來？且來聽聽兩位設計師怎麼說！
+      </div>
     </div>
     <div style="height:50px"></div>
     <div class="dibu">
       <div class="ceshi1">
         <div class="ceshi1-item">
-          <i class="iconfont icondianpu" style="font-size: 19px;"></i>
-          <div>店铺</div>
+          <img src="../../assets/image/组 137.png" style="width: 20px;height: 20px;" alt />
+          <div style="font-size: 15px;color: #8E8E8E;">店铺</div>
         </div>
         <div class="ceshi1-item">
-          <i class="iconfont icon-star-o" style="font-size: 19px;"></i>
-          <div>收藏</div>
+          <img src="../../assets/image/收藏.png" style="width: 20px;height: 20px;" alt />
+          <div style="font-size: 15px;color: #8E8E8E;">收藏</div>
         </div>
         <div class="ceshi1-item">
-          <i class="iconfont icongouwuche" style="font-size: 19px;"></i>
-          <div>购物车</div>
+          <img src="../../assets/image/购物车.png" style="width: 20px;height: 20px;" alt />
+          <div style="font-size: 15px;color: #8E8E8E;">购物车</div>
         </div>
       </div>
       <div>
-        <van-button type="danger">加入购物车</van-button>
-        <van-button type="default" style="background-color: rgba(41, 40, 41, 0.43);">立即购买</van-button>
+        <van-button class="btn1">加入购物车</van-button>
+        <van-button class="btn2">立即购买</van-button>
       </div>
     </div>
   </div>
@@ -178,6 +173,26 @@ export default {
 </script>
 
 <style scoped>
+.btn1 {
+  background: #5351fb;
+  border-radius: 36px;
+  border: 1px solid #5351fb;
+  color: #ffffff;
+  font-weight: bold;
+  width: 100px;
+  font-size: 13.5px;
+  height: 38px;
+}
+.btn2 {
+  background: #ffe231;
+  border-radius: 36px;
+  border: 1px solid #ffe231;
+  color: #000000;
+  font-weight: bold;
+  width: 100px;
+  font-size: 13.5px;
+  height: 38px;
+}
 .ceshi1-item {
   margin: 0px 5px;
 }
@@ -200,17 +215,17 @@ export default {
   margin-top: 10px;
   box-sizing: border-box;
   color: rgba(51, 51, 51, 1);
-  font-size: 15px;
+  font-size: 16px;
   text-align: left;
   font-family: PingFangSC-regular;
+  word-break: break-all;
 }
 .middleview-title3text {
-  height: 40px;
-  color: rgba(51, 51, 51, 1);
-  font-size: 15px;
-  text-align: left;
-  line-height: 40px;
-  font-family: PingFangSC-regular;
+  font-size: 15.5px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+  line-height: 32px;
 }
 .middleview-title3 {
   display: flex;
@@ -221,7 +236,6 @@ export default {
   overflow: hidden;
   margin: 0px;
   padding: 0px;
-  padding-top: 10px;
   margin-left: 10px;
 }
 
@@ -240,6 +254,8 @@ export default {
 .btn-numbox .count {
   overflow: hidden;
   padding-left: 0px;
+  border-radius: 25px;
+  border: 2px solid #dddfe7;
 }
 
 .btn-numbox .count .num-jian,
@@ -252,17 +268,17 @@ export default {
   text-align: center;
   font-size: 18px;
   color: #333;
-  border: 1px solid #ecedee;
   cursor: pointer;
-  background-color: #ecedee;
-  margin: 0px 1px;
+  background-color: #ffffff;
 }
 .btn-numbox .count .input-num {
   width: 30px;
   height: 26px;
   color: #333;
-  border: 1px solid #ecedee;
-  background-color: #ecedee;
+  background-color: #ffffff;
+  border: none;
+  border-left: 2px solid #dddfe7;
+  border-right: 2px solid #dddfe7;
 }
 .middleview-title-item2left {
   left: 15px;
@@ -270,7 +286,7 @@ export default {
   width: 59px;
   font-weight: bold;
   height: 30px;
-  color: rgba(132, 68, 4, 1);
+  color: #1c69d4;
   font-size: 16px;
   text-align: left;
   font-family: PingFangSC-regular;
@@ -287,12 +303,10 @@ export default {
   text-align: left;
   font-family: PingFangSC-regular;
   text-decoration: line-through;
-  font-weight: bold;
 }
 .middleview-title-item2right {
   left: 215px;
   top: 500px;
-  font-weight: bold;
   width: 145px;
   height: 30px;
   line-height: 30px;
@@ -305,6 +319,7 @@ export default {
   display: flex;
   justify-content: space-between;
   line-height: 35px;
+  margin-top: 5px;
 }
 .middleview-title-item2 {
   display: flex;
@@ -340,7 +355,6 @@ export default {
 .swipeitemstyle {
   left: 0px;
   width: 100%;
-  height: 380px;
 }
 .bottom {
   padding: 0px 55px;

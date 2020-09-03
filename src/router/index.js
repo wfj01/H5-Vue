@@ -22,9 +22,30 @@ import Index from '@/components/index/index'
 import Livebroadcast from '@/components/livebroadcast/index'
 import Commoditysharing from '@/components/commoditySharing/index'
 import TrainingVideo from '@/components/trainingVideo/index'
+import Classifieddisplay from '@/components/classifieddisplay/index'
+import PlayStatus from '@/components/playStatus/index'
+import LoginPage from '@/components/login/index'
 Vue.use(VueRouter)
 
 const routes = [
+  //登录页面
+  {
+    path: '/',
+    name: 'LoginPage',
+    component: LoginPage,
+  },
+  //直播状态
+  {
+    path: '/PlayStatus',
+    name: 'PlayStatus',
+    component: PlayStatus,
+  },
+  //分类展示-入职员工
+  {
+    path: '/Classifieddisplay',
+    name: 'Classifieddisplay',
+    component: Classifieddisplay,
+  },
   //个人中心
   {
     path: '/Mineview',
@@ -48,7 +69,7 @@ const routes = [
   },
   //主页
   {
-    path: '/',
+    path: '/Index',
     name: 'Index',
     component: Index,
     meta: {

@@ -12,8 +12,20 @@
       </van-nav-bar>
     </div>
     <div style="height:46px"></div>
-    <div class="topview">
-      <div class="topview-shuliang">77.23万</div>
+    <div class="topview note" :style="note">
+      <div class="ceshi1">
+        <div class="ceshitext1">
+          <img
+            src="../../assets/image/群组.png"
+            alt
+            style="width: 20px;height: 20px;padding-top: 6px;margin-left:5px"
+          />
+          <div style="margin-left: 5px;">77.23万</div>
+        </div>
+      </div>
+      <div class="ceshi">
+        <div class="ceshitext">开始直播</div>
+      </div>
     </div>
     <div>
       <van-tabs @click="onClick" swipeable>
@@ -38,10 +50,7 @@
             <!-- Left -->
             <div class="chat-sender">
               <div class="touxiangview">
-                <img
-                  class="touxiang"
-                  src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                />
+                <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
               <div>主持人</div>
               <div>
@@ -55,10 +64,7 @@
             </div>
             <div class="chat-sender">
               <div class="touxiangview">
-                <img
-                  class="touxiang"
-                  src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                />
+                <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
               <div>主持人</div>
               <div>
@@ -68,10 +74,7 @@
             </div>
             <div class="chat-sender">
               <div class="touxiangview">
-                <img
-                  class="touxiang"
-                  src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                />
+                <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
               <div>主持人</div>
               <div>
@@ -81,10 +84,7 @@
             </div>
             <div class="chat-sender">
               <div class="touxiangview">
-                <img
-                  class="touxiang"
-                  src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                />
+                <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
               <div>主持人</div>
               <div>
@@ -94,10 +94,7 @@
             </div>
             <div class="chat-sender">
               <div class="touxiangview">
-                <img
-                  class="touxiang"
-                  src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                />
+                <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
               <div>主持人</div>
               <div>
@@ -112,10 +109,7 @@
                     <div style="display: flex;justify-content: space-between;" class="tanmu">
                       <div class="danmuwenzi">沙发，还有谁！！</div>
                       <div class="touxiangview1">
-                        <img
-                          class="touxiang"
-                          src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                        />
+                        <img class="touxiang" src="../../assets/image/1.jpeg" />
                       </div>
                     </div>
                   </div>
@@ -125,10 +119,7 @@
                     <div style="display: flex;justify-content: space-between;" class="tanmu">
                       <div class="danmuwenzi">沙发，还有谁！！</div>
                       <div class="touxiangview1">
-                        <img
-                          class="touxiang"
-                          src="https://img2.woyaogexing.com/2020/08/27/5c21905fea19474c89163082f3d8292d!400x400.jpeg"
-                        />
+                        <img class="touxiang" src="../../assets/image/1.jpeg" />
                       </div>
                     </div>
                   </div>
@@ -138,11 +129,7 @@
 
             <!-- Notice/Center -->
             <div class="chat-notice">
-              <img
-                class="bottomimage"
-                src="https://img2.woyaogexing.com/2020/08/26/21ef89bc3cd5431a84c732695359a90d!400x400.jpeg"
-                alt
-              />
+              <img class="bottomimage" src="../../assets/image/1.jpeg" alt />
               <div class="textcolor">
                 <div style="font-size: 14px;text-align: left;">心田农场西红柿</div>
                 <div class="bottom-item2">
@@ -157,7 +144,7 @@
           </div>
           <div class="inputview">
             <div style="text-align: left;">
-              <input placeholder="来说点什么吧" class="inputstyle" />
+              <input placeholder="来说点什么吧…" class="inputstyle" />
             </div>
             <div class="fasongdanmu">发送弹幕</div>
           </div>
@@ -181,25 +168,19 @@ export default {
   },
   data() {
     return {
-      cutnumber: 1,
+      cutnumber: 0,
+      note: {
+        backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        borderRadius: "10px",
+      },
     };
   },
   methods: {
     onClick(name, title) {},
     onClickLeft: function () {
       this.$router.go(-1); // 返回
-      //关闭子页面
-      this.$store.state.tagsView.visitedViews.splice(
-        this.$store.state.tagsView.visitedViews.findIndex(
-          (item) => item.path === this.$route.path
-        ),
-        1
-      );
-      this.$router.push(
-        this.$store.state.tagsView.visitedViews[
-          this.$store.state.tagsView.visitedViews.length - 1
-        ].path
-      );
     },
     onClickRight: function () {
       Toast("按钮");
@@ -209,21 +190,76 @@ export default {
 </script>
 
 <style scoped>
-.side-bar a,
-.chat-tips i {
+.ceshitext1 {
+  width: 100%;
+  position: absolute;
+  left: 74%;
+  top: 1%;
+  /* -webkit-transform: translate(-50%, -50%); */
+  /* transform: translate(-50%, -50%); */
+  /* color: black; */
+  background: #000000;
+  /* border-radius: 50px; */
+  line-height: 35px;
+  color: #ffffff;
+  /* padding: 0px 17px; */
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  border-radius: 0px 0px 0px 10px;
+  padding-left: 5px;
+}
+.ceshitext {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* color: black; */
+  background: #ffe231;
+  border-radius: 50px;
+  line-height: 40px;
+  color: #141821;
+  padding: 0px 17px;
+  font-weight: bold;
+}
+.ceshi1 {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.ceshi {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 .side-bar {
   position: fixed;
-  bottom: 70px;
-  right: 25px;
+  bottom: 90px;
+  right: 20px;
   font-size: 0;
   line-height: 0;
   z-index: 100;
 }
 .side-bar1 {
   position: fixed;
-  bottom: 110px;
-  right: 25px;
+  bottom: 135px;
+  right: 20px;
   font-size: 0;
   line-height: 0;
   z-index: 100;
@@ -308,23 +344,25 @@ export default {
   font-family: PingFangSC-regular;
 }
 .fasongdanmu {
-  left: 298px;
-  top: 696px;
-  width: 70px;
-  height: 30px;
-  line-height: 30px;
+  line-height: 34px;
   border-radius: 4px;
-  color: rgba(132, 68, 4, 1);
+  color: #000000;
   font-size: 14px;
   text-align: center;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  font-weight: bold;
   font-family: Microsoft Yahei;
-  border: 1px solid rgba(132, 68, 4, 1);
+  background-color: #ffe231;
+  border: 1px solid #ffe231;
+  border-radius: 30px;
 }
 .inputstyle {
-  border: 1px solid rgba(187, 187, 187, 1);
-  height: 30px;
+  border: 1px solid #999999;
+  height: 35px;
   width: 220px;
   border-radius: 4px;
+  font-size: 15px;
 }
 .inputview {
   width: 100%;
@@ -403,12 +441,13 @@ body {
   text-align: left;
 }
 .chat-sender div:nth-of-type(3) {
-  background-color: white;
+  background-color: #ffe231;
   /*float: left;*/
   margin: 0 50px 10px 50px;
   padding: 10px 10px 10px 10px;
   border-radius: 7px;
   text-indent: -12px;
+  text-align: left;
 }
 
 .chat-receiver {
@@ -509,17 +548,14 @@ body {
   top: 0px;
   z-index: 100;
   width: 100px;
-  height: 25px;
-  line-height: 25px;
-  border-radius: 30px 30px 30px 30px;
-  background-color: rgba(0, 0, 0, 0.36);
+  line-height: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 1);
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  margin-right: 20px;
-  margin-top: 10px;
   border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 0px 0px 0px 10px;
 }
 .topview {
   height: 200px;

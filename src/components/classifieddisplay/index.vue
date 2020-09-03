@@ -1,88 +1,29 @@
 <template>
-  <div >
+  <div>
     <div>
-      <van-nav-bar title="首页" fixed>
+      <van-nav-bar title="入职员工" fixed>
+        <template #left>
+          <van-icon name="arrow-left" size="18" color="#000" @click="onClickLeft()" />
+        </template>
         <template #right>
           <van-icon name="weapp-nav" size="18" color="#000" />
         </template>
       </van-nav-bar>
     </div>
-    
     <div style="height:46px"></div>
 
     <div class="topname">
-      <div style="display: flex;justify-content: flex-start;">
-        <div class="topname-text1">优家美乐管</div>
-        <div style="line-height:45px;margin-left: 5px;">
-          <img src="../../assets/image/多边形 13.png" alt style="width: 16px;height: 12px;" />
-        </div>
-      </div>
-      <div style="padding-top: 6px;">
+      <div>
         <img
-          src="../../assets/image/组 441.png"
-          alt
-          style="width: 39px;height: 39px;line-height:45px;"
-        />
-        <img
-          src="../../assets/image/组 442.png"
-          alt
-          style="width: 39px;height: 39px;line-height:45px;"
-        />
-        <img
-          src="../../assets/image/组 443.png"
-          alt
-          style="width: 39px;height: 39px;line-height:45px;"
+          width="60px"
+          height="60px"
+          src="https://img.yzcdn.cn/vant/cat.jpeg"
+          style="border-radius: 10px;"
         />
       </div>
-    </div>
-    <div>
-      <div class="imagestylebox">
-        <van-swipe class="my-swipe">
-          <van-swipe-item class="swipeitemstyle">
-            <img
-              class="imagestyle"
-              src="../../assets/image/boy singing on microphone with pop filter.png"
-            />
-          </van-swipe-item>
-          <van-swipe-item class="swipeitemstyle">
-            <img
-              class="imagestyle"
-              src="../../assets/image/boy singing on microphone with pop filter.png"
-            />
-          </van-swipe-item>
-          <van-swipe-item class="swipeitemstyle">
-            <img
-              class="imagestyle"
-              src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
-            />
-          </van-swipe-item>
-        </van-swipe>
-      </div>
-    </div>
-    <div class="middleview1">
-      <div class="parentWrap">
-        <div class="parent">
-          <div class="child" @click="goClassifieddisplay()">
-            <img src="../../assets/image/入职审批.png" alt style="width: 28px;height: 28px;" />
-            <div class="xuanzhongziti">入职员工</div>
-          </div>
-          <div class="child">
-            <img src="../../assets/image/管理 (2).png" alt style="width: 28px;height: 28px;" />
-            <div class="xuanzhongziti1">管理层</div>
-          </div>
-          <div class="child">
-            <img src="../../assets/image/行政班课程(1).png" alt style="width: 28px;height: 28px;" />
-            <div class="xuanzhongziti1">魔方课程</div>
-          </div>
-          <div class="child">
-            <img src="../../assets/image/行政班课程(1).png" alt style="width: 28px;height: 28px;" />
-            <div class="xuanzhongziti1">线上课程</div>
-          </div>
-          <div class="child borderleft">
-            <img src="../../assets/image/组 444.png" alt style="width: 28px;height: 28px;" />
-            <div class="xuanzhongziti">分享</div>
-          </div>
-        </div>
+      <div class="toptext3">
+        <div style="font-size: 17px;font-weight: bold;color: #000000;   line-height: 25px;">铁碧图旗舰店</div>
+        <div class="toptext1" style="padding-top:13px">收藏量：8950</div>
       </div>
     </div>
     <div class="middleview2">
@@ -90,7 +31,11 @@
       <div :class="isshow2 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowb()">直播产品</div>
     </div>
     <div v-if="isshow1">
-      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()" style="padding: 8px 12px;box-sizing: border-box;">
+      <div
+        style="padding: 10px 15px; box-sizing: border-box;"
+        v-for="(item,index) in 5"
+        :key="index"
+      >
         <div style="display: flex;justify-content: flex-start; width:100%;height:100%">
           <div class="topvideo1 note" :style="note">
             <div class="ceshi11" style>
@@ -124,14 +69,15 @@
         </div>
       </div>
     </div>
+
     <div v-if="isshow2" class="videoceshi">
       <div
         v-for="(item,index) in 3"
         :key="index"
-        @click="Livebroadcast()"
+        @click="PlayStatus()"
         style="padding: 10px 15px;box-sizing: border-box;"
       >
-        <div class="topvideo note1" :style="note1">
+        <div class="topvideo note" :style="note">
           <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
         </div>
         <div class="video-middleview">
@@ -150,15 +96,16 @@
         </div>
       </div>
     </div>
-    <div style="height:60px;background: #F2F2F2;"></div>
+    <div style="height:30px"></div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import Axios from "axios";
 import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
 export default {
-  name: "Internaltrain",
+  name: "Classifieddisplay",
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
@@ -169,51 +116,37 @@ export default {
   },
   data() {
     return {
+      mydata: [],
+      mydata1: [],
       isshow1: true,
       isshow2: false,
+      liveRadioTypeEnum: "",
       cutnumber: 1,
-      images: [
-        { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
-        { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
-      ],
       note: {
         backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
-        borderRadius: "15px",
-      },
-      note1: {
-        backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%",
-        borderRadius: "15px",
+        borderRadius: "10px",
       },
     };
   },
   methods: {
-    //跳转到详情页
-    EntrystaffDetail: function () {
-      this.$router.push({
-        name: "EntrystaffDetail",
-      });
-    },
-      //跳转到分类入职员工
-    goClassifieddisplay: function () {
-      this.$router.push({
-        name: "Classifieddisplay",
-      });
-    },
-    //跳转到直播间详情
-    Livebroadcast: function () {
-      this.$router.push({
-        name: "Livebroadcast",
-      });
-    },
+    //   返回按钮
     onClickLeft: function () {
-      Toast("返回");
+      this.$router.go(-1); // 返回
     },
-    onClickRight: function () {
-      Toast("按钮");
+    onClickRight: function () {},
+    //跳转到商品详情页
+    goCommoditysharing: function () {
+      this.$router.push({
+        name: "Commoditysharing",
+      });
+    },
+
+    PlayStatus: function () {
+      this.$router.push({
+        name: "PlayStatus",
+      });
     },
     //显示图文信息
     isshowa: function () {
@@ -225,6 +158,50 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    //加载商品列表
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z359p_spu";
+      Axios.post(api, {
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //加载首页直播-列表
+    loaddata1: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z366p_liveRadio";
+      Axios.post(api, {
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata1 = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
+    this.loaddata1();
   },
 };
 </script>
@@ -245,7 +222,6 @@ export default {
   line-height: 20px;
   border-radius: 5px;
   opacity: 0.5;
-  border-radius: 15px 0px 0px 0px;
 }
 .topvideo1 {
   width: 170px;
@@ -292,78 +268,6 @@ export default {
   margin-right: 11px;
 }
 
-.itemtext {
-  padding: 0px 12px;
-  box-sizing: border-box;
-  font-size: 13px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #c3c6d1;
-  text-align: left;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-.itemtitle {
-  font-size: 16px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: bold;
-  color: #141821;
-}
-.borderleft {
-  border-left: 1px solid #ffe231;
-}
-.xuanzhongziti {
-  font-size: 13px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: bold;
-  color: #141821;
-  text-align: center;
-}
-.xuanzhongziti1 {
-  font-size: 13px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: bold;
-  color: #c3c6d1;
-  text-align: center;
-}
-body,
-p {
-  margin: 0;
-}
-.parentWrap {
-  overflow: hidden;
-  width: 100%;
-  padding: 10px 12px;
-  box-sizing: border-box;
-}
-.parent {
-  font-size: 0;
-  margin-right: -20px;
-  overflow: hidden;
-}
-.child {
-  display: inline-block;
-  vertical-align: top;
-  width: 20%;
-  padding-right: 15px;
-  box-sizing: border-box;
-  background-clip: content-box;
-  font-size: 16px;
-}
-.imagestylebox {
-  padding: 10px 12px;
-  box-sizing: border-box;
-}
-.topname-text1 {
-  font-size: 22px;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #141821;
-  line-height: 48px;
-  text-align: left;
-}
 .topview-shuliang {
   float: right;
   right: 0px;
@@ -379,11 +283,84 @@ p {
   text-align: center;
   font-family: Arial;
 }
-.topvideo {
-  width: 100%;
-  height: 150px;
-  line-height: 20px;
+.ceshi1-text1 {
+  color: #844505;
+  font-size: 17px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  line-height: 30px;
+}
+.ceshi1-text2 {
+  font-size: 17px;
+  text-decoration: line-through;
+}
+.marginleft {
+  margin-left: 10px;
+}
+.ceshi1-text {
+  color: rgba(155, 155, 155, 1);
+  font-size: 14px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  line-height: 30px;
+}
+.ceshi {
+  display: flex;
+  justify-content: space-between;
+}
+.ceshi1 {
+  display: flex;
+  justify-content: start;
+}
+.kongview-text {
+  color: rgba(16, 16, 16, 1);
+  font-size: 14px;
+  font-family: SourceHanSansSC-regular;
   text-align: center;
+}
+.kongview {
+  padding: 25px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.hr {
+  margin: 0px 16px;
+}
+.share {
+  margin-left: 10px;
+}
+.toptext {
+  color: rgba(16, 16, 16, 1);
+  font-size: 14px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.middletext {
+  margin-top: 10px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: rgba(155, 155, 155, 1);
+  text-align: left;
+}
+.cardview {
+  background-color: #ffffff;
+  padding: 8px 0px 12px 0px;
+  margin: 5px 16px;
+}
+
+.topview {
+  height: 200px;
+  border: 1px solid green;
+  position: relative;
+  line-height: 20px;
+  background-color: rgba(185, 190, 189, 1);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 /*左上角标签，父元素必须设置position: relative;overflow: hidden;height: 大于150;width: 大于150px;，同时，角标标签内加入属性superscript-title="左上角标签文字内容"*/
 .subscript:after {
@@ -448,6 +425,7 @@ p {
   color: #238aea;
   /*渐变文字（仅谷歌内核浏览器支持）*/
   background: -webkit-linear-gradient(0deg, #1858f1, #32c0e3);
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 .swipeitemstyle {
@@ -456,7 +434,6 @@ p {
 .imagestyle {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
 }
 /* .videoceshi {
   margin: 10px 0px;
@@ -506,12 +483,7 @@ p {
   padding: 10px 0px 0px 0px;
   box-sizing: border-box;
 }
-.topvideo {
-  width: 100%;
-  height: 150px;
-  line-height: 20px;
-  text-align: center;
-}
+
 .share {
   margin-left: 10px;
 }
@@ -520,13 +492,6 @@ p {
   font-size: 14px;
   text-align: left;
   font-family: PingFangSC-regular;
-}
-.toptext11 {
-  color: rgba(16, 16, 16, 1);
-  font-size: 14px;
-  text-align: left;
-  font-family: PingFangSC-regular;
-  margin-left: 10px;
 }
 .middletext {
   margin-top: 10px;
@@ -541,12 +506,8 @@ p {
 }
 .cardview {
   background-color: #ffffff;
-
-  padding: 8px 0px 12px 0px;
+  padding: 8px 0px 10px 0px;
   margin: 5px 16px;
-}
-.cardview-bottom {
-  border-bottom: 1px solid rgba(187, 187, 187, 1);
 }
 .middleview2-btn1 {
   width: 147px;
@@ -572,13 +533,13 @@ p {
   border: 2px solid #ffe231;
 }
 .middleview2 {
-  padding: 10px 25px;
+  padding: 5px 25px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
 }
 .share {
-  margin-left: 20px;
+  margin-left: 10px;
   line-height: 30px;
 }
 .yuan2 {
@@ -619,12 +580,14 @@ p {
   line-height: 150px;
   text-align: center;
   background-color: #39a9ed;
-  border-radius: 15px;
+}
+.toptext3 {
+  margin-left: 10px;
 }
 .toptext1 {
-  height: 20px;
+  line-height: 22px;
   color: rgba(125, 125, 125, 1);
-  font-size: 15px;
+  font-size: 14px;
   text-align: left;
   font-family: PingFangSC-regular;
 }
@@ -640,10 +603,11 @@ p {
   margin-top: 15px;
 }
 .topname {
-  padding: 6px 12px;
+  padding: 12px 15px;
   box-sizing: border-box;
   width: 100%;
+  height: 90px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
 }
 </style>
