@@ -172,6 +172,8 @@ export default {
       isshow1: true,
       isshow2: false,
       cutnumber: 1,
+      mydata:[],
+      mydata1:[],
       images: [
         { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
         { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
@@ -225,6 +227,58 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z359p_spu";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    loaddata1: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z345p_liveRadio";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata1 = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+   mounted() {
+    this.loaddata();
+    this.loaddata1();
   },
 };
 </script>

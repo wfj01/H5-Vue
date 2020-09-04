@@ -88,7 +88,12 @@
       <div :class="isshow2 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowb()">内训直播</div>
     </div>
     <div v-if="isshow1">
-      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()" style="padding: 3px;box-sizing: border-box;">
+      <div
+        v-for="(item,index) in mydata.list"
+        :key="index"
+        @click="EntrystaffDetail()"
+        style="padding: 3px;box-sizing: border-box;"
+      >
         <div class="imagestylebox">
           <img
             class="imagestyle"
@@ -99,7 +104,7 @@
           <div
             style="display: flex;justify-content: space-between;padding: 0px 12px;box-sizing: border-box;"
           >
-            <div class="itemtitle">名称标题名称</div>
+            <div class="itemtitle">{{item.name}}</div>
             <div>
               <img
                 src="../../assets/image/组 379.png"
@@ -118,26 +123,40 @@
               />
             </div>
           </div>
-          <div class="itemtext" style>
-            课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课
-            课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课
-          </div>
+          <div class="itemtext" style>{{item.intro}}</div>
         </div>
       </div>
     </div>
     <div v-if="isshow2" class="videoceshi">
       <div
-        v-for="(item,index) in 3"
+        v-for="(item,index) in mydata1.list"
         :key="index"
         @click="Livebroadcast()"
         style="padding: 10px 15px;box-sizing: border-box;"
       >
         <div class="topvideo note1" :style="note1">
-          <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
+          <img
+            v-if="item.liveRadioTypeEnum == 1"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
+          <img
+            v-if="item.liveRadioTypeEnum == 2"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
+          <img
+            v-if="item.liveRadioTypeEnum == 3"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
         </div>
         <div class="video-middleview">
-          <div class="video-middleview-text1">课程直播视频名称名称</div>
-          <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
+          <div class="video-middleview-text1">{{item.name}}</div>
+          <div class="video-middleview-text2">{{item.intro}}</div>
           <div class="video-middleview-fenlei">
             <div style="display: flex;justify-content: flex-start;">
               <div class="video-middleview-text4">
@@ -158,6 +177,7 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
+import Axios from "axios";
 export default {
   name: "Internaltrain",
   components: {
@@ -173,6 +193,8 @@ export default {
       isshow1: true,
       isshow2: false,
       cutnumber: 1,
+      mydata: [],
+      mydata1: [],
       images: [
         { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
         { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
@@ -198,7 +220,7 @@ export default {
         name: "EntrystaffDetail",
       });
     },
-      //跳转到分类入职员工
+    //跳转到分类入职员工
     goClassifieddisplay: function () {
       this.$router.push({
         name: "Classifieddisplay",
@@ -209,9 +231,6 @@ export default {
       this.$router.push({
         name: "Livebroadcast",
       });
-    },
-    onClickLeft: function () {
-      Toast("返回");
     },
     onClickRight: function () {
       Toast("按钮");
@@ -226,6 +245,58 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    loaddata: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z344p_imgText";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    loaddata1: function () {
+      var that = this;
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z345p_liveRadio";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          shopId: "2121",
+          sortId: 5453432,
+          pageNum: 1,
+          pageSize: 10,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata1 = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
+    this.loaddata1();
   },
 };
 </script>
