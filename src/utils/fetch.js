@@ -1,32 +1,29 @@
 import axios from 'axios'
+import GLOBAL from '../api/global_variable'
 
-const instance = axios.create({
-  baseURL: 'apiBaseUrl', // api的base_url
+const request = axios.create({
+  baseURL: GLOBAL.baseURL, // api的base_url
   timeout: 10000 // 请求超时时间
   // transformRequest: data => qs.stringify(data) //
 })
+request.defaults.headers['Content-Type'] = 'application/json'
+request.defaults.headers['multi-type'] = 'H5'
 // request拦截器
-instance.interceptors.request.use(
-  e => {
-    e.params = e.params || {}
-    e.headers = e.headers || {}
-    //set 默认值
-    return e
+request.interceptors.request.use(
+  config => {
+    // set 默认值
+    return config
   },
   error => ({ status: 0, msg: error.message })
 )
 // respone拦截器
-instance.interceptors.response.use(
+request.interceptors.response.use(
   response => {
-    const resp = response.data
-    if (response.status === 200) {
-      return resp
-    }
-    return resp
+    return response
   },
   error => {
     console.log('err' + error) // for debug
     return Promise.reject(error)
   }
 )
-export default instance
+export default request

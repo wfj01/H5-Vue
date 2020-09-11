@@ -15,8 +15,10 @@
       <div class="topview">
         <div class="topview-text">设置你的店铺名称</div>
       </div>
-      <div class="topview1-right">
+      <div class="topview1-right" style="text-align: center;">
+        <van-uploader :after-read="afterRead">
         <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
+        </van-uploader>
       </div>
       <div class="middleviewbox">
         <div class="name">
@@ -34,35 +36,94 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { NavBar, Icon, Uploader } from "vant";
+import Vue from 'vue'
+import { NavBar, Icon, Uploader } from 'vant'
+import GLOBAL from '@/api/global_variable.js'
+import axios from 'axios'
+import qs from 'qs'
+axios.defaults.headers['Content-Type'] = ''
+axios.defaults.headers['multi-type'] = 'H5'
 export default {
-  name: "ShoppSuccess",
+  name: 'ShoppSuccess',
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
-    [Uploader.name]: Uploader,
+    [Uploader.name]: Uploader
   },
-  data() {
+  data () {
     return {
       cutnumber: 1,
       fileList: [
         // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
-      ],
-    };
+      ]
+    }
   },
   methods: {
     onClickLeft: function () {
-      this.$router.go(-1); // 返回
+      this.$router.go(-1) // 返回
     },
     onClickRight: function () {
-      Toast("按钮");
+      Toast('按钮')
     },
-  },
-};
+    afterRead (file) {
+      console.log('asdfasdf')
+      // 此时可以自行将文件上传至服务器
+      var that = this
+      var api = GLOBAL.baseURL + '/multiapi/open/upload'
+      console.log(file)
+      let formData = new FormData()
+      formData.append('file', file.file)
+      function httpPost (url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data)
+            },
+            (err) => {
+              reject(err)
+            }
+          )
+        })
+      }
+      httpPost(api, formData)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style scoped>
+.user-header {
+  position: relative;
+  display: inline-block;
+}
+.user-header-com {
+  width: 144px;
+  height: 144px;
+  display: inline-block;
+}
+.header-upload-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  /* 通过定位把input放在img标签上面，通过不透明度隐藏 */
+}
+.tip {
+  font-size: 14px;
+  color: #666;
+}
+/* error是用于错误提示 */
+.error {
+  font-size: 12px;
+  color: tomato;
+  margin-left: 10px;
+}
 .middleviewbox {
   padding: 15px;
   box-sizing: border-box;

@@ -20,7 +20,7 @@
             alt
             style="width: 20px;height: 20px;padding-top: 6px;margin-left:5px"
           />
-          <div style="margin-left: 5px;">77.23万</div>
+          <div style="margin-left: 5px;">{{mydata.lookNumber}}</div>
         </div>
       </div>
       <div class="ceshi">
@@ -31,93 +31,53 @@
       <van-tabs @click="onClick" swipeable>
         <van-tab title="介绍">
           <div class="item1">
-            <div class="item1-text1">XXXXXX的直播间</div>
-            <div class="item1-text2">
-              <div>XXXXXX</div>
-              <div>2020-08-07 15:00:00</div>
+            <div class="item1-text1">{{mydata.liveRadioName}}</div>
+            <div class="video-middleview-fenlei item1-text2">
+              <div style="display: flex;justify-content: flex-start;">
+                <div class="video-middleview-text4">
+                  <img
+                    src="../../assets/image/时间.png"
+                    alt
+                    width="18px"
+                    height="17px"
+                    style="margin-top:2px;margin-right:5px"
+                  />
+                  <div>{{mydata.startDate}}</div>
+                </div>
+                <div class="video-middleview-text3">
+                  <img
+                    src="../../assets/image/开始.png"
+                    alt
+                    width="19px"
+                    height="18px"
+                    style="margin-top:2px;margin-right:5px"
+                  />
+                  <div>{{mydata.liveRadioLongDate}}分钟</div>
+                </div>
+              </div>
             </div>
-            <div class="item1-text3">
-              奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公
-              司奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司
-              奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司奇虎
-              360科技有限公司奇虎360科技有限公司奇虎360科技有限公司奇虎360科技有限公司,
-              是中国领先的互联网和手机安全产品及服务供应商。据第三方统计,按照用户数量计算,360是中国第一大互联网安全公司。
-            </div>
+            <div class="item1-text3">{{mydata.liveRadioIntro}}</div>
           </div>
         </van-tab>
         <van-tab title="互动">
-          <div class="hudong1">
+          <div class="hudong1" v-for="(item,index) in hostlist" :key="index">
             <!-- Left -->
             <div class="chat-sender">
               <div class="touxiangview">
                 <img class="touxiang" src="../../assets/image/1.jpeg" />
               </div>
-              <div>主持人</div>
+              <div>{{item.userName}}</div>
               <div>
                 <div class="chat-left_triangle"></div>
-                <span>
-                  欢迎进入【直播间】
-                  1.请自行调节手机音量至适合的状态。
-                  2.直播间显示主播发布的内容，听众可以发言，以弹幕形式发出。
-                </span>
-              </div>
-            </div>
-            <div class="chat-sender">
-              <div class="touxiangview">
-                <img class="touxiang" src="../../assets/image/1.jpeg" />
-              </div>
-              <div>主持人</div>
-              <div>
-                <div class="chat-left_triangle"></div>
-                <span>直播结束后，你可以随时回看全部的内容</span>
-              </div>
-            </div>
-            <div class="chat-sender">
-              <div class="touxiangview">
-                <img class="touxiang" src="../../assets/image/1.jpeg" />
-              </div>
-              <div>主持人</div>
-              <div>
-                <div class="chat-left_triangle"></div>
-                <span>直播结束后，你可以随时回看全部的内容</span>
-              </div>
-            </div>
-            <div class="chat-sender">
-              <div class="touxiangview">
-                <img class="touxiang" src="../../assets/image/1.jpeg" />
-              </div>
-              <div>主持人</div>
-              <div>
-                <div class="chat-left_triangle"></div>
-                <span>直播结束后，你可以随时回看全部的内容</span>
-              </div>
-            </div>
-            <div class="chat-sender">
-              <div class="touxiangview">
-                <img class="touxiang" src="../../assets/image/1.jpeg" />
-              </div>
-              <div>主持人</div>
-              <div>
-                <div class="chat-left_triangle"></div>
-                <span>直播结束后，你可以随时回看全部的内容</span>
+                <span>{{item.commentContent}}</span>
               </div>
             </div>
             <div>
               <ul>
-                <li>
+                <li v-for="(item,index) in observerlist" :key="index">
                   <div class="side-bar">
                     <div style="display: flex;justify-content: space-between;" class="tanmu">
-                      <div class="danmuwenzi">沙发，还有谁！！</div>
-                      <div class="touxiangview1">
-                        <img class="touxiang" src="../../assets/image/1.jpeg" />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="side-bar1">
-                    <div style="display: flex;justify-content: space-between;" class="tanmu">
-                      <div class="danmuwenzi">沙发，还有谁！！</div>
+                      <div class="danmuwenzi">{{item.commentContent}}</div>
                       <div class="touxiangview1">
                         <img class="touxiang" src="../../assets/image/1.jpeg" />
                       </div>
@@ -128,14 +88,16 @@
             </div>
 
             <!-- Notice/Center -->
-            <div class="chat-notice">
+            <div class="chat-notice" v-for="(item,index) in chanpinlist" :key="index">
               <img class="bottomimage" src="../../assets/image/1.jpeg" alt />
               <div class="textcolor">
-                <div style="font-size: 14px;text-align: left;">心田农场西红柿</div>
+                <div style="font-size: 14px;text-align: left;">{{item.spuName}}</div>
                 <div class="bottom-item2">
                   <div>
-                    <div style="font-size: 18px;color:#FF5454">￥48</div>
-                    <div style="text-decoration: line-through; font-size:14px">￥88</div>
+                    <div style="font-size: 18px;color:#FF5454">￥{{item.price}}</div>
+                    <div
+                      style="text-decoration: line-through; font-size:14px"
+                    >￥{{item.originalPrice}}</div>
                   </div>
                   <div class="gobuy">去购买</div>
                 </div>
@@ -144,9 +106,9 @@
           </div>
           <div class="inputview">
             <div style="text-align: left;">
-              <input placeholder="来说点什么吧…" class="inputstyle" />
+              <input placeholder="来说点什么吧…" class="inputstyle" v-model="commentContent" />
             </div>
-            <div class="fasongdanmu">发送弹幕</div>
+            <div class="fasongdanmu" @click="sendoutbarrage()">发送弹幕</div>
           </div>
         </van-tab>
       </van-tabs>
@@ -157,6 +119,8 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon, Toast, Tab, Tabs } from "vant";
+import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
 export default {
   name: "Livebroadcast",
   components: {
@@ -175,6 +139,11 @@ export default {
         backgroundSize: "100% 100%",
         borderRadius: "10px",
       },
+      mydata: {},
+      chanpinlist: [],
+      commentContent: "",
+      hostlist: [],
+      observerlist: [],
     };
   },
   methods: {
@@ -185,16 +154,166 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
+
+    loaddata: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z348v_liveRadio";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          id: "12121212",
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //加载主持人评论列表
+    loadcommentList: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z349v_liveRadioComment";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          id: "12121212", //<comment>直播id</comment>
+          createDataGt: 1583415963985,
+          liveRadioCommentUserEnum: 2, //<comment>评论人类型:[1=主播=ANCHOR, 2=主持人=HOST,3=观看人=LOOK]max=3</comment>
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.hostlist = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //加载观看者评论列表
+    loadcommentList1: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z349v_liveRadioComment";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          id: "12121212", //<comment>直播id</comment>
+          createDataGt: 1583415963985,
+          liveRadioCommentUserEnum: 3, //<comment>评论人类型:[1=主播=ANCHOR, 2=主持人=HOST,3=观看人=LOOK]max=3</comment>
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.observerlist = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //发送弹幕
+    sendoutbarrage: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z356c_liveRadioComment";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          id: "12121212", //<comment>直播id</comment>
+          commentContent: that.commentContent,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          if (res.data.code == 200) {
+            Toast("发送成功");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    //产品推送
+    pushproducts: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z353l_relLiveRadioSpu";
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          id: "12121212", //<comment>直播id</comment>
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          that.chanpinlist = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.loaddata();
+    this.pushproducts();
+    this.loadcommentList();
+    this.loadcommentList1();
   },
 };
 </script>
 
 <style scoped>
+.video-middleview-fenlei-right {
+  line-height: 50px;
+}
+.video-middleview-fenlei {
+  display: flex;
+  justify-content: space-between;
+}
+.video-middleview-text3 {
+  color: #2c3e50;
+  font-size: 15px;
+  text-align: left;
+  font-family: Arial-regular;
+  line-height: 26px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+.video-middleview-text4 {
+  color: #2c3e50;
+  font-size: 15px;
+  text-align: left;
+  font-family: Arial-regular;
+  line-height: 26px;
+  display: flex;
+  justify-content: flex-start;
+}
 .ceshitext1 {
-  width: 100%;
-  position: absolute;
-  left: 74%;
-  top: 1%;
+  float: right;
+  top: 3%;
+  padding: 0px 15px;
+  margin: 6px 6px 0px 0px;
+  box-sizing: border-box;
   /* -webkit-transform: translate(-50%, -50%); */
   /* transform: translate(-50%, -50%); */
   /* color: black; */
@@ -210,8 +329,8 @@ export default {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  border-radius: 0px 0px 0px 10px;
-  padding-left: 5px;
+  border-radius: 25px;
+  text-align: center;
 }
 .ceshitext {
   position: absolute;
@@ -285,9 +404,6 @@ export default {
 }
 .side-bar .icon-mail {
   background-position: 0 -266px;
-}
-.side-bar a,
-.chat-tips i {
 }
 .side-bar {
   position: fixed;
@@ -512,7 +628,6 @@ body {
   background: #ffffff;
   padding: 8px;
   box-sizing: border-box;
-  margin: 0px 20px;
 }
 .chat-notice span {
   background-color: #cecece;
@@ -527,6 +642,7 @@ body {
   text-indent: 2em;
 }
 .item1-text2 {
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
   font-size: 14px;

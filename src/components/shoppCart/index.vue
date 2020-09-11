@@ -51,7 +51,7 @@
                           <span id="num-jian" class="num-jian" @click="jianfa(item.num)">-</span>
                         </li>
                         <li>
-                          <input type="text" class="input-num" id="input-num" v-model="item.num" />
+                          <input type="text" class="input-num" id="input-num" v-model="cutnumber" />
                         </li>
                         <li>
                           <span id="num-jia" class="num-jia" @click="jiafa(item.num)">+</span>
@@ -65,7 +65,13 @@
           </div>
         </div>
         <template #right class="heightstyle">
-          <van-button class="heightstyle colorStyle1" square type="primary" text="收藏" />
+          <van-button
+            class="heightstyle colorStyle1"
+            square
+            type="primary"
+            text="收藏"
+            @click="shoucangClick()"
+          />
           <van-button
             class="heightstyle colorStyle2"
             square
@@ -94,8 +100,12 @@
 </template>
 
 <script>
-import Axios from "axios";
 import Vue from "vue";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 import {
   SwipeCell,
   Button,
@@ -131,10 +141,31 @@ export default {
         name: "Buynow",
       });
     },
+    shoucangClick: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z498d_cart_1598201502942";
+      console.log("api地址", api);
+      Axios.post(api, {
+        data: {
+          id: 1,
+          num: 1,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          if (res.data.code == 200) {
+            Toast("收藏成功");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
     //删除数据操作
     deleteClick: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496d_cart";
+      var api = GLOBAL.baseURL + "/multiapi/z496d_cart";
+      console.log("api地址", api);
       Axios.post(api, {
         data: {
           idList: ["1111111", "1111112"],
@@ -143,7 +174,7 @@ export default {
         .then((res) => {
           console.log("res", res);
           if (res.data.code == 200) {
-            Toast.success("删除成功");
+            Toast("删除成功");
           }
         })
         .catch((error) => {
@@ -153,7 +184,7 @@ export default {
     //结算
     jiesuanClick: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496p_cart";
+      var api = GLOBAL.baseURL + "/multiapi/z496p_cart";
       Axios.post(api, {
         data: {
           spuList: [
@@ -220,19 +251,31 @@ export default {
     },
     loaddata: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z496p_cart";
-      Axios.post(api, {
-        data: {
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
+      let data = {
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z496p_cart";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata = res.data.data;
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },

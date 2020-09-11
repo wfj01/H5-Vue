@@ -15,7 +15,7 @@
       <div class="topview">
         <div class="item">
           <div class="item-left">订单状态</div>
-          <div class="item-right">待付款</div>
+          <div class="item-right">{{mydata.orderStatusEnumString}}</div>
         </div>
         <div class="item">
           <div class="item-left">剩余时间</div>
@@ -23,7 +23,7 @@
         </div>
         <div class="item">
           <div class="item-left">订单编号</div>
-          <div class="item-right1">84556646654</div>
+          <div class="item-right1">{{mydata.orderNo}}</div>
         </div>
         <div class="item">
           <div class="item-left">下单时间</div>
@@ -34,10 +34,10 @@
         <div class="middleview-title">收货信息</div>
         <div class="middleview-middlebox">
           <div class="yonghuxinxi">
-            <div class="name">收货人：张三</div>
-            <div class="phone">17611141678</div>
+            <div class="name">收货人：{{mydata.consignee}}</div>
+            <div class="phone">{{mydata.phone}}</div>
           </div>
-          <div class="address">北京-北京市-通州区临河里路，华业东方玫瑰，D区D2，2单元604</div>
+          <div class="address">{{mydata.address}}</div>
         </div>
       </div>
       <div class="middlevie">
@@ -46,29 +46,28 @@
           <div
             class="shoppingview"
             @click="orderdetail()"
-            v-for="(item,index) in 2"
+            v-for="(item,index) in mydata.detail"
             v-bind:key="index"
           >
             <div class="shoppingview-item">
               <div class="shoppingview-itemleft">
                 <img
                   class="shoppingview-itemleftimage"
-                  src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                  :src="item.imgUrl ? item.imgUrl : imgsrc"
                   alt
                 />
               </div>
               <div class="shoppingview-itemright">
                 <div class="itembox1-left">
-                  <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
+                  <div class="shoppingview-itemright-toptext">{{item.spuName}}</div>
                   <div class="leixingview">
-                    <div class="leixing1">粉色</div>
-                    <div class="leixing1">大尺寸</div>
+                    <div class="leixing1">{{item.skuName}</div>
                   </div>
                 </div>
                 <div class="itembox1-right">
                   <div class="shoppingview-itemright-middleview">
-                    <div class="shoppingview-itemright-middleview-left">￥168</div>
-                    <div class="shoppingview-itemright-middleview-right">x1</div>
+                    <div class="shoppingview-itemright-middleview-left">￥{{item.price}}</div>
+                    <div class="shoppingview-itemright-middleview-right">x{{item.skuCount}}</div>
                   </div>
                 </div>
               </div>
@@ -80,7 +79,7 @@
         <div class="middleview-title1">付款信息</div>
         <div class="fukuanjine">
           <div class="fukuanjine-left">合计金额:</div>
-          <div class="fukuanjine-right">￥336</div>
+          <div class="fukuanjine-right">￥{{mydata.actualPrice}}</div>
         </div>
       </div>
     </div>
@@ -95,6 +94,12 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon } from "vant";
+import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 export default {
   name: "Orderdetail",
   components: {
@@ -104,6 +109,8 @@ export default {
   data() {
     return {
       cutnumber: 1,
+      mydata:{},
+      imgsrc:"https://img.yzcdn.cn/vant/ipad.jpeg"
     };
   },
   methods: {
@@ -119,15 +126,45 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
+    loaddata: function () {
+      var that = this;
+      let data = {
+        id: "123123123",
+        typeEnum: 1, //<comment>订单列表中typeEnum</comment>
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z720v_spuOrder";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
+  mounted() {},
 };
 </script>
 
 <style scoped>
-.null{
+.null {
   height: 85px;
 
-background: #F8F8F8;
+  background: #f8f8f8;
 }
 .topview-right1 {
   font-size: 18px;
@@ -166,11 +203,11 @@ background: #F8F8F8;
   padding: 15px 0px;
   display: -webkit-box;
   left: 0;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	z-index: 100;
-  background: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background: #ffffff;
 }
 .middleviewbtn-btn1 {
   width: 100px;

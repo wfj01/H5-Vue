@@ -22,7 +22,12 @@
       </div>
       <div>
         <van-tabs v-model="active" swipeable @change="selectchange($event)">
-          <van-tab v-for="(item,index) in itemlist" :key="index" background="#844404">
+          <van-tab
+            v-for="(item,index) in itemlist"
+            :key="index"
+            background="#F6B900"
+            color="#F6B900"
+          >
             <template #title>{{item.name}}</template>
             <div v-if="item.index == 0">
               <div style="margin-top: 15px;background: #FFFFFF;">
@@ -41,7 +46,12 @@
                       介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
                     </div>
                     <div style="justify-content: flex-end;display: flex;">
-                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/381.png"
+                        alt
+                        style="width: 20px;height: 20px;"
+                        @click="CancelCollection()"
+                      />
                       <img
                         src="../../../assets/380.png"
                         alt
@@ -72,7 +82,12 @@
                       介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
                     </div>
                     <div style="justify-content: flex-end;display: flex;">
-                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/381.png"
+                        alt
+                        style="width: 20px;height: 20px;"
+                        @click="CancelCollection()"
+                      />
                       <img
                         src="../../../assets/380.png"
                         alt
@@ -103,7 +118,12 @@
                       介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍
                     </div>
                     <div style="justify-content: flex-end;display: flex;">
-                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/381.png"
+                        alt
+                        style="width: 20px;height: 20px;"
+                        @click="CancelCollection()"
+                      />
                       <img
                         src="../../../assets/380.png"
                         alt
@@ -133,13 +153,18 @@
                       </div>
                     </div>
                     <div class="video-middleview-fenlei-right">
-                      <img src="../../../assets/502.png" alt style="width: 20px;height: 20px;" />
+                      <img
+                        src="../../../assets/381.png"
+                        alt
+                        style="width: 20px;height: 20px;"
+                        @click="CancelCollection()"
+                      />
                       <img
                         src="../../../assets/380.png"
                         alt
                         style="width: 20px;height: 20px;margin-left:10px"
                       />
-                      <!-- <img src="../../../assets/502.png" alt="" style="width: 20px;height: 20px;"> -->
+                      <!-- <img src="../../../assets/381.png" alt="" style="width: 20px;height: 20px;"> -->
                     </div>
                   </div>
                 </div>
@@ -157,8 +182,10 @@
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Search, Tab, Tabs, Card } from "vant";
-import { selectshoucanglist } from "../../../api/index";
+import { NavBar, Icon, Search, Tab, Tabs, Card, Toast } from "vant";
+import axios from "axios";
+import qs from "qs";
+import GLOBAL from "@/api/global_variable.js";
 
 export default {
   name: "Mycollection",
@@ -198,6 +225,35 @@ export default {
     };
   },
   methods: {
+    // 取消收藏
+    CancelCollection: function () {
+      var that = this;
+      let data = {
+        id: 1,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z454d_relUserSku";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     //选择切换
     selectchange: function (event) {
       console.log(event, this.itemlist[event].name);
@@ -210,31 +266,33 @@ export default {
       Toast("按钮");
     },
     loaddata: function () {
-      // selectshoucanglist()
-      //   .then((res) => {
-      //     console.log("uploadelf --->", res);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      console.log("走了吗");
-
-      axios({
-        methods: "post",
-        url: "http://yapi.jeemoo.com/mock/33/multiapi/z310p_relUserSku",
-        data: {
-          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
-          "multi-type": "H5",
-          typeEnum: this.typeEnum, //<comment>[1=内训直播=INSIDE_RADIO, 2=内训图文=INSIDE_TEXT ,3=商品=SKU,4=直播=RADIO,5=店铺=shop]</comment>
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
-        .then((response) => {
-          console.log(response);
+      var that = this;
+      let data = {
+        typeEnum: 1, //<comment>[1=内训直播=INSIDE_RADIO, 2=内训图文=INSIDE_TEXT ,3=商品=SKU,4=直播=RADIO,5=店铺=shop]</comment>
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z310p_relUserSku";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },

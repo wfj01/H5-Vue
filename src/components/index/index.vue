@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div>
       <van-nav-bar title="首页" fixed>
         <template #right>
@@ -7,7 +7,7 @@
         </template>
       </van-nav-bar>
     </div>
-    
+
     <div style="height:46px"></div>
 
     <div class="topname">
@@ -90,7 +90,12 @@
       <div :class="isshow2 ? 'middleview2-btn2' : 'middleview2-btn1'" @click="isshowb()">直播产品</div>
     </div>
     <div v-if="isshow1">
-      <div v-for="(item,index) in 2" :key="index" @click="EntrystaffDetail()" style="padding: 8px 12px;box-sizing: border-box;">
+      <div
+        v-for="(item,index) in mydata.list"
+        :key="index"
+        @click="Commoditysharing()"
+        style="padding: 8px 12px;box-sizing: border-box;"
+      >
         <div style="display: flex;justify-content: flex-start; width:100%;height:100%">
           <div class="topvideo1 note" :style="note">
             <div class="ceshi11" style>
@@ -98,15 +103,18 @@
               <div class="ceshi11-text" style>已上架</div>
             </div>
           </div>
-          <div style="text-align:left;margin-left: 8px;">
-            <div class="middleviewtext1">应用基础科普</div>
-            <div class="middleviewtext2" style="padding-top: 2px;">店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍店铺介绍</div>
+          <div style="text-align: left;width: 60%;margin-left: 8px;">
+            <div class="middleviewtext1">{{item.spuname}}</div>
+            <div class="middleviewtext2" style="padding-top: 2px;height: 40px">{{item.spuIntro}}</div>
             <div style="display: flex;padding-top: 8px;">
               <div class="middleviewtext4">
-                现价：
-                <div class="middleviewtext3">¥ 89</div>
+                <div>现价:</div>
+                <div class="middleviewtext3">¥ {{item.price}}</div>
               </div>
-              <div class="middleviewtext4">原价：¥109</div>
+              <div class="middleviewtext4">
+                <div>原价:</div>
+                ¥{{item.originalPrice}}
+              </div>
               <div style="display: flex;justify-content: end;float: right;">
                 <img
                   src="../../assets/image/组 381.png"
@@ -126,24 +134,43 @@
     </div>
     <div v-if="isshow2" class="videoceshi">
       <div
-        v-for="(item,index) in 3"
+        v-for="(item,index) in mydata1.list"
         :key="index"
-        @click="Livebroadcast()"
+        @click="PlayStatus()"
         style="padding: 10px 15px;box-sizing: border-box;"
       >
         <div class="topvideo note1" :style="note1">
-          <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
+          <img
+            v-if="item.liveRadioTypeEnum == 1"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
+          <img
+            v-if="item.liveRadioTypeEnum == 2"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
+          <img
+            v-if="item.liveRadioTypeEnum == 3"
+            src="../../assets/image/组 378.png"
+            alt
+            class="topview-shuliang"
+          />
         </div>
         <div class="video-middleview">
-          <div class="video-middleview-text1">课程直播视频名称名称</div>
-          <div class="video-middleview-text2">视频简介视频简介视频简介视频简介视频简介视频简介视频简</div>
+          <div class="video-middleview-text1">{{item.name}}</div>
+          <div class="video-middleview-text2">{{item.intro}}</div>
           <div class="video-middleview-fenlei">
             <div style="display: flex;justify-content: flex-start;">
               <div class="video-middleview-text4">
-                <i class="iconfont iconshijian" style="margin:0px 3px"></i>2020-05-31 20:30
+                <i class="iconfont iconshijian" style="margin:0px 3px"></i>
+                {{item.startDate}}
               </div>
               <div class="video-middleview-text3">
-                <i class="iconfont iconbofang" style="margin:0px 3px"></i>70分钟
+                <i class="iconfont iconbofang" style="margin:0px 3px"></i>
+                {{item.liveRadioLongDate}}分钟
               </div>
             </div>
           </div>
@@ -156,7 +183,12 @@
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
+import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card,Toast  } from "vant";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 export default {
   name: "Internaltrain",
   components: {
@@ -166,14 +198,15 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Card.name]: Card,
+    [Toast.name]: Toast ,
   },
   data() {
     return {
       isshow1: true,
       isshow2: false,
       cutnumber: 1,
-      mydata:[],
-      mydata1:[],
+      mydata: [],
+      mydata1: [],
       images: [
         { url: "https://img.yzcdn.cn/vant/apple-1.jpg" },
         { url: "https://img.yzcdn.cn/vant/apple-2.jpg" },
@@ -183,6 +216,7 @@ export default {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
         borderRadius: "15px",
+        width: "40%",
       },
       note1: {
         backgroundImage: "url(" + require("../../assets/image/ceshi.jpg") + ")",
@@ -194,21 +228,21 @@ export default {
   },
   methods: {
     //跳转到详情页
-    EntrystaffDetail: function () {
+    Commoditysharing: function () {
       this.$router.push({
-        name: "EntrystaffDetail",
+        name: "Commoditysharing",
       });
     },
-      //跳转到分类入职员工
+    //跳转到分类入职员工
     goClassifieddisplay: function () {
       this.$router.push({
         name: "Classifieddisplay",
       });
     },
     //跳转到直播间详情
-    Livebroadcast: function () {
+    PlayStatus: function () {
       this.$router.push({
-        name: "Livebroadcast",
+        name: "PlayStatus",
       });
     },
     onClickLeft: function () {
@@ -227,56 +261,71 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    //加载主页商品列表
     loaddata: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z359p_spu";
-      Axios.post(api, {
-        headers: {
-          "Content-Type": "application/json",
-          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
-          "multi-type": "H5",
-        },
-        data: {
-          shopId: "2121",
-          sortId: 5453432,
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
+      let data = {
+        shopId: "2121",
+        sortId: 5453432,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z359p_spu";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata = res.data.data;
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
     loaddata1: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z345p_liveRadio";
-      Axios.post(api, {
-        headers: {
-          "Content-Type": "application/json",
-          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
-          "multi-type": "H5",
-        },
-        data: {
-          shopId: "2121",
-          sortId: 5453432,
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
+      let data = {
+        shopId: "2121",
+        sortId: 5453432,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z366p_liveRadio";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata1 = res.data.data;
+          console.log(res);
+          this.mydata1 = res.data;
+          Toast(res.msg);
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
-   mounted() {
+  mounted() {
     this.loaddata();
     this.loaddata1();
   },
@@ -331,19 +380,21 @@ export default {
   -webkit-box-orient: vertical;
 }
 .middleviewtext3 {
-  font-size: 16px;
+  font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: bold;
   color: #333333;
 }
 .middleviewtext4 {
-  font-size: 13px;
+  font-size: 12.5px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #999999;
   display: flex;
   line-height: 21px;
-  margin-right: 11px;
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
 }
 
 .itemtext {
@@ -405,6 +456,7 @@ p {
   box-sizing: border-box;
   background-clip: content-box;
   font-size: 16px;
+  text-align: center;
 }
 .imagestylebox {
   padding: 10px 12px;
@@ -423,8 +475,8 @@ p {
   right: 0px;
   top: 0px;
   z-index: 100;
-  width: 100px;
-  height: 30px;
+  width: 70px;
+  height: 20px;
   line-height: 30px;
   border-radius: 30px 30px 30px 30px;
   background-color: rgba(0, 0, 0, 0.36);
@@ -559,6 +611,7 @@ p {
 .video-middleview {
   padding: 10px 0px 0px 0px;
   box-sizing: border-box;
+  width: 60%;
 }
 .topvideo {
   width: 100%;

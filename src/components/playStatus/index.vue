@@ -12,15 +12,23 @@
     </div>
     <div style="height:46px"></div>
     <div class="videoceshi">
-      <div @click="Livebroadcast()" style="padding: 10px 15px;box-sizing: border-box;">
-        <div class="topvideo note" :style="note">
-          <img src="../../assets/image/组 378.png" alt class="topview-shuliang" />
-          <div class="ceshi">
+      <div style="padding: 10px 15px;box-sizing: border-box;">
+        <div class="topvideo note" :style="note"  @click="Livebroadcast()" >
+          <img v-if="mydata.liveRadioTypeEnum == 1" src="../../assets/image/组 378.png" alt class="topview-shuliang" />
+          <div v-if="mydata.liveRadioTypeEnum == 1" class="ceshi">
             <div class="ceshitext">直播未开始</div>
+          </div>
+          <img v-if="mydata.liveRadioTypeEnum == 2" src="../../assets/image/组 378.png" alt class="topview-shuliang" />
+          <div v-if="mydata.liveRadioTypeEnum == 2" class="ceshi">
+            <div class="ceshitext1">进入直播</div>
+          </div>
+          <img v-if="mydata.liveRadioTypeEnum == 3" src="../../assets/image/组 378.png" alt class="topview-shuliang" />
+          <div v-if="mydata.liveRadioTypeEnum == 3" class="ceshi">
+            <div class="ceshitext1">查看回放</div>
           </div>
         </div>
         <div class="video-middleview">
-          <div class="video-middleview-text1">横扫秋日好货指南</div>
+          <div class="video-middleview-text1">{{mydata.liveRadioName}}</div>
           <div style="display: flex;justify-content: end;float: right;">
             <img
               src="../../assets/image/组 381.png"
@@ -35,15 +43,7 @@
           </div>
         </div>
         <div class="video-middleview1">
-          以综合推荐分为基础，由亿万买家推选出来的榜单。
-          目前推荐大赏覆盖了服饰运动、数码家电、美妆个护、家居生活等全部品类，
-          入选商品为各大赏下洋淘分排名前15的精选商品。推荐大赏将涵盖周榜、月榜和年榜，为消费者提供真实靠谱的购物参考。
-          以综合推荐分为基础，由亿万买家推选出来的榜单。目前推荐大赏覆盖了服饰运动、数码家电、美妆个护、家居生活等全部品类，
-          入选商品为各大赏下洋淘分排名前15的精选商品。推荐大赏将涵盖周榜、月榜和年榜，为消费者提供真实靠谱的购物参考。
-          以综合推荐分为基础，由亿万买家推选出来的榜单。目前推荐大赏覆盖了服饰运动、数码家电、美妆个护、家居生活等全部品类，
-          入选商品为各大赏下洋淘分排名前15的精选商品。推荐大赏将涵盖周榜、月榜和年榜，为消费者提供真实靠谱的购物参考。
-          以综合推荐分为基础，由亿万买家推选出来的榜单。目前推荐大赏覆盖了服饰运动、数码家电、美妆个护、家居生活等全部品类，
-          入选商品为各大赏下洋淘分排名前15的精选商品。推荐大赏将涵盖周榜、月榜和年榜，为消费者提供真实靠谱的购物参考。
+          {{mydata.liveRadioIntro}}
         </div>
         <div class="bottom1">
           <img
@@ -64,7 +64,7 @@
                 width="18px"
                 height="17px"
                 style="margin-top:2px;margin-right:5px"
-              />2020-05-31 20:30
+              />{{mydata.startDate}}
             </div>
             <div class="video-middleview-text3">
               <img
@@ -73,7 +73,7 @@
                 width="18px"
                 height="17px"
                 style="margin-top:2px;margin-right:5px"
-              />70分钟
+              />{{mydata.liveRadioLongDate}}分钟
             </div>
           </div>
         </div>
@@ -106,8 +106,7 @@ export default {
   },
   data() {
     return {
-      mydata: [],
-      mydata1: [],
+      mydata: {},
       isshow1: true,
       isshow2: false,
       liveRadioTypeEnum: "",
@@ -151,7 +150,7 @@ export default {
     //加载商品列表
     loaddata: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z359p_spu";
+      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z368v_liveRadio";
       Axios.post(api, {
         data: {
           shopId: "2121",
@@ -168,26 +167,6 @@ export default {
           console.log("error", error);
         });
     },
-    //加载首页直播-列表
-    loaddata1: function () {
-      var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z366p_liveRadio";
-      Axios.post(api, {
-        data: {
-          shopId: "2121",
-          sortId: 5453432,
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
-        .then((res) => {
-          console.log("res", res);
-          that.mydata1 = res.data.data;
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
-    },
   },
   mounted() {
     this.loaddata();
@@ -197,6 +176,20 @@ export default {
 </script>
 
 <style scoped>
+.ceshitext1{
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /* color: black; */
+    border-radius: 50px;
+    line-height: 40px;
+    padding: 0px 17px;
+    font-weight: bold;
+    background-color: #FFE231;
+    color: #141821;
+}
 .ceshitext {
   position: absolute;
   left: 50%;

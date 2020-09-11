@@ -16,131 +16,202 @@
         <div class="box-item1">
           <div class="box-item2-left">个人头像</div>
           <div class="topview1-right">
-            <img src="https://img.yzcdn.cn/vant/ipad.jpeg" class="round_icon" alt />
+            <van-uploader :after-read="afterRead">
+              <img :src="imageSrc" class="round_icon" alt />
+            </van-uploader>
           </div>
         </div>
       </div>
     </div>
     <div>
-      <van-cell
-        title="昵称"
-        is-link
-        :value-class="className"
-        :value="mydata.nickName"
-        @click="showPopup1"
-        style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-      />
+      <van-cell-group>
+        <van-field
+          placeholder="请输入你的昵称"
+          label="昵称"
+          input-align="right"
+          :value-class="className"
+          v-model="mydata.nickName"
+          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+        >
+          <template #button>
+            <van-icon
+              name="arrow"
+              style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+            />
+          </template>
+        </van-field>
+      </van-cell-group>
     </div>
     <div>
-      <van-cell
-        title="真实姓名"
-        is-link
-        :value-class="className"
-        :value="mydata.userName"
-        @click="showPopup1"
-        style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-      />
-    </div>
-
-    <div>
-      <van-cell
-        title="性别"
-        is-link
-        :value-class="className"
-        :value="mydata.genderEnumString"
-        @click="showPopup1"
-        style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-      />
-      <van-popup v-model="show1" position="bottom">
-        <van-picker
-          title="标题"
-          show-toolbar
-          :columns="columns"
-          @confirm="onConfirm"
-          @cancel="show = false"
-          @change="onChange"
-        />
-      </van-popup>
+      <van-cell-group>
+        <van-field
+          placeholder="请输入你的真实姓名"
+          label="真实姓名"
+          input-align="right"
+          :value-class="className"
+          v-model="mydata.userName"
+          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+        >
+          <template #button>
+            <van-icon
+              name="arrow"
+              style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+            />
+          </template>
+        </van-field>
+      </van-cell-group>
     </div>
     <div>
-      <van-cell
-        title="出生日期"
-        is-link
-        :value-class="className"
-        :value="mydata.birthday"
-        @click="showPopup"
-        style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-      />
-      <van-popup v-model="show" position="bottom">
-        <van-datetime-picker
-          v-model="currentDate"
-          type="date"
-          title="选择时间"
-          :loading="isLoadingShow"
-          :min-date="minDate"
-          :max-date="maxDate"
-          :formatter="formatter"
-          @cancel="show1 = false"
-          @confirm="confirmPicker"
-        />
-      </van-popup>
+      <van-cell-group>
+        <van-field
+          label="性别"
+          input-align="right"
+          :value-class="className"
+          v-model="mydata.genderEnumString"
+          @click-input="showPopup1"
+          readonly
+          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+        >
+          <template #button>
+            <van-icon
+              name="arrow"
+              style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+            />
+          </template>
+        </van-field>
+        <van-popup v-model="show1" position="bottom">
+          <van-picker
+            title="选择性别"
+            show-toolbar
+            :columns="columns"
+            @confirm="AexonConfirm"
+            @cancel="show = false"
+            @change="AexonChange"
+          />
+        </van-popup>
+      </van-cell-group>
+    </div>
+    <div>
+      <van-cell-group>
+        <van-field
+          label="出生日期"
+          input-align="right"
+          :value-class="className"
+          v-model="timeValue"
+          readonly
+          @click-input="showPopup"
+          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+        >
+          <template #button>
+            <van-icon
+              name="arrow"
+              style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+            />
+          </template>
+        </van-field>
+        <van-popup v-model="show" position="bottom">
+          <van-datetime-picker
+            v-model="currentDate"
+            type="datetime"
+            title="选择时间"
+            :loading="isLoadingShow"
+            :min-date="minDate"
+            :max-date="maxDate"
+            :formatter="formatter"
+            @cancel="show1 = false"
+            @confirm="confirmPicker"
+          />
+        </van-popup>
+      </van-cell-group>
     </div>
 
     <div class="toptext">
       <div>
-        <van-cell
-          title="地区"
-          is-link
-          :value-class="className"
-          :value="AddressValue"
-          @click="AddressPopup"
-          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-        />
-        <van-popup v-model="Addressshow" position="bottom">
-          <van-area
-            title="省市区选择"
-            :area-list="areaList"
-            @change="onChange"
-            @confirm="onConfirm"
-            @cancel="onCancel"
-          />
-        </van-popup>
-      </div>
-      <div>
-        <van-cell
-          title="收货地址"
-          is-link
-          :value-class="className"
-          :value="mydata.address"
-          @click="goAddresslist()"
-          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-        />
-      </div>
-
-      <div class="topview1">
-        <div class="topview1-box">
-          <div class="box-item2">
-            <div class="box-item1-left">手机号码</div>
-            <div class="topview2-right">
-              <input
-                type="text"
-                v-model="mydata.userPhone"
-                placeholder="请输入手机号码"
-                style="border:none;text-align:right"
+        <van-cell-group>
+          <van-field
+            label="地区"
+            input-align="right"
+            :value-class="className"
+            v-model="AddressValue"
+            readonly
+            @click-input="AddressPopup"
+            style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+          >
+            <template #button>
+              <van-icon
+                name="arrow"
+                style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
               />
-              <van-icon name="arrow" size="20px" color="#CBCBCB" />
-            </div>
-          </div>
-        </div>
+            </template>
+          </van-field>
+          <van-popup v-model="Addressshow" position="bottom">
+            <van-area
+              title="省市区选择"
+              :area-list="areaList"
+              @change="onChange"
+              @confirm="onConfirm"
+              @cancel="onCancel"
+            />
+          </van-popup>
+        </van-cell-group>
       </div>
       <div>
-        <van-cell
-          title="服务协议"
-          is-link
-          :value-class="className"
-          :value="fuwuxieyi"
-          style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
-        ></van-cell>
+        <van-cell-group>
+          <van-field
+            placeholder="请输入你的收货地址"
+            label="收货地址"
+            input-align="right"
+            readonly
+            :value-class="className"
+            v-model="mydataaddress"
+            @click="goAddresslist()"
+            style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+          >
+            <template #button>
+              <van-icon
+                name="arrow"
+                style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+              />
+            </template>
+          </van-field>
+        </van-cell-group>
+      </div>
+      <div>
+        <van-cell-group>
+          <van-field
+            placeholder="请输入你的手机号码"
+            label="手机号码"
+            input-align="right"
+            :value-class="className"
+            v-model="mydata.userPhone"
+            style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+          >
+            <template #button>
+              <van-icon
+                name="arrow"
+                style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+              />
+            </template>
+          </van-field>
+        </van-cell-group>
+      </div>
+      <div>
+        <van-cell-group>
+          <van-field
+            label="服务协议"
+            input-align="right"
+            readonly
+            :value-class="className"
+            style="text-align:left;padding-top:20px;padding-bottom:20px;color: #2c3e50;font-size:16px"
+          >
+            <template #button>
+              <van-icon
+                name="arrow"
+                style="width: 16px;height: 29px;font-size: 20px;line-height: 31px;"
+              />
+            </template>
+          </van-field>
+        </van-cell-group>
       </div>
     </div>
     <div class="toptext" @click="tuichulogin()">
@@ -168,11 +239,18 @@ import {
   Picker,
   Toast,
   Area,
+  Field,
+  Uploader,
 } from "vant";
 // 导入相应的请求函数
-import { querymine, savemine, getDisassemble } from "../../../api/index";
 import areaList from "../../../assets/area/area.js";
 import addresslistVue from "../../shoppCart/address/addresslist.vue";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
+import moment from "moment";
 export default {
   name: "Personaldata",
   components: {
@@ -184,7 +262,9 @@ export default {
     [Cell.name]: Cell,
     [Picker.name]: Picker,
     [Toast.name]: Toast,
+    [Field.name]: Field,
     [Area.name]: Area,
+    [Uploader.name]: Uploader,
   },
   data() {
     return {
@@ -204,30 +284,105 @@ export default {
       isLoadingShow: false,
       className: "",
       Addressshow: false,
-      fuwuxieyi:''
+      fuwuxieyi: "",
+      imageSrc: "https://img.yzcdn.cn/vant/ipad.jpeg",
+      addressSelect: {},
+      genderEnum: "",
     };
   },
   methods: {
+    // 上传头像
+    afterRead(file) {
+      console.log("asdfasdf");
+      // 此时可以自行将文件上传至服务器
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/open/upload";
+      console.log(file);
+      let formData = new FormData();
+      formData.append("file", file.file);
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, formData)
+        .then((res) => {
+          console.log(res);
+          that.imageSrc = res.data;
+          that.mydata.avatarUrl = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     //保存信息
     Saveminemessage: function () {
-      // 调用该工厂方法进行请求返回一个对象，再通过对象的then(), catch()方法进行后续操作
-      savemine()
-        .then((res) => {
-          console.log("uploadelf --->", res.data.code);
-          if(res.data.code == 200){
-            Toast.success('保存成功');
-
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+      var that = this;
+      if (that.mydata.genderEnumString == "保密") {
+        that.genderEnum = 1;
+      } else if (that.mydata.genderEnumString == "男性") {
+        that.genderEnum = 2;
+      } else if (that.mydata.genderEnumString == "女性") {
+        that.genderEnum = 3;
+      } else {
+        that.genderEnum = 4;
+      }
+      let data = {
+        userName: that.mydata.userName,
+        nickName: that.mydata.nickName,
+        avatarUrl: that.mydata.avatarUrl,
+        genderEnum: that.genderEnum,
+        birthday: that.mydata.birthday,
+        country: "中国",
+        province: that.mydata.province,
+        city: that.mydata.city,
+        county: that.mydata.county,
+        address: that.mydataaddress,
+      };
+      console.log("datadatadatadatadata", data);
+      var api = GLOBAL.baseURL + "/multiapi/z292e_user";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
         });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    AexonConfirm() {
+      this.show1 = false;
+    },
+    AexonChange(picker, index, value) {
+      console.log("index", picker);
+      let val = picker.getValues();
+      console.log(val); //查看打印
+      this.mydata.genderEnum = index;
+      this.mydata.genderEnumString = val.toString();
     },
     //选择地区
     AddressPopup: function () {
       this.Addressshow = true;
     },
-
     //value=0改变省，1改变市，2改变区
     onChange(picker, index, value) {
       let val = picker.getValues();
@@ -241,6 +396,9 @@ export default {
     //确定选择城市
     onConfirm(val) {
       console.log(val[0].name + "," + val[1].name + "," + val[2].name);
+      this.mydata.province = val[0].name;
+      this.mydata.city = val[1].name;
+      this.mydata.county = val[2].name;
       this.AddressValue = val[0].name + "," + val[1].name + "," + val[2].name;
       this.Addressshow = false; //关闭弹框
     },
@@ -283,7 +441,9 @@ export default {
         minute = `0${minute}`;
       }
       this.className = "timeClass";
-      this.timeValue = `${year}-${month}-${day}`;
+      this.timeValue = `${year}-${month}-${day} ${hour}:${minute}`;
+      let tiem = `${year}${month}${day}${hour}${minute}`;
+      this.mydata.birthday = moment(tiem).valueOf();
       this.show = false;
     },
     // 选项格式化函数
@@ -303,20 +463,39 @@ export default {
     },
     //加载
     loaddata() {
-      // 调用该工厂方法进行请求返回一个对象，再通过对象的then(), catch()方法进行后续操作
-      querymine()
+      var that = this;
+      let data = {
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z291v_user";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("uploadelf --->", res.data.data);
-          this.mydata = res.data.data;
-          this.AddressValue =
-            this.mydata.country +
-            "," +
-            this.mydata.province +
-            "," +
-            this.mydata.city;
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
+          that.imageSrc = that.mydata.avatarUrl;
+          that.AddressValue =
+            that.mydata.country +
+            that.mydata.province +
+            that.mydata.city +
+            that.mydata.county;
+          that.timeValue = that.mydata.birthday;
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     },
     //跳转到地址列表
@@ -341,11 +520,20 @@ export default {
     onClickLeft: function () {
       this.$router.go(-1); // 返回
     },
-    onClickRight: function () {
-    },
+    onClickRight: function () {},
+  },
+  activated() {
+    this.loaddata();
   },
   mounted() {
     this.loaddata();
+    this.addressSelect = JSON.parse(localStorage.getItem("addressSelect"));
+    this.mydataaddress =
+      this.addressSelect.province +
+      this.addressSelect.city +
+      this.addressSelect.county +
+      this.addressSelect.address;
+    console.log("dadaddada", this.mydataaddress);
   },
 };
 </script>

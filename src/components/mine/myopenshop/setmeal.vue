@@ -21,7 +21,7 @@
         <div class="middleview1-toptitle">请选择套餐类型</div>
         <div class="topbianju"></div>
         <div>
-          <div class="itembox" v-for="(item,index) in 3" :key="index">
+          <div class="itembox" v-for="(item,index) in mydata" :key="index">
             <div class="item">
               <div class="item-left">
                 <div class="item-left-lefttext">
@@ -53,6 +53,8 @@
 <script>
 import Vue from "vue";
 import { NavBar, Icon } from "vant";
+import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
 export default {
   name: "Setmealdetail",
   components: {
@@ -62,6 +64,7 @@ export default {
   data() {
     return {
       cutnumber: 1,
+      mydata:[]
     };
   },
   methods: {
@@ -71,7 +74,33 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
+    //加载
+    loaddata() {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z305l_shopSetMeal";
+      console.log("api地址", api);
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          setMealTypeEnum: 2,
+        },
+      })
+        .then((res) => {
+          console.log("res", res.data.data);
+          that.mydata = res.data.data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
   },
+  mounted(){
+    this.loaddata()
+  }
 };
 </script>
 
@@ -116,9 +145,8 @@ export default {
   border-radius: 25px;
 }
 .fix-button {
-  width: 105px;
-  height: 40px;
-  line-height: 40px;
+  width: 125px;
+  line-height: 45px;
   background: #ffffff;
   border-radius: 20px;
   font-size: 16px;
@@ -133,7 +161,7 @@ export default {
   width: 105px;
   height: 45px;
   line-height: 45px;
-  color:#000000;
+  color: #000000;
   font-size: 16px;
   font-family: PingFangSC-regular;
   font-weight: bold;

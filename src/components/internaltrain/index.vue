@@ -51,7 +51,7 @@
           <van-swipe-item class="swipeitemstyle">
             <img
               class="imagestyle"
-              src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
+              src="../../assets/image/boy singing on microphone with pop filter.png"
             />
           </van-swipe-item>
         </van-swipe>
@@ -97,7 +97,7 @@
         <div class="imagestylebox">
           <img
             class="imagestyle"
-            src="http://img.netbian.com/file/2020/0529/bfc52b590e1f9be57528d41237c9c24b.jpg"
+            src="../../assets/image/boy singing on microphone with pop filter.png"
           />
         </div>
         <div style="padding-bottom: 10px;">
@@ -163,21 +163,26 @@
                 <i class="iconfont iconshijian" style="margin:0px 3px"></i>2020-05-31 20:30
               </div>
               <div class="video-middleview-text3">
-                <i class="iconfont iconbofang" style="margin:0px 3px"></i>70分钟
+                <i class="iconfont iconbofang" style="margin:0px 3px"></i>
+                {{item.liveRadioLongDate}}分钟
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="height:10px;background: #F2F2F2;"></div>
+    <div style="height:60px;background: #F2F2F2;" v-if="mydata1.list != []"></div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Lazyload, Swipe, SwipeItem, Card } from "vant";
-import Axios from "axios";
+import { NavBar, Icon, Lazyload, Swipe, Toast, SwipeItem, Card } from "vant";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 export default {
   name: "Internaltrain",
   components: {
@@ -187,6 +192,7 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Card.name]: Card,
+    [Toast.name]: Toast,
   },
   data() {
     return {
@@ -245,52 +251,67 @@ export default {
       this.isshow2 = true;
       this.isshow1 = false;
     },
+    //加载主页商品列表
     loaddata: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z344p_imgText";
-      Axios.post(api, {
-        headers: {
-          "Content-Type": "application/json",
-          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
-          "multi-type": "H5",
-        },
-        data: {
-          shopId: "2121",
-          sortId: 5453432,
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
+      let data = {
+        shopId: "2121",
+        sortId: 5453432,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z344p_imgText";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata = res.data.data;
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
     loaddata1: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z345p_liveRadio";
-      Axios.post(api, {
-        headers: {
-          "Content-Type": "application/json",
-          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
-          "multi-type": "H5",
-        },
-        data: {
-          shopId: "2121",
-          sortId: 5453432,
-          pageNum: 1,
-          pageSize: 10,
-        },
-      })
+      let data = {
+        shopId: "2121",
+        sortId: 5453432,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z345p_liveRadio";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata1 = res.data.data;
+          console.log(res);
+          this.mydata1 = res.data;
+          Toast(res.msg);
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
@@ -361,6 +382,7 @@ p {
   box-sizing: border-box;
   background-clip: content-box;
   font-size: 16px;
+  text-align: center;
 }
 .imagestylebox {
   padding: 10px 12px;
@@ -379,8 +401,8 @@ p {
   right: 0px;
   top: 0px;
   z-index: 100;
-  width: 100px;
-  height: 30px;
+  width: 75px;
+  height: 22px;
   line-height: 30px;
   border-radius: 30px 30px 30px 30px;
   background-color: rgba(0, 0, 0, 0.36);

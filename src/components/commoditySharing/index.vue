@@ -61,15 +61,7 @@
         </div>
       </div>
       <!-- <div class="middleview-title4">{{mydata.spuIntro}}</div> -->
-      <div class="middleview-title4">
-        還記得小時候那個無憂無慮，總帶著無限好奇心面對這個世界的時刻嗎？
-        隨著時光荏苒，年紀漸長一點，那個我們曾經懷抱著美好想像的世界，
-        卻漸漸透析它那「不完美」的一面，不過與其試著將它「完美」化，不如和這份不完美共處。
-        來自南韓，今年適逢成立十週年的創意設計工作室Sticky Monster Lab黏黏怪物研究所（以下簡稱SML），
-        其所創造出每個有獨立性格又帶點人性化靈魂的小Monster，趁著SML來台舉辦十週年特展之際，
-        La Vie有幸訪問到團隊兩位主腦FLA和BOO，外表靦腆的兩人就如同其筆下所設計的小怪物，充滿著滿滿溫暖又療癒的氛圍，
-        只不過究竟如此反差的魅力靈感是從何而來？且來聽聽兩位設計師怎麼說！
-      </div>
+      <div class="middleview-title4">{{mydata.spuIntro}}</div>
     </div>
     <div style="height:50px"></div>
     <div class="dibu">
@@ -78,8 +70,9 @@
           <img src="../../assets/image/组 137.png" style="width: 20px;height: 20px;" alt />
           <div style="font-size: 15px;color: #8E8E8E;">店铺</div>
         </div>
-        <div class="ceshi1-item">
-          <img src="../../assets/image/收藏.png" style="width: 20px;height: 20px;" alt />
+
+        <div class="ceshi1-item" @click="addshoucang()">
+          <img :src="selectshoucang == false ? image2 : image1" style="width: 20px;height: 20px;" alt />
           <div style="font-size: 15px;color: #8E8E8E;">收藏</div>
         </div>
         <div class="ceshi1-item">
@@ -88,7 +81,7 @@
         </div>
       </div>
       <div>
-        <van-button class="btn1">加入购物车</van-button>
+        <van-button class="btn1" @click="addShopCar()">加入购物车</van-button>
         <van-button class="btn2">立即购买</van-button>
       </div>
     </div>
@@ -97,7 +90,11 @@
 
 <script>
 import Vue from "vue";
-import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 import {
   NavBar,
   Icon,
@@ -122,6 +119,9 @@ export default {
     return {
       cutnumber: 1,
       mydata: {},
+      selectshoucang: false,
+      image1: require("../../assets/image/组 381.png"),
+      image2: require("../../assets/image/收藏.png"),
     };
   },
   methods: {
@@ -149,24 +149,100 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
+    // 添加购物车
+    addShopCar: function () {
+      var that = this;
+      let data = {
+        id: 1,
+        num: that.cutnumber,
+        skuId: 11,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z499c_cart";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 添加收藏
+    addshoucang: function () {
+      var that = this;
+      that.selectshoucang = true;
+      let data = {
+        objectId: "121212",
+        relUserSkuTypeEnum: 5, //<comment>收藏类型:[1=内训直播=INSIDE_RADIO, 2=内训图文=INSIDE_TEXT ,3=商品=SKU,4=首页直播=RADIO,5=店铺=shop]max=5</comment>
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z461c_relUserSku";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 加载数据
     loaddata: function () {
       var that = this;
-      var api = "http://yapi.jeemoo.com/mock/33/multiapi/z360v_spu";
-      Axios.post(api, {
-        data: {
-          id: "121212",
-        },
-      })
+      let data = {
+        id: "1",
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z346v_imgText";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
         .then((res) => {
-          console.log("res", res);
-          that.mydata = res.data.data;
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
   mounted() {
+    this.loaddata();
+  },
+  activated() {
     this.loaddata();
   },
 };
@@ -195,6 +271,7 @@ export default {
 }
 .ceshi1-item {
   margin: 0px 5px;
+  text-align: center;
 }
 .ceshi1 {
   display: flex;

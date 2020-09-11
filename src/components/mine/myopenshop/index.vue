@@ -15,14 +15,14 @@
       <div class="middleview1">
         <div class="middleview1-toptitle">我的店铺列表</div>
         <div class="middleview1-box">
-          <div class="item-box" v-for="(item,index) in 3" :key="index">
+          <div class="item-box" v-for="(item,index) in mydata.list" :key="index">
             <div class="item">
               <div class="item-left">
                 <div>{{index+1}}</div>
-                <div class="item-left-righttext">冰水之家水果冰水之家水果园冰水之家水果园</div>
+                <div class="item-left-righttext">{{item.shop_name}}</div>
               </div>
               <div class="item-right" @click="openConfirm()">
-                <div>未赠送</div>
+                <div>{{item.shopUserTypeEnumString}}</div>
                 <div style="margin-left:10px">
                   <van-icon name="arrow" size="19px" color="#999999" style="padding-top:2px" />
                 </div>
@@ -37,39 +37,36 @@
         <div class="middleview1-toptitle middleview2">请选择我要开店的套餐</div>
         <div class="middleview2-box">
           <div class="middleview2-box-wai">
-            <div>
+            <div
+              v-for="(item,index) in Setmeallist"
+              :key="index"
+              style="height: 120px;margin: 20px 0px;"
+            >
               <img
-                src="../../../assets/494.png"
+                :src="item.setMealBgUrl"
                 alt
                 style="width: 100%;height: 100%;"
                 @click="Setmealdetail()"
               />
+
               <img
-                src="../../../assets/weixuanze.png"
+                @click.stop="xuanzeClick()"
+                :src="isClick1 == true ? image2 : image1"
                 alt
-                style="position: relative;top: -100px;right: -130px;width: 25px;height: 25px;"
+                style="position: relative;top: -115px;left: 295px;width: 28px;height: 28px;"
               />
-            </div>
-            <div style="margin-top:5px">
-              <img
-                src="../../../assets/495.png"
-                alt
-                style="width: 100%;height: 100%;"
-                @click="Setmealdetail()"
-              />
-              <img
-                src="../../../assets/xuanze.png"
-                alt
-                style="position: relative;top: -100px;right: -130px;width: 25px;height: 25px;"
-              />
+
+              <div class="text1">{{item.setMealName}}</div>
+              <div class="text2">{{item.setMealIntro}}</div>
+              <div class="text3">{{item.priceIntro}}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="confirmLayercovering" id="confirmLayercovering">
-      <div class="confirmLayer" id="confirmLayer">
-        <p class="confirmTit" id="confirmTit">店铺详情</p>
+    <div class="confirmLayercovering" v-show="isshow">
+      <div class="confirmLayer">
+        <p class="confirmTit">店铺详情</p>
         <div>
           <div class="itembox">
             <div class="itembox-left">店铺名称：</div>
@@ -116,12 +113,12 @@
             <div class="widthtext">赠送人手机号：</div>
           </div>
           <div class="name">
-            <input placeholder="你的店铺名称" class="inputstyle" />
+            <van-field type="tel" class="inputstyle" v-model="acceptUserPhone" />
           </div>
         </div>
         <div class="confirmbtns">
-          <a class="confirmClose" id="confirmClose">关闭</a>
-          <a class="confirmSure" id="confirmSure">赠送</a>
+          <a class="confirmClose" @click="guanbiClick()">关闭</a>
+          <a class="confirmSure" @click="querenClick()">赠送</a>
         </div>
       </div>
     </div>
@@ -133,21 +130,139 @@
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Dialog } from "vant";
+import { NavBar, Icon, Dialog, Field, Toast } from "vant";
+import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
 export default {
   name: "Myopenshop",
   components: {
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
     [Dialog.name]: Dialog,
+    [Field.name]: Field,
   },
   data() {
     return {
       cutnumber: 1,
       show: false,
+      isshow: false,
+      acceptUserPhone: "",
+      mydata: {},
+      isClick1: true,
+      isClick2: false,
+      image1: require("../../../assets/weixuanze.png"),
+      image2: require("../../../assets/xuanze.png"),
+      Setmeallist: [],
     };
   },
   methods: {
+    //关闭弹窗事件
+    guanbiClick() {
+      this.isshow = false;
+    },
+    //赠送事件
+    querenClick: function () {
+      var that = this;
+      var api = GLOBAL.baseURL + "/multiapi/z308c_shopGive";
+      console.log("api地址", api);
+      Axios.post(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "multi-token": "AT-102-uUCkO2NgITHWJSD16g89C9loMwCVSQqh",
+          "multi-type": "H5",
+        },
+        data: {
+          shopId: "店铺ID",
+          acceptUserPhone: that.acceptUserPhone,
+        },
+      })
+        .then((res) => {
+          console.log("res", res);
+          if (res.data.code == 200) {
+            Toast("赠送成功");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+      this.isshow = false;
+    },
+    change(e, index) {
+      this.form.formList[index].val = e;
+      this.$forceUpdate();
+    },
+    // 选择
+    xuanzeClick() {
+      this.isClick1 = true;
+      this.isClick2 = false;
+    },
+    xuanzeClick1() {
+      this.isClick1 = false;
+      this.isClick2 = true;
+    },
+    //加载
+    loaddata() {
+      var that = this;
+      let data = {
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z304p_shop";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    //加载套餐列表
+    loadSetmeal: function () {
+      var that = this;
+      let data = {
+        setMealTypeEnum: 1, //<comment>套餐类型:[1=默认套餐(个人版，企业版)=DEFAULT,2=增加人数=ADD_COUNT, 3=增加期限=ADD_DATE,4=隐藏人数=HID_PERSON_COUNT,5=隐藏商品浏览数，购买数=HIDE_BUG_COUNT,6=隐藏直播打赏详情=HID_MONEY_DETAIL]max=6</comment>
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z305l_shopSetMeal";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.Setmeallist = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     //跳转套餐详情
     Setmealdetail: function () {
       this.$router.push({
@@ -170,66 +285,60 @@ export default {
     onClickRight: function () {
       Toast("按钮");
     },
-    //确认弹窗
-    ConfirmLayer: function (txt, callback) {
-      var _this = this;
-      var confirmLayercovering = document.getElementById(
-          "confirmLayercovering"
-        ),
-        confirmTit = document.getElementById("confirmTit"),
-        confirmClose = document.getElementById("confirmClose"),
-        confirmSure = document.getElementById("confirmSure"),
-        confirmCall = callback,
-        tittxt = txt;
-      if (!confirmLayercovering) {
-        return;
-      }
-      var init = function () {
-          if (txt) {
-            confirmTit.innerHTML = txt;
-          }
-          show();
-          confirmClose.addEventListener("click", function () {
-            hide();
-            confirmCall && confirmCall(true);
-          });
-          confirmSure.addEventListener("click", function () {
-            hide();
-            confirmCall && confirmCall(true);
-          });
-        },
-        hide = function () {
-          confirmLayercovering.style.display = "none";
-        },
-        show = function () {
-          confirmLayercovering.style.display = "block";
-        },
-        Confirm = function (txt, callback) {
-          if (tittxt != txt && txt) {
-            confirmTit.innerHTML = txt;
-            tittxt = txt;
-          }
-          confirmCall = callback;
-          show();
-        };
-      init(); //初始化
-      _this.ConfirmLayer = Confirm; //下次不用再初始化
-    },
+
     openConfirm() {
-      let _this = this;
-      _this.ConfirmLayer("店铺详情", function (flag) {
-        if (flag) {
-          console.log("确认");
-        } else {
-          console.log("取消");
-        }
-      });
+      var that = this;
+      that.isshow = true;
+      console.log("simale", that.isshow);
     },
+  },
+  mounted() {
+    this.loaddata();
+    this.loadSetmeal();
   },
 };
 </script>
 
 <style scoped>
+.text1 {
+  position: relative;
+  top: -120px;
+  left: -10px;
+  font-size: 20px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #ffffff;
+  display: inline-block;
+  display: inline;
+  zoom: 1;
+}
+.text2 {
+  position: relative;
+  top: -115px;
+  left: 23px;
+  font-size: 13.5px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #ffffff;
+  zoom: 1;
+  width: 275px;
+  height: 36px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+}
+.text3 {
+  position: relative;
+  top: -100px;
+  left: 270px;
+  font-size: 14px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #ffffff;
+  width: 115px;
+}
 .widthtext {
   width: 100%;
   left: 64px;
@@ -244,7 +353,7 @@ export default {
   border-radius: 5px;
   box-shadow: 0px 0px 0px 0px;
   background-color: #ffffff;
-  height: 30px;
+  height: 44px;
   width: 100%;
   border: 1px solid #9f9f9f;
 }
@@ -298,7 +407,6 @@ button {
   left: 0;
   z-index: 1005;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
   font-size: 0;
 }
 
@@ -385,7 +493,7 @@ button {
   box-sizing: border-box;
 }
 .middleview2-box-wai {
-  padding: 15px 25px;
+  padding: 15px;
   box-sizing: border-box;
 }
 .middview2-itembox1-list {
@@ -435,6 +543,7 @@ button {
   width: 120px;
   margin-left: 15px;
   color: #262626;
+  text-align: left;
 }
 .item-left {
   display: flex;

@@ -1,10 +1,13 @@
 <template>
   <div class="loginPage">
-    <img
-      src="../../assets/image/组 458.png"
-      alt="1"
-      style="width: 90px;height: 100px;margin-top: 200px;"
-    />
+    <div style="text-align: center;">
+      <img
+        src="../../assets/image/组 458.png"
+        alt="1"
+        style="width: 90px;height: 100px;margin-top: 200px;"
+      />
+    </div>
+
     <h3 class="middletext">申请获取你微信绑定的手机号</h3>
     <div class="vxbuttonview">
       <van-button class="vxbutton">微信登录</van-button>
@@ -15,7 +18,7 @@
 
 <script>
 import Vue from "vue";
-import { Button} from "vant";
+import { Button } from "vant";
 export default {
   components: {
     [Button.name]: Button,

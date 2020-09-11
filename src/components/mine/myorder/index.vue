@@ -12,229 +12,81 @@
     </div>
     <div style="height:46px"></div>
     <div>
-      <van-tabs v-model="active" swipeable color="#F6B900">
-        <van-tab v-for="(item,index) in tabslist" :key="index">
+      <van-tabs v-model="active" swipeable color="#F6B900" @change="onClick">
+        <van-tab v-for="(item,index) in tabslist" :key="index" :title="item.title">
           <template #title>{{item.title}}</template>
           <!-- 内容 {{ item.index }} -->
-          <div>
-            <div class="item" v-if="item.index == 0">
-              <div class="itembox">
-                <div class="topview">
-                  <div class="topview-title">
-                    <div class="topview-left">共1件商品 实付款:</div>
-                    <div class="topview-right1">￥168</div>
-                  </div>
-                  <div class="topview-right">待收货</div>
-                </div>
-                <div class="shoppingbox">
-                  <div
-                    class="shoppingview"
-                    v-for="(item,index) in 2"
-                    v-bind:key="index"
-                    @click="orderdetail()"
-                  >
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
+          <div >
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+              <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="loaddata"
+              >
+                <div class="item" v-for="(item,index) in mydata.list" :key="index">
+                  <div class="itembox" v-if="item.orderStatusEnum == indextext">
+                    <div class="topview">
+                      <div class="topview-title">
+                        <div class="topview-left">共1件商品 实付款:</div>
+                        <div class="topview-right1">￥{{item.skuTotalPrice}}</div>
                       </div>
-                      <div class="shoppingview-itemright">
-                        <div class="itembox1-left">
-                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                          <div class="leixingview">
-                            <div class="leixing1">粉色</div>
-                            <div class="leixing1">大尺寸</div>
-                          </div>
-                        </div>
-                        <div class="itembox1-right">
-                          <div class="shoppingview-itemright-middleview">
-                            <div class="shoppingview-itemright-middleview-left">￥168</div>
-                            <div class="shoppingview-itemright-middleview-right">x1</div>
-                          </div>
-                        </div>
-                      </div>
+                      <div class="topview-right">待收货</div>
                     </div>
-                  </div>
-                  <div class="middleviewbtn">
-                    <div class="middleviewbtn-btn1">取消订单</div>
-                    <div class="middleviewbtn-btn2" @click="orderdetail()">立即支付</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item" v-if="item.index == 1">
-              <div class="itembox">
-                <div class="topview">
-                  <div class="topview-title">
-                    <div class="topview-left">共1件商品 实付款:</div>
-                    <div class="topview-right1">￥168</div>
-                  </div>
-                  <div class="topview-right">待付款</div>
-                </div>
-                <div class="shoppingbox">
-                  <div
-                    class="shoppingview"
-                    v-for="(item,index) in 3"
-                    v-bind:key="index"
-                    @click="orderdetail()"
-                  >
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
-                      </div>
-                      <div class="shoppingview-itemright">
-                        <div class="itembox1-left">
-                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                          <div class="leixingview">
-                            <div class="leixing1">粉色</div>
-                            <div class="leixing1">大尺寸</div>
+                    <div class="shoppingbox">
+                      <div
+                        class="shoppingview"
+                        v-for="(iitem,iindex) in item.detail"
+                        v-bind:key="iindex"
+                        @click="orderdetail()"
+                      >
+                        <div class="shoppingview-item">
+                          <div class="shoppingview-itemleft">
+                            <img
+                              class="shoppingview-itemleftimage"
+                              src="https://img.yzcdn.cn/vant/ipad.jpeg"
+                              alt
+                            />
                           </div>
-                        </div>
-                        <div class="itembox1-right">
-                          <div class="shoppingview-itemright-middleview">
-                            <div class="shoppingview-itemright-middleview-left">￥168</div>
-                            <div class="shoppingview-itemright-middleview-right">x1</div>
+                          <div class="shoppingview-itemright">
+                            <div class="itembox1-left">
+                              <div class="shoppingview-itemright-toptext">{{iitem.spuName}}</div>
+                              <div class="leixingview">
+                                <div class="leixing1">{{iitem.skuName}}</div>
+                              </div>
+                            </div>
+                            <div class="itembox1-right">
+                              <div class="shoppingview-itemright-middleview">
+                                <div class="shoppingview-itemright-middleview-left">￥{{iitem.price}}</div>
+                                <div
+                                  class="shoppingview-itemright-middleview-right"
+                                >x{{iitem.skuCount}}</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="middleviewbtn">
-                  <div class="middleviewbtn-btn2">立即支付</div>
-                </div>
-              </div>
-            </div>
-            <div class="item" v-if="item.index == 2">
-              <div class="itembox">
-                <div class="topview">
-                  <div class="topview-title">
-                    <div class="topview-left">共1件商品 实付款:</div>
-                    <div class="topview-right1">￥168</div>
-                  </div>
-                  <div class="topview-right">待收货</div>
-                </div>
-                <div class="shoppingbox" v-for="(item,index) in 2" v-bind:key="index">
-                  <div
-                    class="shoppingview"
-                    v-for="(item,index) in 2"
-                    v-bind:key="index"
-                    @click="orderdetail()"
-                  >
-                    <div class="shoppingview-item">
-                      <div class="shoppingview-itemleft">
-                        <img
-                          class="shoppingview-itemleftimage"
-                          src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                          alt
-                        />
+                      <div class="middleviewbtn" v-if="indextext == 0">
+                        <div class="middleviewbtn-btn1">取消订单</div>
+                        <div class="middleviewbtn-btn2" @click="orderdetail()">立即支付</div>
                       </div>
-                      <div class="shoppingview-itemright">
-                        <div class="itembox1-left">
-                          <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                          <div class="leixingview">
-                            <div class="leixing1">粉色</div>
-                            <div class="leixing1">大尺寸</div>
-                          </div>
-                        </div>
-                        <div class="itembox1-right">
-                          <div class="shoppingview-itemright-middleview">
-                            <div class="shoppingview-itemright-middleview-left">￥168</div>
-                            <div class="shoppingview-itemright-middleview-right">x1</div>
-                          </div>
-                        </div>
+                      <div class="middleviewbtn" v-if="indextext == 1">
+                        <div class="middleviewbtn-btn2">立即支付</div>
+                      </div>
+                      <div class="middleviewbtn" v-if="indextext == 2">
+                        <div class="middleviewbtn-btn2">确认收货</div>
+                      </div>
+                      <div class="middleviewbtn" v-if="indextext == 3">
+                        <div class="middleviewbtn-btn2">立即评价</div>
+                      </div>
+                      <div class="middleviewbtn" v-if="indextext == 4">
+                        <div class="middleviewbtn-btn1">删除订单</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="middleviewbtn">
-                  <div class="middleviewbtn-btn2">确认收货</div>
-                </div>
-              </div>
-            </div>
-            <div class="item" v-if="item.index == 3">
-              <div class="itembox" v-for="(item,index) in 2" v-bind:key="index">
-                <div class="topview">
-                  <div class="topview-title">
-                    <div class="topview-left">共1件商品 实付款:</div>
-                    <div class="topview-right1">￥168</div>
-                  </div>
-                  <div class="topview-right">待评价</div>
-                </div>
-                <div class="shoppingview-item">
-                  <div class="shoppingview-itemleft">
-                    <img
-                      class="shoppingview-itemleftimage"
-                      src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                      alt
-                    />
-                  </div>
-                  <div class="shoppingview-itemright">
-                    <div class="itembox1-left">
-                      <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                      <div class="leixingview">
-                        <div class="leixing1">粉色</div>
-                        <div class="leixing1">大尺寸</div>
-                      </div>
-                    </div>
-                    <div class="itembox1-right">
-                      <div class="shoppingview-itemright-middleview">
-                        <div class="shoppingview-itemright-middleview-left">￥168</div>
-                        <div class="shoppingview-itemright-middleview-right">x1</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="middleviewbtn">
-                  <div class="middleviewbtn-btn2">立即评价</div>
-                </div>
-              </div>
-            </div>
-            <div class="item" v-if="item.index == 4">
-              <div class="itembox">
-                <div class="topview">
-                  <div class="topview-title">
-                    <div class="topview-left">共1件商品 实付款:</div>
-                    <div class="topview-right1">￥168</div>
-                  </div>
-                  <div class="topview-right">已完成</div>
-                </div>
-                 <div class="shoppingview-item">
-                  <div class="shoppingview-itemleft">
-                    <img
-                      class="shoppingview-itemleftimage"
-                      src="https://img.yzcdn.cn/vant/ipad.jpeg"
-                      alt
-                    />
-                  </div>
-                  <div class="shoppingview-itemright">
-                    <div class="itembox1-left">
-                      <div class="shoppingview-itemright-toptext">95%棉下机男士短袖POLO韩版时尚潮流半袖</div>
-                      <div class="leixingview">
-                        <div class="leixing1">粉色</div>
-                        <div class="leixing1">大尺寸</div>
-                      </div>
-                    </div>
-                    <div class="itembox1-right">
-                      <div class="shoppingview-itemright-middleview">
-                        <div class="shoppingview-itemright-middleview-left">￥168</div>
-                        <div class="shoppingview-itemright-middleview-right">x1</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="middleviewbtn">
-                  <div class="middleviewbtn-btn1">删除订单</div>
-                </div>
-              </div>
-            </div>
+              </van-list>
+            </van-pull-refresh>
           </div>
         </van-tab>
       </van-tabs>
@@ -244,7 +96,14 @@
 
 <script>
 import Vue from "vue";
-import { NavBar, Icon, Tab, Tabs } from "vant";
+import { NavBar, Icon, Tab, Tabs, Toast, List, PullRefresh } from "vant";
+import Axios from "axios";
+import GLOBAL from "@/api/global_variable.js";
+import axios from "axios";
+import qs from "qs";
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.headers["multi-type"] = "H5";
+
 export default {
   name: "Myorder",
   components: {
@@ -252,9 +111,55 @@ export default {
     [Icon.name]: Icon,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
+    [Toast.name]: Toast,
+    [List.name]: List,
+    [PullRefresh.name]: PullRefresh,
   },
   data() {
     return {
+      loading: false,
+      finished: false,
+      refreshing: false,
+      mydata: {
+        total: 2,
+        list: [
+          {
+            id: "1585708648912",
+            orderNo: "订单编号",
+            orderStatusEnum: 1,
+            orderStatusEnumString:
+              "订单状态:[1=待付款=UN_PAY, 2=已付款=DO_PAY, 3=已发货=DO_SEND,4=已完成=FINISH,5=退款中=REFUND,6=已退款=DO_REFUND,7=已关闭=CLOSE]max=7",
+            skuTotalPrice: 111,
+            typeEnum: "122",
+            detail: [
+              {
+                imgUrl: "图片",
+                spuName: "名称",
+                skuName: "名称",
+                skuCount: 5,
+                originalPrice: 112,
+                price: 111,
+              },
+            ],
+          },
+        ],
+        pageNum: 1,
+        pageSize: 10,
+        size: 1,
+        startRow: 0,
+        endRow: 0,
+        pages: 0,
+        prePage: 0,
+        nextPage: 0,
+        isFirstPage: true,
+        isLastPage: true,
+        hasPreviousPage: false,
+        hasNextPage: false,
+        navigatePages: 8,
+        navigatepageNums: [],
+        navigateFirstPage: 0,
+        navigateLastPage: 0,
+      },
       cutnumber: 1,
       active: "",
       tabslist: [
@@ -279,14 +184,81 @@ export default {
           title: "已完成",
         },
       ],
+      indextext: '',
     };
   },
   methods: {
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.loaddata(this.indextext);
+    },
+    onClick(name, title) {
+      console.log("index", title);
+      if (title == "全部") {
+        this.indextext = "";
+      } else if (title == "待付款") {
+        this.indextext = 1;
+      } else if (title == "待收货") {
+        this.indextext = 2;
+      } else if (title == "待评价") {
+        this.indextext = 3;
+      } else {
+        this.indextext = 4;
+      }
+      this.loaddata(this.indextext);
+    },
     onClickLeft: function () {
       this.$router.go(-1); // 返回
     },
     onClickRight: function () {
       Toast("按钮");
+    },
+    // 加载数据
+    loaddata: function (indextext) {
+      var that = this;
+      let data = {
+        search: "",
+        orderStatusEnum: indextext,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      var api = GLOBAL.baseURL + "/multiapi/z309p_spuOrder";
+      function httpPost(url, data = {}) {
+        return new Promise((resolve, reject) => {
+          axios.post(url, data).then(
+            (res) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            }
+          );
+        });
+      }
+      httpPost(api, data)
+        .then((res) => {
+          console.log(res);
+          Toast(res.msg);
+          that.mydata = res.data;
+          that.refreshing = false;
+          setTimeout(() => {
+            if (that.refreshing) {
+              that.mydata.list = [];
+              that.refreshing = false;
+            }
+            if (that.mydata.list.length >= that.mydata.size) {
+              that.finished = true;
+            }
+          }, 1000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 跳转到订单详情
     orderdetail: function () {
@@ -294,6 +266,10 @@ export default {
         name: "Orderdetail",
       });
     },
+  },
+  
+  activated() {
+    this.loaddata(this.indextext);
   },
 };
 </script>
@@ -356,7 +332,7 @@ export default {
   color: #000000;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   box-shadow: 0px 0px 0px 0px rgba(185, 185, 185, 1);
   font-family: Arial;
@@ -385,8 +361,13 @@ export default {
 }
 .shoppingview-itemright {
   margin-left: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  width: 100%;
 }
 .shoppingview-itemright-middleview-right {
   width: 45px;
