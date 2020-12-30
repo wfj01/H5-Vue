@@ -2,7 +2,7 @@
   <div class="loginPage">
     <div style="text-align: center;">
       <img
-        src="../../assets/image/组 458.png"
+        src="../../assets/logo.jpg"
         alt="1"
         style="width: 90px;height: 100px;margin-top: 200px;"
       />

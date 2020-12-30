@@ -30,7 +30,7 @@ Vue.use(VueRouter)
 const routes = [
   //登录页面
   {
-    path: '/LoginPage',
+    path: '/',
     name: 'LoginPage',
     component: LoginPage,
   },
@@ -63,7 +63,7 @@ const routes = [
   },
   //商品分享页
   {
-    path: '/',
+    path: '/Commoditysharing',
     name: 'Commoditysharing',
     component: Commoditysharing
   },
